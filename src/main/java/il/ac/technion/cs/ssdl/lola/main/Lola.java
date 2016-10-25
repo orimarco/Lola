@@ -11,8 +11,12 @@ import il.ac.technion.cs.ssdl.lola.parser.Parser;
  * @Since 2016
  * @mail sorimar@cs.technion.ac.il
  */
-public class Main {
+public class Lola {
 	public static void main(String[] args) {
+		if (args.length != 2) {
+			System.out.println("Usage: Lola <input file> <output file>");
+			return;
+		}
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter(new File(args[1]));

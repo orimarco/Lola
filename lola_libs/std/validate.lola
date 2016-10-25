@@ -1,0 +1,6 @@
+##Find #validate ##(X);
+	##replace if(x == null) return null;
+	##example #validate x; validate y;
+	##resultsIn if(x == null) return null; if(y == null) return null;
+
+  

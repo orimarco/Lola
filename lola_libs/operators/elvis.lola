@@ -1,0 +1,8 @@
+##Import std.Expression
+
+##Find ##Expression(e1) ?: ##Expression(e2)
+	##replace ##(e1) ? true : ##(e2)
+	##example return man.has.money() ?: man.has.life();
+	##resultsIn return man.has.money() ? true : man.has.life();
+
+  

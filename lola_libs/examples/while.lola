@@ -1,0 +1,4 @@
+##Find ##Expression(bExp) whileTrue { ##any(aBlock) }
+##replace while(##(bExp)){ ##(aBlock) }
+##example (i < n) whileTrue {++i; }
+##resultsIn while((i < n)) {++i; }

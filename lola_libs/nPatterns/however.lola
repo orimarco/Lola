@@ -1,0 +1,23 @@
+##Find(Expression)
+	##Any
+
+##Find(however)
+    #return ##Expression(r)
+    ##NoneOrMore ##Sequence(h)
+                  #however ##Expression(c)
+                  #throws ##Identifier(x)
+                  #of ##Expression(s)
+    ;
+##replace
+  ##ForEach(hs)
+    if (##(_.c))
+      throw new ##(_.x)(##(_.s));
+  return ##(r);
+##example
+  #return n/d #however d == 0
+    #throws RunTimeError
+    #of "dividing " + n + " by zero";
+##resultsIn
+  if (d == 0)
+    throw new RunTimeError("dividing " + n + " by zero");
+  return n/d;

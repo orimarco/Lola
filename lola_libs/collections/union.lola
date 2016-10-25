@@ -1,0 +1,11 @@
+##Find(Expression)
+	##Match ##Any ##exceptFor ##Any ##Any
+
+##Find(union)
+	##Identifier(collection1) #union ##Identifier(collection2)
+##replace
+	##(collection1).getClass().getConstructor().newInstance().addAll(##(collection2))
+##example
+	li1 #union li2
+##resultsIn
+	li1.getClass().getConstructor().newInstance().addAll(li2)

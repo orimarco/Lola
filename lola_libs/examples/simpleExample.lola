@@ -1,0 +1,5 @@
+##Find for (int ##Identifier(i) = ##Literal(start);
+	##Identifier(i) < ##Literal(end);
+	##Identifier(i) ++)
+##example for (i = 0; i < 10; i++)
+##resultsIn for (i = 0; i < 10; i++)

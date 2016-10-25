@@ -1,0 +1,12 @@
+##Find(Expression)
+	##Any
+
+##Find(firstNotSatisfies)
+    #first ##Expression(predicate) #in ##Identifier(li)
+ 
+##replace
+  ##(li).stream().findFirst(x -> !(##(predicate))).get()
+##example
+  y = #first x > 2 #in li;
+##resultsIn
+  y = li.stream().findFirst(x -> !(x > 2)).get();

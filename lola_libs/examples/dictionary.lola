@@ -1,0 +1,20 @@
+##Find CREATE_DICTIONARY(##Identifier(dictionaryName), ##Identifier(enumName));
+##note "Create a dictionary that describes the given enum."
+##replace
+	struct {
+	char *name;
+	int value;
+	} ##(dictionaryName) = {
+		##ForEach(next(x for x in EnumPatterns if x.name == enumName).items)
+			{ ##('"' + str(_) + '"') , ##(_) },
+	};
+##example
+	CREATE_DICTIONARY(myenumDict, myenum);
+##resultsIn
+	struct {
+	char *name;
+	int value;
+	} myenumDict = {
+	{ "SUNDAY" , SUNDAY },
+	{ "MONDAY" , MONDAY },
+	};

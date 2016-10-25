@@ -1,0 +1,28 @@
+##Find(Range)
+	##Literal(begin)-##Literal(end)
+
+##Find(Expression)
+	##Any 
+		
+##Find #Case ##Identifier(id)
+			##OneOrMore 
+				##Sequence(option)
+					#of ##Range(r) #then ##Match ##Expression(caseValue) ##exceptFor ##Sequence ##Expression #of ##Expression
+		#otherwise ##Expression(defaultValue)
+		#done;
+	##replace
+		##ForEach(options)
+			##(_.r.begin) <= ##(id) && ##(id) <= ##(_.r.end) ? ##(_.caseValue)
+		##separator :
+		: ##(defaultValue) ;
+	##example
+		int kind = #Case c
+			#of 'a'-'z' #then 1 #of '0'-'9' #then 0
+			#of 'A'-'Z' #then 2 #otherwise 3
+		#done;
+	##resultsIn
+		int kind = 'a' <= c && c <= 'z' ? 1 : '0' <= c && c <= '9' ? 0 : 'A' <= c && c <= 'Z' ? 2 : 3;
+	##anchor 
+		#Case ##Any #of ##Any #then
+
+  

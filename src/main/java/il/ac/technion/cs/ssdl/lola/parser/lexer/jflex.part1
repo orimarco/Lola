@@ -1,0 +1,43 @@
+package il.ac.technion.cs.ssdl.lola.parser.lexer;
+import org.jgrapht.experimental.dag.DirectedAcyclicGraph.CycleFoundException;
+import il.ac.technion.cs.ssdl.lola.parser.CategoriesHierarchy;
+import il.ac.technion.cs.ssdl.lola.parser.Balancing;
+import java_cup.runtime.Symbol;
+import java.io.IOException;
+
+%%
+
+%class JflexLexer
+%unicode
+%cup
+%line
+%public
+%column
+%init{
+  	try {
+		initialize();
+	} catch (CycleFoundException e) {
+		e.printStackTrace();
+	}
+%init}
+
+%{
+	private Token token(String categoryName) {
+		return new Token(yyline, yycolumn, yytext(), CategoriesHierarchy.getCategory(categoryName));
+	}
+	
+	private Token tokenWithSnippet(String categoryName) {
+		return new Token(yyline, yycolumn, yytext().split(" ", 2)[0], CategoriesHierarchy.getCategory(categoryName), yytext().split(" ", 2)[1]);
+	}
+	
+	public Token next_token_safe() throws IOException {
+		final Symbol $ = next_token();
+		return $.sym == YYEOF ? null : (Token) $;
+	}
+	
+	public class sym{
+		public static final int EOF = -1;
+	}
+	
+	private static boolean initialized = false;
+	

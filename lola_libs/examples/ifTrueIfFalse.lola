@@ -1,0 +1,11 @@
+##Find ##Expression(bExp) ##Optional ifTrue ##Any(tBlock)
+	##Optional ifFalse ##Any(fBlock)
+##run {
+	hasTrue = hasattr(self, 'tBlock')
+	hasFalse = hasattr(self, 'fBlock')
+}
+##assert(hasTrue or hasFalse)
+##replace
+	##If(hasTrue and hasFalse) if( ##(bExp) ) ##(tBlock) else ##(fBlock)
+		##elseIf(hasTrue) if( ##(bExp) ) ##(tBlock)
+		##else if(! ##(bExp) ) ##(fBlock)

@@ -1,0 +1,16 @@
+##Find ##Identifier(obj)?.##Identifier(method)();
+	##replace if(##(obj) != null)
+		##(obj).##(method)();
+	##example node?.print();
+	##resultsIn if(node != null)
+					node.print();
+	
+##Find ##Identifier(obj)?.##Identifier(field).
+	##replace (##(obj) == null ? null : ##(obj).##(field)).
+	##example node?.son.
+	##resultsIn (node == null ? null : node.son).
+	
+##Find ##Identifier(obj)?.##Identifier(method)().
+	##replace (##(obj) == null ? null : ##(obj).##(method)()).
+	##example node?.get().
+	##resultsIn (node == null ? null : node.get()).

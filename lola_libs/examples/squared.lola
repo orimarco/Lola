@@ -1,0 +1,4 @@
+##Find squared ##Literal(f)
+##replace ##(f * f)
+##example double sixteen = squared squared 2.0;
+##resultsIn double sixteen = 16.0;

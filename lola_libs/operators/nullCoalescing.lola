@@ -1,0 +1,6 @@
+##Import std.Expression
+
+##Find ##Identifier(e1) ?? ##Expression(e2);
+	##replace (##(e1) != null ? ##(e1) : ##(e2));
+	##example x = y ?? z;
+	##resultsIn x = (y != null ? y : z);

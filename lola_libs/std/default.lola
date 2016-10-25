@@ -1,0 +1,4 @@
+##Find ##Identifier(X) #default ##Identifier(Y)
+	##replace (##(X) != null ? ##(X) : ##(Y))
+	##example z = x #default y;
+	##resultsIn z = (x != null? x : y);

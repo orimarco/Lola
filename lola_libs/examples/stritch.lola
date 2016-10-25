@@ -1,0 +1,31 @@
+##Find
+	stritch(##Identifier(switchee)) {
+		##NoneOrMore
+			##Sequence(block)
+				##OneOrMore case ##Literal(switcher):
+			##Match ##Any(body) ##exceptFor ##Sequence ##Any break; ##Any
+			break;
+	}
+	##replace
+		##ForEach(blocks)
+			if (##ForEach(_.switchers)
+					##(switchee).equals(##(_))
+					##separator ||
+					){ ##(_.body) }
+	##example			
+		stritch(str) {
+		case "omg" : print(7);
+		break;
+		case "ooo" : print(8);
+		break;
+		}
+	##resultsIn
+		if(str.equals("omg")){ print(7);} if(str.equals("ooo")){ print(8);}
+
+stritch(str) {
+case "omg" : print(7);
+break;
+case "ooo" : print(8);
+break;
+}
+	

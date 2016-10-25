@@ -1,5 +1,5 @@
 #Lola
-The Language Of Languge Augmentation was found by Ido Zmiri under the supervising of Prof. Yossi Gil in the Technion.
+The Language Of Languge Augmentation was found by Iddo Zmiri under the supervising of Prof. Yossi Gil in the Technion.
 Lola is a tool for language extensions and can equip any language with new syntax and semantics.
 Lola's syntax is Macro based, and designed to run on a precompiled code, transforming it from the new syntax to the domain syntax.
 Compared to other preprocessor tools, Lola is much powerfull and is even equipped with a Python engine.
@@ -33,7 +33,7 @@ As can be deduced from the self explaining exmaple, a pattern is specified to **
 
 Note that the exmaple is not only for documentation but for self testing too, when writing a **Lexi**, Lola asserts that the example indeed result in the specified **resultsIn** section code.
 ##Syntax
-Lola's syntax is described by Ido's thesis - linkkkk
+Lola's syntax is described by Iddo's thesis - https://github.com/orimarco/Lola/blob/master/thesis.pdf
 
 
 

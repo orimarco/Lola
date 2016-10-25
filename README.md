@@ -32,6 +32,8 @@ Why not add them with the following **Lexi**?
 As can be deduced from the self explaining exmaple, a pattern is specified to **find** places where the lexi is used, a **replace** section specifies domain code to replace the matched code with, an **example** and **resultsIn** sections specify an example of usage and the code that will replace the example after applying the Lexi. 
 
 Note that the exmaple is not only for documentation but for self testing too, when writing a **Lexi**, Lola asserts that the example indeed result in the specified **resultsIn** section code.
+
+Another point worth noting is that Lola uses an enviroment for identifiers aliasing, meaning, if we write ``##Literal(from)``, the matching literal will be stored in some enviroment (Jython actually) and may be summoned by the name ``from``. For example, the **##** keyword specifies a python snippet to run, so ``##(from)`` will produce the literal matched by ``from``.
 ##Syntax
 Lola's syntax is described by Iddo's [thesis](https://github.com/orimarco/Lola/blob/master/thesis.pdf)
 

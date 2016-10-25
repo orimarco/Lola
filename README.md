@@ -11,8 +11,9 @@ Typically, a **Lexi** action will be **replacing** the code with domain code, **
 
 
 ##Example
-
-```
+Range base loops are fun, they kill boiler plate, but doesn't exist in Java...
+Why not add them with the following **Lexi**?
+```java
 ##Find
   for(##Identifier(id) = ##Literal(from)..##Literal(to))
     ##any(block)
@@ -25,7 +26,8 @@ Typically, a **Lexi** action will be **replacing** the code with domain code, **
 ##resultsIn
   for(int i = 1; i < 100; ++i)
     print(i);
-```    
+``` 
+\* Lola kwywords begins with **\##**.  
 ##Syntax
 Lola's syntax is described by Ido's thesis - linkkkk
 

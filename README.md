@@ -33,7 +33,7 @@ As can be deduced from the self explaining exmaple, a pattern is specified to **
 
 Note that the exmaple is not only for documentation but for self testing too, when writing a **Lexi**, Lola asserts that the example indeed result in the specified **resultsIn** section code.
 ##Syntax
-Lola's syntax is described by Iddo's thesis - https://github.com/orimarco/Lola/blob/master/thesis.pdf
+Lola's syntax is described by Iddo's [thesis](https://github.com/orimarco/Lola/blob/master/thesis.pdf)
 
 
 

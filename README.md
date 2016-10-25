@@ -38,4 +38,5 @@ Another point worth noting is that Lola uses an enviroment for identifiers alias
 Lola's syntax is described by Iddo's [thesis](https://github.com/orimarco/Lola/blob/master/thesis.pdf)
 
 ##Implementation
-A detailed explanation about our implementation can be found in [implementation Wiki](https://github.com/orimarco/Lola/wiki/Implementation-Architecture)
+This version of Lola was implemented by @orimarco using Java 1.8.
+A detailed explanation about our implementation can be found in the [Implementation Wiki](https://github.com/orimarco/Lola/wiki/Implementation-Architecture).

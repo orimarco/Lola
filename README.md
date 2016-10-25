@@ -28,7 +28,9 @@ Why not add them with the following **Lexi**?
     print(i);
 ``` 
 \* Lola kwywords begin with **\##**.
+
 As can be deduced from the self explaining exmaple, a pattern is specified to **find** places where the lexi is used, a **replace** section specifies what domain code to replace the matched code with, an **example** and **resultsIn** sections specify an example of usage and the code that will replace the example after applying the Lexi. 
+
 Note that the exmaple is not only for documentation but for self testing, when writing a **Lexi**, Lola asserts that the example indeed result in the specified **resultsIn** section code.
 ##Syntax
 Lola's syntax is described by Ido's thesis - linkkkk

@@ -27,7 +27,7 @@ Why not add them with the following **Lexi**?
   for(int i = 1; i < 100; ++i)
     print(i);
 ``` 
-\* Lola kwywords begins with **\##**.  
+\* Lola kwywords begin with **\##**.  
 ##Syntax
 Lola's syntax is described by Ido's thesis - linkkkk
 

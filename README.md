@@ -45,4 +45,4 @@ A detailed explanation about our implementation can be found in the [Implementat
 Just clone/download the repository and import the project using Maven. Should be easy!
 
 ##How do I use Lola?
-Lola can be run by compiling `Lola.java` and running it in this form: ``Lola <input file> <output file>``
+Lola can be run by compiling `Lola.java` and running it in this form: ``Lola <input file> <output file>``.

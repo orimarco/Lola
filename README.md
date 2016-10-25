@@ -14,7 +14,7 @@ Typically, a **Lexi** action will be **replacing** the code with domain code, **
 
 ```
 ##Find
-  for(##Identifier(id) =##Literal(from)..##Literal(to))
+  for(##Identifier(id) = ##Literal(from)..##Literal(to))
     ##any(block)
 ##replace
   for(int ##(id) = ##(from); ##(id) <= ##(to); ++##(id))

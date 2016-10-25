@@ -40,3 +40,11 @@ Lola's syntax is described by Iddo's [thesis](https://github.com/orimarco/Lola/b
 ##Implementation
 This version of Lola was implemented by @orimarco using Java 1.8.
 A detailed explanation about our implementation can be found in the [Implementation Wiki](https://github.com/orimarco/Lola/wiki/Implementation-Architecture).
+
+##How do I import the project?
+Just clone/download the repository and import the project using Maven. Should be easy!
+
+##How do I use Lola?
+Lola can be run by compiling `Lola.java` and running it in this form:
+
+``Lola <input file> <output file>``

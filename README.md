@@ -9,6 +9,23 @@ Lola's basic blocks are **Lexi**s.
 A **Lexi** defines a pattern of code and some actions to apply on it whenever matched.
 Typically, a **Lexi** action will be **replacing** the code with domain code, **asserting** that some conditions apply and even **running** some python code.
 
+
+##Example
+
+```
+##Find
+  for(##Identifier(id) =##Literal(from)..##Literal(to))
+    ##any(block)
+##replace
+  for(int ##(id) = ##(from); ##(id) <= ##(to); ++##(id))
+    ##(block)
+##example
+  for(i = 1..100)
+    print(i);
+##resultsIn
+  for(int i = 1; i < 100; ++i)
+    print(i);
+```    
 ##Syntax
 Lola's syntax is described by Ido's thesis - linkkkk
 

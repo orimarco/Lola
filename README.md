@@ -27,7 +27,7 @@ Why not add them with the following **Lexi**?
   for(int i = 1; i < 100; ++i)
     print(i);
 ``` 
-\* Lola kwywords begin with **\##**.
+\* In the specification Lola uses `@` to denote keywords prefix, but this sign is configurable. When we apply Lola to Java we use **\##** to not collide with anotations.
 
 As can be deduced from the self explaining exmaple, a pattern is specified to **find** places where the lexi is used, a **replace** section specifies domain code to replace the matched code with, an **example** and **resultsIn** sections specify an example of usage and the code that will replace the example after applying the Lexi. 
 

@@ -1,9 +1,7 @@
 package il.ac.technion.cs.ssdl.lola.parser.re;
-
 import java.util.*;
 
 import il.ac.technion.cs.ssdl.lola.parser.*;
-
 public class Branch implements Cloneable {
 	public List<RegExp> res;
 	private int idx;
@@ -77,9 +75,7 @@ public class Branch implements Cloneable {
 	}
 
 	public String text() {
-		String $ = "";
-		for (final RegExp ¢ : res)
-			$ += ¢.text();
-		return $;
+		return res.stream().map(re -> re.text()).reduce("",
+				(s1, s2) -> s1 + " " + s2);
 	}
 }

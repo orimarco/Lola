@@ -1,5 +1,4 @@
 package il.ac.technion.cs.ssdl.lola.utils;
-
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
@@ -7,7 +6,6 @@ import java.util.stream.*;
 import org.eclipse.jdt.annotation.*;
 
 import il.ac.technion.cs.ssdl.lola.parser.*;
-
 /**
  * Represents a linked list, along with its advanced {@link Chain.Node} and
  * {@link Chain.Interval} and concepts.
@@ -31,8 +29,8 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 	}
 
 	/*
-	 * Add value to chain. Organizes the locations and nodes so it will be in
-	 * the right place.
+	 * Add value to chain. Organizes the locations and nodes so it will be in the
+	 * right place.
 	 */
 	public Chain<T, K> add(final T t) {
 		final Node newNode = new Node(t, lastLocation, null);
@@ -75,13 +73,13 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 			// : b.text().equals("\r\n") ? "<\\r\\n>"
 			// : b.text().equals("\t") ? "<\\t>" : "<" + b.text() + ">"));
 			// else
-			System.out.print(" " + l.idx + " "
-					+ (l.next() == null ? ""
-							: "\r\n".equals(((Bunny) l.after.t).text()) ? "[\\r\\n]"
-									: "[" + ((Bunny) l.after.t).text() + "] "));
+			System.out.print(" " + l.idx + " " + (l.next() == null
+					? ""
+					: "\r\n".equals(((Bunny) l.after.t).text())
+							? "[\\r\\n]"
+							: "[" + ((Bunny) l.after.t).text() + "] "));
 		System.out.println("");
 	}
-
 	public class Interval implements Content<T, K> {
 		private Location from;
 		private Location to;
@@ -114,8 +112,8 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 
 		public void delete() {
 			for (final K k : earmarked.keySet())
-				earmarked.put(k,
-						earmarked.get(k).stream().filter(i -> !i.containedIn(this)).collect(Collectors.toList()));
+				earmarked.put(k, earmarked.get(k).stream()
+						.filter(i -> !i.containedIn(this)).collect(Collectors.toList()));
 			from.after = to.after;
 			if (to.after != null)
 				to.after.before = from;
@@ -133,7 +131,8 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 		}
 
 		public boolean earmarked() {
-			return earmarked.containsKey(k) && earmarked.get(k).stream().anyMatch(i -> this.containedIn(i));
+			return earmarked.containsKey(k)
+					&& earmarked.get(k).stream().anyMatch(i -> this.containedIn(i));
 		}
 
 		public Location from() {
@@ -197,8 +196,8 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 		}
 
 		/**
-		 * Creates a chain of Nodes which starts with a node and ends with a
-		 * node Node - Location - Node - ... - Node - Location - Node
+		 * Creates a chain of Nodes which starts with a node and ends with a node
+		 * Node - Location - Node - ... - Node - Location - Node
 		 */
 		private Pair<Node, Node> elementsToSubChain(final List<T> elements) {
 			/* first node */
@@ -217,10 +216,11 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 				newNode.after = location;
 			}
 			return new Pair<>(first,
-					elements.size() <= 1 ? first : new Node(elements.get(elements.size() - 1), location, null));
+					elements.size() <= 1
+							? first
+							: new Node(elements.get(elements.size() - 1), location, null));
 		}
 	}
-
 	public class Location implements Content<T, K> {
 		private Node before;
 		Node after;
@@ -302,20 +302,24 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 		};
 
 		private double generateIdx(final Node before, final Node after) {
-			return (before == null || before.before == null) && (after == null || after.after == null) ? 0
-					: before == null || before.before == null ? after.after.idx - 1
-							: after == null || after.after == null ? before.before.idx + 1
-									: (after.after.idx + before.before.idx) / 2;
+			return (before == null || before.before == null)
+					&& (after == null || after.after == null)
+							? 0
+							: before == null || before.before == null
+									? after.after.idx - 1
+									: after == null || after.after == null
+											? before.before.idx + 1
+											: (after.after.idx + before.before.idx) / 2;
 		}
 	}
-
 	public class Node implements Content<T, K>, Supplier<T> {
 		private @NonNull final T t;
 		Location before;
 		Location after;
 
 		/** instantiates this class */
-		public Node(@NonNull final T t, final Location before, final Location after) {
+		public Node(@NonNull final T t, final Location before,
+				final Location after) {
 			this.t = t;
 			this.before = before;
 			this.after = after;
@@ -350,7 +354,6 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 			return before.before();
 		}
 	}
-
 	class ChainIterator implements Iterator<Node> {
 		boolean started = false;
 		Node curr = firstNode;
@@ -371,7 +374,6 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 			return curr;
 		}
 	}
-
 	interface Content<T, K> {
 		default boolean containedIn(final Chain<T, K>.Interval i) {
 			return false;

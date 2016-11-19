@@ -1,5 +1,4 @@
 package il.ac.technion.cs.ssdl.lola.parser.tokenizer;
-
 import java.io.*;
 import java.util.*;
 
@@ -7,7 +6,6 @@ import il.ac.technion.cs.ssdl.lola.parser.*;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.*;
 import il.ac.technion.cs.ssdl.lola.utils.Printer;
 import java_cup.runtime.*;
-
 public class Tokenizer implements Iterable<Token> {
 	public static String lolaEscapingCharacter = JflexLexer.lolaEscapingCharacter;
 	private ArrayList<Token> tokens = new ArrayList<>();
@@ -39,7 +37,8 @@ public class Tokenizer implements Iterable<Token> {
 
 	public void printTokens() {
 		for (final Token t : tokens)
-			System.out.print(t.isTrivia() ? "< >" : "<" + t.text + "," + t.category.name + ">");
+			System.out.print(
+					t.isTrivia() ? "< >" : "<" + t.text + "," + t.category.name + ">");
 		System.out.println("");
 	}
 
@@ -47,39 +46,43 @@ public class Tokenizer implements Iterable<Token> {
 		--idx;
 	}
 
-	private Token consumeKeywordAndGetNext(final JflexLexer l, final ArrayList<Token> tokens, final Token t)
-			throws IOException {
+	private Token consumeKeywordAndGetNext(final JflexLexer l,
+			final ArrayList<Token> tokens, final Token t) throws IOException {
 		tokens.add(t);
 		if (t.snippet == null)
 			return consumeSnippetAndGetNext(l, tokens);
-		tokens.add(Token.newSnippetToken(new Token(t.row, t.column + t.text.length(), t.snippet,
-				CategoriesHierarchy.getCategory("package_snippet"))));
+		tokens
+				.add(Token.newSnippetToken(new Token(t.row, t.column + t.text.length(),
+						t.snippet, CategoriesHierarchy.getCategory("package_snippet"))));
 		return l.next_token_safe();
 	}
 
-	private Token consumeSnippetAndGetNext(final JflexLexer l, final ArrayList<Token> tokens) throws IOException {
+	private Token consumeSnippetAndGetNext(final JflexLexer l,
+			final ArrayList<Token> tokens) throws IOException {
 		Token t = l.next_token_safe();
 		if (t != null && t.isTrivia()) {
 			t = consumeTriviaAndGetNext(l, tokens, t);
-			return t == null ? null
-					: "{".equals(t.text) ? getCurlyBracketsSnippet(l, tokens, t)
-							: "lstring".equals(t.category.name) ? getLstringSnippet(l, tokens, t) : t;
+			return t == null ? null : "{".equals(t.text)
+					? getCurlyBracketsSnippet(l, tokens, t)
+					: "lstring".equals(t.category.name)
+							? getLstringSnippet(l, tokens, t)
+							: t;
 		}
 		/*
-		 * now, we've got a token which is not trivia. It can be a snippet, or
-		 * just the next token...
+		 * now, we've got a token which is not trivia. It can be a snippet, or just
+		 * the next token...
 		 */
-		return t == null ? null
-				: "(".equals(t.text) ? getPraenthesesSnippet(l, tokens, t)
-						: "{".equals(t.text) ? getCurlyBracketsSnippet(l, tokens, t) : t;
+		return t == null ? null : "(".equals(t.text)
+				? getPraenthesesSnippet(l, tokens, t)
+				: "{".equals(t.text) ? getCurlyBracketsSnippet(l, tokens, t) : t;
 	}
 
 	/*
-	 * consumes all following trivia, concatenates into one token and returns
-	 * the next token
+	 * consumes all following trivia, concatenates into one token and returns the
+	 * next token
 	 */
-	private Token consumeTriviaAndGetNext(final JflexLexer l, final ArrayList<Token> tokens, final Token t)
-			throws IOException {
+	private Token consumeTriviaAndGetNext(final JflexLexer l,
+			final ArrayList<Token> tokens, final Token t) throws IOException {
 		Token $;
 		while (($ = l.next_token_safe()) != null) {
 			tokens.add(t);
@@ -89,7 +92,8 @@ public class Tokenizer implements Iterable<Token> {
 		return null;
 	}
 
-	private Token getBracketsSnippet(final JflexLexer l, final ArrayList<Token> tokens, Token t, final String opener,
+	private Token getBracketsSnippet(final JflexLexer l,
+			final ArrayList<Token> tokens, Token t, final String opener,
 			final String closer) throws IOException {
 		t = Token.newSnippetToken(t);
 		String text = "";
@@ -107,19 +111,19 @@ public class Tokenizer implements Iterable<Token> {
 		return l.next_token_safe();
 	}
 
-	private Token getCurlyBracketsSnippet(final JflexLexer l, final ArrayList<Token> tokens, final Token t)
-			throws IOException {
+	private Token getCurlyBracketsSnippet(final JflexLexer l,
+			final ArrayList<Token> tokens, final Token t) throws IOException {
 		return getBracketsSnippet(l, tokens, t, "{", "}");
 	}
 
-	private Token getLstringSnippet(final JflexLexer l, final ArrayList<Token> tokens, final Token t)
-			throws IOException {
+	private Token getLstringSnippet(final JflexLexer l,
+			final ArrayList<Token> tokens, final Token t) throws IOException {
 		tokens.add(Token.newSnippetToken(t));
 		return l.next_token_safe();
 	}
 
-	private Token getPraenthesesSnippet(final JflexLexer l, final ArrayList<Token> tokens, final Token t)
-			throws IOException {
+	private Token getPraenthesesSnippet(final JflexLexer l,
+			final ArrayList<Token> tokens, final Token t) throws IOException {
 		return getBracketsSnippet(l, tokens, t, "(", ")");
 	}
 
@@ -150,7 +154,6 @@ public class Tokenizer implements Iterable<Token> {
 	private boolean isKeyword(final Token t) {
 		return t.text.startsWith(lolaEscapingCharacter);
 	}
-
 	public class TokenizerIterator implements Iterator<Token> {
 		Tokenizer tokenizer;
 

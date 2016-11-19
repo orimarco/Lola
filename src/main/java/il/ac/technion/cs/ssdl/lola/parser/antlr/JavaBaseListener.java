@@ -1,11 +1,8 @@
 // Generated from Java.g by ANTLR 4.5
-
 package il.ac.technion.cs.ssdl.lola.parser.antlr;
-
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
-
 /**
  * This class provides an empty implementation of {@link JavaListener}, which
  * can be extended to create a listener which only needs to handle a subset of
@@ -42,7 +39,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterPackageDeclaration(JavaParser.PackageDeclarationContext ctx) {
+	public void enterPackageDeclaration(
+			JavaParser.PackageDeclarationContext ctx) {
 	}
 
 	/**
@@ -130,7 +128,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterClassOrInterfaceModifier(JavaParser.ClassOrInterfaceModifierContext ctx) {
+	public void enterClassOrInterfaceModifier(
+			JavaParser.ClassOrInterfaceModifierContext ctx) {
 	}
 
 	/**
@@ -141,7 +140,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitClassOrInterfaceModifier(JavaParser.ClassOrInterfaceModifierContext ctx) {
+	public void exitClassOrInterfaceModifier(
+			JavaParser.ClassOrInterfaceModifierContext ctx) {
 	}
 
 	/**
@@ -328,7 +328,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterEnumBodyDeclarations(JavaParser.EnumBodyDeclarationsContext ctx) {
+	public void enterEnumBodyDeclarations(
+			JavaParser.EnumBodyDeclarationsContext ctx) {
 	}
 
 	/**
@@ -339,7 +340,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitEnumBodyDeclarations(JavaParser.EnumBodyDeclarationsContext ctx) {
+	public void exitEnumBodyDeclarations(
+			JavaParser.EnumBodyDeclarationsContext ctx) {
 	}
 
 	/**
@@ -350,7 +352,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterInterfaceDeclaration(JavaParser.InterfaceDeclarationContext ctx) {
+	public void enterInterfaceDeclaration(
+			JavaParser.InterfaceDeclarationContext ctx) {
 	}
 
 	/**
@@ -361,7 +364,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitInterfaceDeclaration(JavaParser.InterfaceDeclarationContext ctx) {
+	public void exitInterfaceDeclaration(
+			JavaParser.InterfaceDeclarationContext ctx) {
 	}
 
 	/**
@@ -438,7 +442,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterClassBodyDeclaration(JavaParser.ClassBodyDeclarationContext ctx) {
+	public void enterClassBodyDeclaration(
+			JavaParser.ClassBodyDeclarationContext ctx) {
 	}
 
 	/**
@@ -449,7 +454,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitClassBodyDeclaration(JavaParser.ClassBodyDeclarationContext ctx) {
+	public void exitClassBodyDeclaration(
+			JavaParser.ClassBodyDeclarationContext ctx) {
 	}
 
 	/**
@@ -504,7 +510,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterGenericMethodDeclaration(JavaParser.GenericMethodDeclarationContext ctx) {
+	public void enterGenericMethodDeclaration(
+			JavaParser.GenericMethodDeclarationContext ctx) {
 	}
 
 	/**
@@ -515,7 +522,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitGenericMethodDeclaration(JavaParser.GenericMethodDeclarationContext ctx) {
+	public void exitGenericMethodDeclaration(
+			JavaParser.GenericMethodDeclarationContext ctx) {
 	}
 
 	/**
@@ -526,7 +534,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterConstructorDeclaration(JavaParser.ConstructorDeclarationContext ctx) {
+	public void enterConstructorDeclaration(
+			JavaParser.ConstructorDeclarationContext ctx) {
 	}
 
 	/**
@@ -537,7 +546,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitConstructorDeclaration(JavaParser.ConstructorDeclarationContext ctx) {
+	public void exitConstructorDeclaration(
+			JavaParser.ConstructorDeclarationContext ctx) {
 	}
 
 	/**
@@ -548,7 +558,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterGenericConstructorDeclaration(JavaParser.GenericConstructorDeclarationContext ctx) {
+	public void enterGenericConstructorDeclaration(
+			JavaParser.GenericConstructorDeclarationContext ctx) {
 	}
 
 	/**
@@ -559,7 +570,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitGenericConstructorDeclaration(JavaParser.GenericConstructorDeclarationContext ctx) {
+	public void exitGenericConstructorDeclaration(
+			JavaParser.GenericConstructorDeclarationContext ctx) {
 	}
 
 	/**
@@ -592,7 +604,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterInterfaceBodyDeclaration(JavaParser.InterfaceBodyDeclarationContext ctx) {
+	public void enterInterfaceBodyDeclaration(
+			JavaParser.InterfaceBodyDeclarationContext ctx) {
 	}
 
 	/**
@@ -603,7 +616,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitInterfaceBodyDeclaration(JavaParser.InterfaceBodyDeclarationContext ctx) {
+	public void exitInterfaceBodyDeclaration(
+			JavaParser.InterfaceBodyDeclarationContext ctx) {
 	}
 
 	/**
@@ -614,7 +628,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterInterfaceMemberDeclaration(JavaParser.InterfaceMemberDeclarationContext ctx) {
+	public void enterInterfaceMemberDeclaration(
+			JavaParser.InterfaceMemberDeclarationContext ctx) {
 	}
 
 	/**
@@ -625,7 +640,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitInterfaceMemberDeclaration(JavaParser.InterfaceMemberDeclarationContext ctx) {
+	public void exitInterfaceMemberDeclaration(
+			JavaParser.InterfaceMemberDeclarationContext ctx) {
 	}
 
 	/**
@@ -658,7 +674,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterConstantDeclarator(JavaParser.ConstantDeclaratorContext ctx) {
+	public void enterConstantDeclarator(
+			JavaParser.ConstantDeclaratorContext ctx) {
 	}
 
 	/**
@@ -680,7 +697,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterInterfaceMethodDeclaration(JavaParser.InterfaceMethodDeclarationContext ctx) {
+	public void enterInterfaceMethodDeclaration(
+			JavaParser.InterfaceMethodDeclarationContext ctx) {
 	}
 
 	/**
@@ -691,7 +709,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitInterfaceMethodDeclaration(JavaParser.InterfaceMethodDeclarationContext ctx) {
+	public void exitInterfaceMethodDeclaration(
+			JavaParser.InterfaceMethodDeclarationContext ctx) {
 	}
 
 	/**
@@ -702,7 +721,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterGenericInterfaceMethodDeclaration(JavaParser.GenericInterfaceMethodDeclarationContext ctx) {
+	public void enterGenericInterfaceMethodDeclaration(
+			JavaParser.GenericInterfaceMethodDeclarationContext ctx) {
 	}
 
 	/**
@@ -713,7 +733,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitGenericInterfaceMethodDeclaration(JavaParser.GenericInterfaceMethodDeclarationContext ctx) {
+	public void exitGenericInterfaceMethodDeclaration(
+			JavaParser.GenericInterfaceMethodDeclarationContext ctx) {
 	}
 
 	/**
@@ -724,7 +745,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterVariableDeclarators(JavaParser.VariableDeclaratorsContext ctx) {
+	public void enterVariableDeclarators(
+			JavaParser.VariableDeclaratorsContext ctx) {
 	}
 
 	/**
@@ -735,7 +757,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitVariableDeclarators(JavaParser.VariableDeclaratorsContext ctx) {
+	public void exitVariableDeclarators(
+			JavaParser.VariableDeclaratorsContext ctx) {
 	}
 
 	/**
@@ -746,7 +769,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterVariableDeclarator(JavaParser.VariableDeclaratorContext ctx) {
+	public void enterVariableDeclarator(
+			JavaParser.VariableDeclaratorContext ctx) {
 	}
 
 	/**
@@ -768,7 +792,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterVariableDeclaratorId(JavaParser.VariableDeclaratorIdContext ctx) {
+	public void enterVariableDeclaratorId(
+			JavaParser.VariableDeclaratorIdContext ctx) {
 	}
 
 	/**
@@ -779,7 +804,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitVariableDeclaratorId(JavaParser.VariableDeclaratorIdContext ctx) {
+	public void exitVariableDeclaratorId(
+			JavaParser.VariableDeclaratorIdContext ctx) {
 	}
 
 	/**
@@ -790,7 +816,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterVariableInitializer(JavaParser.VariableInitializerContext ctx) {
+	public void enterVariableInitializer(
+			JavaParser.VariableInitializerContext ctx) {
 	}
 
 	/**
@@ -801,7 +828,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitVariableInitializer(JavaParser.VariableInitializerContext ctx) {
+	public void exitVariableInitializer(
+			JavaParser.VariableInitializerContext ctx) {
 	}
 
 	/**
@@ -878,7 +906,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterClassOrInterfaceType(JavaParser.ClassOrInterfaceTypeContext ctx) {
+	public void enterClassOrInterfaceType(
+			JavaParser.ClassOrInterfaceTypeContext ctx) {
 	}
 
 	/**
@@ -889,7 +918,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitClassOrInterfaceType(JavaParser.ClassOrInterfaceTypeContext ctx) {
+	public void exitClassOrInterfaceType(
+			JavaParser.ClassOrInterfaceTypeContext ctx) {
 	}
 
 	/**
@@ -1010,7 +1040,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterFormalParameterList(JavaParser.FormalParameterListContext ctx) {
+	public void enterFormalParameterList(
+			JavaParser.FormalParameterListContext ctx) {
 	}
 
 	/**
@@ -1021,7 +1052,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitFormalParameterList(JavaParser.FormalParameterListContext ctx) {
+	public void exitFormalParameterList(
+			JavaParser.FormalParameterListContext ctx) {
 	}
 
 	/**
@@ -1054,7 +1086,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterLastFormalParameter(JavaParser.LastFormalParameterContext ctx) {
+	public void enterLastFormalParameter(
+			JavaParser.LastFormalParameterContext ctx) {
 	}
 
 	/**
@@ -1065,7 +1098,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitLastFormalParameter(JavaParser.LastFormalParameterContext ctx) {
+	public void exitLastFormalParameter(
+			JavaParser.LastFormalParameterContext ctx) {
 	}
 
 	/**
@@ -1274,7 +1308,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterElementValueArrayInitializer(JavaParser.ElementValueArrayInitializerContext ctx) {
+	public void enterElementValueArrayInitializer(
+			JavaParser.ElementValueArrayInitializerContext ctx) {
 	}
 
 	/**
@@ -1285,7 +1320,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitElementValueArrayInitializer(JavaParser.ElementValueArrayInitializerContext ctx) {
+	public void exitElementValueArrayInitializer(
+			JavaParser.ElementValueArrayInitializerContext ctx) {
 	}
 
 	/**
@@ -1296,7 +1332,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterAnnotationTypeDeclaration(JavaParser.AnnotationTypeDeclarationContext ctx) {
+	public void enterAnnotationTypeDeclaration(
+			JavaParser.AnnotationTypeDeclarationContext ctx) {
 	}
 
 	/**
@@ -1307,7 +1344,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitAnnotationTypeDeclaration(JavaParser.AnnotationTypeDeclarationContext ctx) {
+	public void exitAnnotationTypeDeclaration(
+			JavaParser.AnnotationTypeDeclarationContext ctx) {
 	}
 
 	/**
@@ -1318,7 +1356,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterAnnotationTypeBody(JavaParser.AnnotationTypeBodyContext ctx) {
+	public void enterAnnotationTypeBody(
+			JavaParser.AnnotationTypeBodyContext ctx) {
 	}
 
 	/**
@@ -1340,7 +1379,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterAnnotationTypeElementDeclaration(JavaParser.AnnotationTypeElementDeclarationContext ctx) {
+	public void enterAnnotationTypeElementDeclaration(
+			JavaParser.AnnotationTypeElementDeclarationContext ctx) {
 	}
 
 	/**
@@ -1351,7 +1391,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitAnnotationTypeElementDeclaration(JavaParser.AnnotationTypeElementDeclarationContext ctx) {
+	public void exitAnnotationTypeElementDeclaration(
+			JavaParser.AnnotationTypeElementDeclarationContext ctx) {
 	}
 
 	/**
@@ -1362,7 +1403,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterAnnotationTypeElementRest(JavaParser.AnnotationTypeElementRestContext ctx) {
+	public void enterAnnotationTypeElementRest(
+			JavaParser.AnnotationTypeElementRestContext ctx) {
 	}
 
 	/**
@@ -1373,7 +1415,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitAnnotationTypeElementRest(JavaParser.AnnotationTypeElementRestContext ctx) {
+	public void exitAnnotationTypeElementRest(
+			JavaParser.AnnotationTypeElementRestContext ctx) {
 	}
 
 	/**
@@ -1384,7 +1427,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterAnnotationMethodOrConstantRest(JavaParser.AnnotationMethodOrConstantRestContext ctx) {
+	public void enterAnnotationMethodOrConstantRest(
+			JavaParser.AnnotationMethodOrConstantRestContext ctx) {
 	}
 
 	/**
@@ -1395,7 +1439,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitAnnotationMethodOrConstantRest(JavaParser.AnnotationMethodOrConstantRestContext ctx) {
+	public void exitAnnotationMethodOrConstantRest(
+			JavaParser.AnnotationMethodOrConstantRestContext ctx) {
 	}
 
 	/**
@@ -1406,7 +1451,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterAnnotationMethodRest(JavaParser.AnnotationMethodRestContext ctx) {
+	public void enterAnnotationMethodRest(
+			JavaParser.AnnotationMethodRestContext ctx) {
 	}
 
 	/**
@@ -1417,7 +1463,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitAnnotationMethodRest(JavaParser.AnnotationMethodRestContext ctx) {
+	public void exitAnnotationMethodRest(
+			JavaParser.AnnotationMethodRestContext ctx) {
 	}
 
 	/**
@@ -1428,7 +1475,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterAnnotationConstantRest(JavaParser.AnnotationConstantRestContext ctx) {
+	public void enterAnnotationConstantRest(
+			JavaParser.AnnotationConstantRestContext ctx) {
 	}
 
 	/**
@@ -1439,7 +1487,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitAnnotationConstantRest(JavaParser.AnnotationConstantRestContext ctx) {
+	public void exitAnnotationConstantRest(
+			JavaParser.AnnotationConstantRestContext ctx) {
 	}
 
 	/**
@@ -1516,7 +1565,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterLocalVariableDeclarationStatement(JavaParser.LocalVariableDeclarationStatementContext ctx) {
+	public void enterLocalVariableDeclarationStatement(
+			JavaParser.LocalVariableDeclarationStatementContext ctx) {
 	}
 
 	/**
@@ -1527,7 +1577,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitLocalVariableDeclarationStatement(JavaParser.LocalVariableDeclarationStatementContext ctx) {
+	public void exitLocalVariableDeclarationStatement(
+			JavaParser.LocalVariableDeclarationStatementContext ctx) {
 	}
 
 	/**
@@ -1538,7 +1589,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterLocalVariableDeclaration(JavaParser.LocalVariableDeclarationContext ctx) {
+	public void enterLocalVariableDeclaration(
+			JavaParser.LocalVariableDeclarationContext ctx) {
 	}
 
 	/**
@@ -1549,7 +1601,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitLocalVariableDeclaration(JavaParser.LocalVariableDeclarationContext ctx) {
+	public void exitLocalVariableDeclaration(
+			JavaParser.LocalVariableDeclarationContext ctx) {
 	}
 
 	/**
@@ -1648,7 +1701,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterResourceSpecification(JavaParser.ResourceSpecificationContext ctx) {
+	public void enterResourceSpecification(
+			JavaParser.ResourceSpecificationContext ctx) {
 	}
 
 	/**
@@ -1659,7 +1713,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitResourceSpecification(JavaParser.ResourceSpecificationContext ctx) {
+	public void exitResourceSpecification(
+			JavaParser.ResourceSpecificationContext ctx) {
 	}
 
 	/**
@@ -1714,7 +1769,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterSwitchBlockStatementGroup(JavaParser.SwitchBlockStatementGroupContext ctx) {
+	public void enterSwitchBlockStatementGroup(
+			JavaParser.SwitchBlockStatementGroupContext ctx) {
 	}
 
 	/**
@@ -1725,7 +1781,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitSwitchBlockStatementGroup(JavaParser.SwitchBlockStatementGroupContext ctx) {
+	public void exitSwitchBlockStatementGroup(
+			JavaParser.SwitchBlockStatementGroupContext ctx) {
 	}
 
 	/**
@@ -1802,7 +1859,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterEnhancedForControl(JavaParser.EnhancedForControlContext ctx) {
+	public void enterEnhancedForControl(
+			JavaParser.EnhancedForControlContext ctx) {
 	}
 
 	/**
@@ -1890,7 +1948,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterStatementExpression(JavaParser.StatementExpressionContext ctx) {
+	public void enterStatementExpression(
+			JavaParser.StatementExpressionContext ctx) {
 	}
 
 	/**
@@ -1901,7 +1960,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitStatementExpression(JavaParser.StatementExpressionContext ctx) {
+	public void exitStatementExpression(
+			JavaParser.StatementExpressionContext ctx) {
 	}
 
 	/**
@@ -1912,7 +1972,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterConstantExpression(JavaParser.ConstantExpressionContext ctx) {
+	public void enterConstantExpression(
+			JavaParser.ConstantExpressionContext ctx) {
 	}
 
 	/**
@@ -2088,7 +2149,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterExplicitGenericInvocation(JavaParser.ExplicitGenericInvocationContext ctx) {
+	public void enterExplicitGenericInvocation(
+			JavaParser.ExplicitGenericInvocationContext ctx) {
 	}
 
 	/**
@@ -2099,7 +2161,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitExplicitGenericInvocation(JavaParser.ExplicitGenericInvocationContext ctx) {
+	public void exitExplicitGenericInvocation(
+			JavaParser.ExplicitGenericInvocationContext ctx) {
 	}
 
 	/**
@@ -2110,7 +2173,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterNonWildcardTypeArguments(JavaParser.NonWildcardTypeArgumentsContext ctx) {
+	public void enterNonWildcardTypeArguments(
+			JavaParser.NonWildcardTypeArgumentsContext ctx) {
 	}
 
 	/**
@@ -2121,7 +2185,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitNonWildcardTypeArguments(JavaParser.NonWildcardTypeArgumentsContext ctx) {
+	public void exitNonWildcardTypeArguments(
+			JavaParser.NonWildcardTypeArgumentsContext ctx) {
 	}
 
 	/**
@@ -2132,7 +2197,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterTypeArgumentsOrDiamond(JavaParser.TypeArgumentsOrDiamondContext ctx) {
+	public void enterTypeArgumentsOrDiamond(
+			JavaParser.TypeArgumentsOrDiamondContext ctx) {
 	}
 
 	/**
@@ -2143,7 +2209,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitTypeArgumentsOrDiamond(JavaParser.TypeArgumentsOrDiamondContext ctx) {
+	public void exitTypeArgumentsOrDiamond(
+			JavaParser.TypeArgumentsOrDiamondContext ctx) {
 	}
 
 	/**
@@ -2154,7 +2221,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterNonWildcardTypeArgumentsOrDiamond(JavaParser.NonWildcardTypeArgumentsOrDiamondContext ctx) {
+	public void enterNonWildcardTypeArgumentsOrDiamond(
+			JavaParser.NonWildcardTypeArgumentsOrDiamondContext ctx) {
 	}
 
 	/**
@@ -2165,7 +2233,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitNonWildcardTypeArgumentsOrDiamond(JavaParser.NonWildcardTypeArgumentsOrDiamondContext ctx) {
+	public void exitNonWildcardTypeArgumentsOrDiamond(
+			JavaParser.NonWildcardTypeArgumentsOrDiamondContext ctx) {
 	}
 
 	/**
@@ -2198,7 +2267,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void enterExplicitGenericInvocationSuffix(JavaParser.ExplicitGenericInvocationSuffixContext ctx) {
+	public void enterExplicitGenericInvocationSuffix(
+			JavaParser.ExplicitGenericInvocationSuffixContext ctx) {
 	}
 
 	/**
@@ -2209,7 +2279,8 @@ public class JavaBaseListener implements JavaListener {
 	 * </p>
 	 */
 	@Override
-	public void exitExplicitGenericInvocationSuffix(JavaParser.ExplicitGenericInvocationSuffixContext ctx) {
+	public void exitExplicitGenericInvocationSuffix(
+			JavaParser.ExplicitGenericInvocationSuffixContext ctx) {
 	}
 
 	/**

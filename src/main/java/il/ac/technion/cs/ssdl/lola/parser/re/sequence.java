@@ -1,10 +1,8 @@
 package il.ac.technion.cs.ssdl.lola.parser.re;
-
 import java.util.*;
 
 import il.ac.technion.cs.ssdl.lola.parser.*;
 import il.ac.technion.cs.ssdl.lola.parser.re.RegExp.*;
-
 public class sequence extends Composite {
 	public final List<Branch> branches = new ArrayList<>();
 	private final String snippet;
@@ -23,7 +21,9 @@ public class sequence extends Composite {
 	@Override
 	public void apply(final PythonAdapter a) {
 		if (snippet != null)
-			a.enterScope(snippet.substring(snippet.indexOf('(') + 1, snippet.lastIndexOf(')')), text());
+			a.enterScope(
+					snippet.substring(snippet.indexOf('(') + 1, snippet.lastIndexOf(')')),
+					text());
 		for (final Branch ¢ : branches)
 			if (¢.satiated()) {
 				¢.apply(a);

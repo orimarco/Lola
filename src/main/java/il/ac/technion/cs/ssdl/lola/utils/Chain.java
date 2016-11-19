@@ -24,8 +24,8 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 	}
 
 	public Chain(final List<T> li) {
-		for (final T t : li)
-			add(t);
+		for (final T ¢ : li)
+			add(¢);
 	}
 
 	/*
@@ -62,17 +62,14 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 		return new ChainIterator();
 	}
 
+	/**
+	 * [[SuppressWarningsSpartan]]
+	 */
 	@SuppressWarnings("unused")
 	public void printChain() {
 		if (true)
 			return;
 		for (Location l = firstLocation; l != null; l = l.next())
-			// if (l.after.t instanceof TriviaBunny)
-			// System.out.print((b.text().equals("\n") ? "<\\n>"
-			// : b.text().equals("\r") ? "<\\r>"
-			// : b.text().equals("\r\n") ? "<\\r\\n>"
-			// : b.text().equals("\t") ? "<\\t>" : "<" + b.text() + ">"));
-			// else
 			System.out.print(" " + l.idx + " " + (l.next() == null
 					? ""
 					: "\r\n".equals(((Bunny) l.after.t).text())
@@ -106,8 +103,8 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 		}
 
 		@Override
-		public boolean containedIn(final Interval i) {
-			return i.from.lessThanOrEquals(from) && to.lessThanOrEquals(i.to);
+		public boolean containedIn(final Interval ¢) {
+			return ¢.from.lessThanOrEquals(from) && to.lessThanOrEquals(¢.to);
 		}
 
 		public void delete() {
@@ -145,16 +142,16 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 
 		public Iterable<Location> locations() {
 			final List<Location> $ = new ArrayList<>();
-			for (Location l = from; from != to; l = l.next())
-				$.add(l);
+			for (Location ¢ = from; from != to; ¢ = ¢.next())
+				$.add(¢);
 			$.add(to);
 			return $;
 		}
 
 		public Iterable<Node> nodes() {
 			final List<Node> $ = new ArrayList<>();
-			for (Location l = from; l != to; l = l.next())
-				$.add(l.after());
+			for (Location ¢ = from; ¢ != to; ¢ = ¢.next())
+				$.add(¢.after());
 			return $;
 		}
 
@@ -187,8 +184,8 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 			return 0;
 		}
 
-		public boolean strictlyContainedIn(final Interval i) {
-			return i.from.lessThan(from) && to.lessThan(i.to);
+		public boolean strictlyContainedIn(final Interval ¢) {
+			return ¢.from.lessThan(from) && to.lessThan(¢.to);
 		}
 
 		public Location to() {
@@ -208,9 +205,9 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 			Location location = new Location(newNode, null, idx);
 			newNode.after = location;
 			/* 2 to n-1 nodes */
-			for (int i = 1; i < elements.size() - 1; ++i) {
+			for (int ¢ = 1; ¢ < elements.size() - 1; ++¢) {
 				idx += step;
-				newNode = new Node(elements.get(i), location, null);
+				newNode = new Node(elements.get(¢), location, null);
 				location.after = newNode;
 				location = new Location(newNode, null, idx);
 				newNode.after = location;
@@ -257,32 +254,32 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 		}
 
 		@Override
-		public boolean containedIn(final Interval i) {
-			return isAfter(i.from()) && isBefore(i.to());
+		public boolean containedIn(final Interval ¢) {
+			return isAfter(¢.from()) && isBefore(¢.to());
 		}
 
-		public boolean greaterThan(@NonNull final Location l) {
-			return idx > l.idx;
+		public boolean greaterThan(@NonNull final Location ¢) {
+			return idx > ¢.idx;
 		}
 
-		public boolean greaterThanOrEquals(@NonNull final Location l) {
-			return idx >= l.idx;
+		public boolean greaterThanOrEquals(@NonNull final Location ¢) {
+			return idx >= ¢.idx;
 		}
 
-		public boolean isAfter(final Location l) {
-			return l.idx <= idx;
+		public boolean isAfter(final Location ¢) {
+			return ¢.idx <= idx;
 		}
 
-		public boolean isBefore(final Location l) {
-			return idx <= l.idx;
+		public boolean isBefore(final Location ¢) {
+			return idx <= ¢.idx;
 		}
 
-		public boolean lessThan(@NonNull final Location l) {
-			return idx < l.idx;
+		public boolean lessThan(@NonNull final Location ¢) {
+			return idx < ¢.idx;
 		}
 
-		public boolean lessThanOrEquals(@NonNull final Location l) {
-			return idx <= l.idx;
+		public boolean lessThanOrEquals(@NonNull final Location ¢) {
+			return idx <= ¢.idx;
 		};
 
 		@Nullable
@@ -296,9 +293,9 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 		};
 
 		@NonNull
-		public Interval union(@NonNull final Interval i) {
-			i.to = this;
-			return i;
+		public Interval union(@NonNull final Interval ¢) {
+			¢.to = this;
+			return ¢;
 		};
 
 		private double generateIdx(final Node before, final Node after) {
@@ -355,7 +352,7 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 		}
 	}
 	class ChainIterator implements Iterator<Node> {
-		boolean started = false;
+		boolean started;
 		Node curr = firstNode;
 
 		ChainIterator() {
@@ -375,7 +372,7 @@ public class Chain<T, K> implements Iterable<Chain<T, K>.Node> {
 		}
 	}
 	interface Content<T, K> {
-		default boolean containedIn(final Chain<T, K>.Interval i) {
+		default boolean containedIn(final Chain<T, K>.Interval __) {
 			return false;
 		}
 	}

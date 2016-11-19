@@ -2,8 +2,8 @@ package il.ac.technion.cs.ssdl.lola.parser.lexer;
 import il.ac.technion.cs.ssdl.lola.parser.*;
 import il.ac.technion.cs.ssdl.lola.parser.CategoriesHierarchy.*;
 public class Token extends java_cup.runtime.Symbol {
-	public static Token newSnippetToken(final Token t) {
-		final Token $ = new Token(t.row, t.column, t.text,
+	public static Token newSnippetToken(final Token ¢) {
+		final Token $ = new Token(¢.row, ¢.column, ¢.text,
 				CategoriesHierarchy.getCategory("snippet"));
 		$.isSnippet = true;
 		return $;
@@ -13,7 +13,7 @@ public class Token extends java_cup.runtime.Symbol {
 	public String text;
 	public final Category category;
 	public final String snippet;
-	private boolean isSnippet = false;
+	private boolean isSnippet;
 
 	public Token(final int row, final int column, final String text,
 			final Category category) {

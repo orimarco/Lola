@@ -24,15 +24,6 @@ import il.ac.technion.cs.ssdl.lola.parser.tokenizer.*;
 public class ParserTest {
 	static Parser parser;
 
-	// @BeforeClass
-	// public static void stall() {
-	// try {
-	// System.in.read();
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// }
-	// }
-
 	@Test
 	public void pyTest() {
 		final PythonInterpreter pi = new PythonInterpreter();
@@ -416,9 +407,9 @@ public class ParserTest {
 	@Ignore
 	@Test
 	public void testLibs() {
-		for (final File f : FileUtils.listFiles(new File("./lola_libs"), new RegexFileFilter(".*\\.lola"),
+		for (final File ¢ : FileUtils.listFiles(new File("./lola_libs"), new RegexFileFilter(".*\\.lola"),
 				DirectoryFileFilter.DIRECTORY))
-			aux.runFileTest(f);
+			aux.runFileTest(¢);
 	}
 
 	@Test
@@ -545,8 +536,8 @@ public class ParserTest {
 		;
 		static void assertListEquals(final List<?> li1, final List<?> li2) {
 			assertEquals(li1.size(), li2.size());
-			for (int i = 0; i < li1.size(); ++i)
-				assertEquals(li2.get(i), li1.get(i));
+			for (int ¢ = 0; ¢ < li1.size(); ++¢)
+				assertEquals(li2.get(¢), li1.get(¢));
 		}
 
 		static void assertTEquals(final String s1, final String s2) {
@@ -579,8 +570,8 @@ public class ParserTest {
 			runFileTest(new File("./lola_libs/" + fileName + ".lola"));
 		}
 
-		static void runStringTest(final String s) {
-			runStringTest(s, "");
+		static void runStringTest(final String ¢) {
+			runStringTest(¢, "");
 		}
 
 		static void runStringTest(final String s, final String result) {
@@ -595,8 +586,8 @@ public class ParserTest {
 		}
 
 		void printList(final List<String> ss) {
-			for (final String s : ss)
-				System.out.println(s);
+			for (final String ¢ : ss)
+				System.out.println(¢);
 		}
 	}
 }

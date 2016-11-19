@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import il.ac.technion.cs.ssdl.lola.parser.Parser;
+import il.ac.technion.cs.ssdl.lola.utils.format;
 
 /**
  * @author Ori Marcovitch
@@ -20,8 +21,8 @@ public class Lola {
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter(new File(args[1]));
-			writer.write(
-					new Parser(new FileReader(new File(args[0]))).parse().stream().reduce("", (s1, s2) -> s1 + s2));
+			writer.write(format.code(
+					new Parser(new FileReader(new File(args[0]))).parse().stream().reduce("", (s1, s2) -> s1 + s2)));
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();

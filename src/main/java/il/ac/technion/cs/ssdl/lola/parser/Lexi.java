@@ -1,6 +1,9 @@
 package il.ac.technion.cs.ssdl.lola.parser;
-import il.ac.technion.cs.ssdl.lola.parser.builders.*;
-import il.ac.technion.cs.ssdl.lola.parser.re.*;
+import il.ac.technion.cs.ssdl.lola.parser.builders.$anchor;
+import il.ac.technion.cs.ssdl.lola.parser.builders.GeneratingKeyword;
+import il.ac.technion.cs.ssdl.lola.parser.builders.Keyword;
+import il.ac.technion.cs.ssdl.lola.parser.re.RegExp;
+import il.ac.technion.cs.ssdl.lola.parser.re.RegExpable;
 public class Lexi implements Bunny {
 	public final Keyword keyword;
 

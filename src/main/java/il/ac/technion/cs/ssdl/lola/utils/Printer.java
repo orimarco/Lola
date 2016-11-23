@@ -5,15 +5,20 @@ import il.ac.technion.cs.ssdl.lola.parser.builders.AST.*;
 import il.ac.technion.cs.ssdl.lola.parser.re.*;
 import il.ac.technion.cs.ssdl.lola.parser.tokenizer.*;
 public class Printer {
-	private static final boolean AST = false;
+	private static final boolean AST = true;
 	private static final boolean RE = false;
-	private static final boolean Chain = false;
+	private static final boolean Chain = true;
 	private static final boolean Python = false;
 	private static final boolean Tokens = false;
 
-	public static void printAST(final Node ¢) {
+	public static void logAST(final Node ¢) {
 		if (!AST)
 			return;
+		println(¢.name());
+		printAST(¢, 0);
+	}
+
+	public static void printAST(final Node ¢) {
 		println(¢.name());
 		printAST(¢, 0);
 	}
@@ -39,9 +44,7 @@ public class Printer {
 	}
 
 	private static void printAST(final Node n, int tabs) {
-		String allignment = tabs <= 0
-				? ""
-				: String.valueOf(new char[tabs]).replace("\0", "-");
+		String allignment = tabs <= 0 ? "" : String.valueOf(new char[tabs]).replace("\0", "-");
 		if (n.snippet() != null)
 			println(allignment + "[" + n.snippet().getText() + "]");
 		++tabs;
@@ -49,13 +52,9 @@ public class Printer {
 		if (n.list() != null)
 			for (final Node b : n.list()) {
 				if (b instanceof TriviaToken)
-					println(allignment + "<"
-							+ ("\n".equals(b.text()) ? "\\n>" : ("\r".equals(b.text())
-									? "\\r>"
-									: ("\r\n".equals(b.text())
-											? "\\r\\n>"
-											: (("\t".equals(b.text()) ? "\\t" : b.text() + "")
-													+ ">")))));
+					println(allignment + "<" + ("\n".equals(b.text()) ? "\\n>" : ("\r".equals(b.text())
+							? "\\r>"
+							: ("\r\n".equals(b.text()) ? "\\r\\n>" : (("\t".equals(b.text()) ? "\\t" : b.text() + "") + ">")))));
 				if (b instanceof HostToken) {
 					println(allignment + ((HostToken) b).getText());
 					continue;
@@ -76,9 +75,7 @@ public class Printer {
 	}
 
 	private static void printRe(final RegExp x, final int tabs) {
-		final String allignment = tabs <= 0
-				? ""
-				: String.valueOf(new char[tabs]).replace("\0", "-");
+		final String allignment = tabs <= 0 ? "" : String.valueOf(new char[tabs]).replace("\0", "-");
 		println(allignment + x.getClass().getSimpleName());
 		println(allignment + ":" + x.text());
 		// else

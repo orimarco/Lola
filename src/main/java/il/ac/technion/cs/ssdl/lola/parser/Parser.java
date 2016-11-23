@@ -7,43 +7,13 @@ import il.ac.technion.cs.ssdl.lola.parser.lexer.*;
 import il.ac.technion.cs.ssdl.lola.parser.re.*;
 import il.ac.technion.cs.ssdl.lola.parser.tokenizer.*;
 import il.ac.technion.cs.ssdl.lola.utils.*;
+import static il.ac.technion.cs.ssdl.lola.utils.wizard.*;
 public class Parser {
-	private static final String BUILDERS_PATH = "il.ac.technion.cs.ssdl.lola.parser.builders.$";
-	private static String lolaEscapingCharacter;
-	static Map<String, $Find> userDefinedKeywords = new HashMap<>();
-
-	private static Keyword newKeyword(final Token t) {
-		// some reflection, to create a keyword by its name...
-		final String name = t.text.replace(lolaEscapingCharacter, "");
-		try {
-			return (Keyword) Class.forName(BUILDERS_PATH + name)
-					.getConstructor(Token.class).newInstance(t);
-		} catch (ClassNotFoundException | NoClassDefFoundError e) {
-			try {
-				return (Keyword) Class.forName(BUILDERS_PATH + toUpperCaseClass(name))
-						.getConstructor(Token.class).newInstance(t);
-			} catch (final Exception e1) {
-				if (userDefinedKeywords.containsKey(name))
-					return new $UserDefinedKeyword(t,
-							userDefinedKeywords.get(name).list());
-				e1.printStackTrace();
-			}
-		} catch (final Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	private static String toUpperCaseClass(final String name) {
-		return name.substring(0, 1) + name.substring(1, 2).toUpperCase()
-				+ name.substring(2);
-	}
 	private final Tokenizer tokenizer;
 	private final Stack<Builder> stack = new Stack<>();
 
 	public Parser(final Reader stream) {
 		tokenizer = new Tokenizer(stream);
-		lolaEscapingCharacter = Tokenizer.lolaEscapingCharacter;
 	}
 
 	/**
@@ -55,7 +25,7 @@ public class Parser {
 		Token t;
 		while ((t = tokenizer.next_token()) != null)
 			if (t.isKeyword())
-				$.add(directive(newKeyword(t)));
+				$.add(directive(wizard.newKeyword(t)));
 		return $;
 	}
 
@@ -65,8 +35,7 @@ public class Parser {
 		return chain2stringList(chain);
 	}
 
-	public String parseExample(final Lexi l, final String example)
-			throws IOException {
+	public String parseExample(final Lexi l, final String example) throws IOException {
 		final Chain<Bunny, Lexi> chain = new Chain<>(string2bunnies(example));
 		chain.addFirst(l);
 		parse(chain);
@@ -85,10 +54,9 @@ public class Parser {
 	}
 
 	/* Execute rule and add new tokens to tokenizer. */
-	private void applyImmediateDirective(final GeneratingKeyword kw)
-			throws IOException {
+	private void applyImmediateDirective(final GeneratingKeyword kw) throws IOException {
 		Printer.printTokens(tokenizer);
-		tokenizer.addTokens(new StringReader(kw.generate(new PythonAdapter())));
+		tokenizer.pushTokens(new StringReader(kw.generate(new PythonAdapter())));
 		Printer.printTokens(tokenizer);
 	}
 
@@ -127,13 +95,10 @@ public class Parser {
 				}
 				if (!(node.get() instanceof TriviaBunny))
 					startNewMatchers(b, directives, matchers, anchors, node);
-				final List<Matcher> satiatedMatchers = feedAndGetSatiated(matchers,
-						node);
+				final List<Matcher> satiatedMatchers = feedAndGetSatiated(matchers, node);
 				satiatedAnchors.addAll(azListAnchor(feedAndGetSatiated(anchors, node)));
 				for (final Anchor a : satiatedAnchors)
-					if (matchers.stream()
-							.filter(m -> m.lexi == a.lexi && m.startsBeforeOrTogether(a))
-							.count() == 0)
+					if (matchers.stream().filter(m -> m.lexi == a.lexi && m.startsBeforeOrTogether(a)).count() == 0)
 						a.explode();
 				if (!satiatedMatchers.isEmpty()) {
 					applyLexi(getRuller(satiatedMatchers));
@@ -149,7 +114,7 @@ public class Parser {
 	/**
 	 * @param ms
 	 */
-	private void feedTrivia(List<Matcher> ms, Bunny ¢) {
+	private static void feedTrivia(List<Matcher> ms, Bunny ¢) {
 		ms.stream().forEach(m -> m.feedTrivia(¢));
 	}
 
@@ -162,7 +127,7 @@ public class Parser {
 		return (List<Anchor>) (List<?>) ¢;
 	}
 
-	private String chain2string(final Chain<Bunny, Lexi> b) {
+	private static String chain2string(final Chain<Bunny, Lexi> b) {
 		final List<String> li = chain2stringList(b);
 		String $ = "";
 		for (final String ¢ : li)
@@ -170,7 +135,7 @@ public class Parser {
 		return $;
 	}
 
-	private List<String> chain2stringList(final Chain<Bunny, Lexi> b) {
+	private static List<String> chain2stringList(final Chain<Bunny, Lexi> b) {
 		final List<String> $ = new ArrayList<>();
 		for (final Chain<Bunny, Lexi>.Node ¢ : b)
 			if (!(¢.get() instanceof Lexi))
@@ -181,8 +146,7 @@ public class Parser {
 	/**
 	 * Generates a lexi.
 	 * 
-	 * @param c
-	 *          - the keyword that initiated the lexi <br>
+	 * @param c - the keyword that initiated the lexi <br>
 	 *          [[SuppressWarningsSpartan]]
 	 */
 	private Lexi directive(final Keyword c) throws IOException {
@@ -190,13 +154,11 @@ public class Parser {
 		Token t;
 		while ((t = tokenizer.next_token()) != null)
 			if (isLeaf(t)) {
-				if (!percolate(
-						t.isSnippet() && stack.peek().accepts(new SnippetToken(t))
-								? new SnippetToken(t)
-								: !t.isTrivia() ? new HostToken(t) : new TriviaToken(t))
-						&& stack.isEmpty()) {
+				if (!percolate(t.isSnippet() && stack.peek().accepts(new SnippetToken(t))
+						? new SnippetToken(t)
+						: !t.isTrivia() ? new HostToken(t) : new TriviaToken(t)) && stack.isEmpty()) {
 					tokenizer.unget();
-					Printer.printAST(c);
+					Printer.logAST(c);
 					return new Lexi(c);
 				}
 			} else { // t is keyword
@@ -212,12 +174,11 @@ public class Parser {
 			b.done();
 			percolate(b);
 		}
-		Printer.printAST(c);
+		Printer.logAST(c);
 		return new Lexi(c);
 	}
 
-	private List<Matcher> feedAndGetSatiated(final List<? extends Matcher> ms,
-			final Chain<Bunny, Lexi>.Node n) {
+	private static List<Matcher> feedAndGetSatiated(final List<? extends Matcher> ms, final Chain<Bunny, Lexi>.Node n) {
 		final List<Matcher> $ = new ArrayList<>();
 		final List<Matcher> toRemove = new ArrayList<>();
 		for (final Matcher ¢ : ms)
@@ -243,14 +204,11 @@ public class Parser {
 		return new Chain<>(tokenizerToBunnies(tokenizer));
 	}
 
-	private Matcher getRuller(final List<Matcher> candidates) {
-		return candidates.stream()
-				.reduce(
-						(x, y) -> y.interval().strictlyContainedIn(x.interval()) ? y : x)
-				.get();
+	private static Matcher getRuller(final List<Matcher> candidates) {
+		return candidates.stream().reduce((x, y) -> y.interval().strictlyContainedIn(x.interval()) ? y : x).get();
 	}
 
-	private boolean isLeaf(final Token b) {
+	private static boolean isLeaf(final Token b) {
 		return b.isSnippet() || b.isTrivia() || b.isHost();
 	}
 
@@ -274,17 +232,14 @@ public class Parser {
 		return false;
 	}
 
-	private void startNewMatchers(final Chain<Bunny, Lexi> b,
-			final List<Lexi> directives, final List<Matcher> ms,
+	private static void startNewMatchers(final Chain<Bunny, Lexi> b, final List<Lexi> directives, final List<Matcher> ms,
 			final List<Anchor> as, final Chain<Bunny, Lexi>.Node n) {
-		ms.addAll(directives.stream().map(le -> new Matcher(le, b, n.before()))
+		ms.addAll(directives.stream().map(le -> new Matcher(le, b, n.before())).collect(Collectors.toList()));
+		as.addAll(directives.stream().filter(le -> le.hasAnchor()).map(le -> new Anchor(le, b, n.before()))
 				.collect(Collectors.toList()));
-		as.addAll(directives.stream().filter(le -> le.hasAnchor())
-				.map(le -> new Anchor(le, b, n.before())).collect(Collectors.toList()));
 	}
 
-	private List<Bunny> tokenizerToBunnies(final Tokenizer tokenizer)
-			throws IOException {
+	private List<Bunny> tokenizerToBunnies(final Tokenizer tokenizer) throws IOException {
 		final List<Bunny> $ = new ArrayList<>();
 		while (true) {
 			final Token t = tokenizer.next_token();
@@ -302,8 +257,7 @@ public class Parser {
 							(($example) ¢).checkExample(this, lexi);
 					$.add(lexi);
 					if (lexi.keyword.snippet() != null)
-						userDefinedKeywords.put(lexi.keyword.snippet().getExpression(),
-								($Find) lexi.keyword);
+						userDefinedKeywords.put(lexi.keyword.snippet().getExpression(), ($Find) lexi.keyword);
 				}
 			}
 		}

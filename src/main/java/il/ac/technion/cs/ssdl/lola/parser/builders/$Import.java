@@ -7,6 +7,7 @@ import java.util.*;
 import il.ac.technion.cs.ssdl.lola.parser.*;
 import il.ac.technion.cs.ssdl.lola.parser.builders.AST.*;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.*;
+import il.ac.technion.cs.ssdl.lola.utils.iz;
 public class $Import extends UnacceptableGeneratingKeyword {
 	static List<String> imported = new ArrayList<>();
 
@@ -16,7 +17,7 @@ public class $Import extends UnacceptableGeneratingKeyword {
 
 	@Override
 	public boolean accepts(final Node b) {
-		return b.token.isSnippet() && snippet == null || b.token.isTrivia();
+		return iz.snippetToken(b) && snippet == null || b.token.isTrivia();
 	}
 
 	@Override
@@ -37,8 +38,7 @@ public class $Import extends UnacceptableGeneratingKeyword {
 			return "";
 		imported.add(fileName);
 		try {
-			return new String(Files.readAllBytes(Paths.get(fileName)),
-					StandardCharsets.UTF_8);
+			return new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
 			// TODO: Should we worry about encoding?
 		} catch (final IOException e) {
 			e.printStackTrace();

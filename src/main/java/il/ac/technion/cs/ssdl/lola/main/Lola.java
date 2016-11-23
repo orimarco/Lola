@@ -19,8 +19,10 @@ public class Lola {
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter(new File(args[1]));
-			writer.write(format.code(new Parser(new FileReader(new File(args[0])))
-					.parse().stream().reduce("", (s1, s2) -> s1 + s2)));
+			String code = format.code(new Parser(new FileReader(new File(args[0])))
+					.parse().stream().reduce("", (s1, s2) -> s1 + s2));
+			writer.write(code);
+			System.out.println(code);
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();

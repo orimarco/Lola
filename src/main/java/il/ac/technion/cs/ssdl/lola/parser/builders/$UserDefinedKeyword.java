@@ -4,6 +4,7 @@ import java.util.*;
 import il.ac.technion.cs.ssdl.lola.parser.builders.AST.*;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.*;
 import il.ac.technion.cs.ssdl.lola.parser.re.*;
+import il.ac.technion.cs.ssdl.lola.utils.iz;
 public class $UserDefinedKeyword extends RegExpKeyword {
 	public $UserDefinedKeyword(final Token token, final List<Node> children) {
 		super(token);
@@ -13,14 +14,12 @@ public class $UserDefinedKeyword extends RegExpKeyword {
 
 	@Override
 	public boolean accepts(final AST.Node b) {
-		return state == Automaton.Snippet
-				&& (b instanceof SnippetToken && isIdentifier((SnippetToken) b)
-						|| b instanceof TriviaToken);
+		return state == Automaton.Snippet && (iz.snippetToken(b) && isIdentifier((SnippetToken) b) || iz.triviaToken(b));
 	}
 
 	@Override
 	public void adopt(final AST.Node b) {
-		if (b instanceof SnippetToken)
+		if (iz.snippetToken(b))
 			snippet = (SnippetToken) b;
 	}
 
@@ -33,9 +32,9 @@ public class $UserDefinedKeyword extends RegExpKeyword {
 		return new sequence(res, snippet == null ? null : snippet.token.text);
 	}
 
-	private boolean isIdentifier(final SnippetToken b) {
-		return !b.getText().contains(" ") && !b.getText().contains("\t")
-				&& !b.getText().contains("\n") && !b.getText().contains("\r");
+	private static boolean isIdentifier(final SnippetToken b) {
+		return !b.getText().contains(" ") && !b.getText().contains("\t") && !b.getText().contains("\n")
+				&& !b.getText().contains("\r");
 		// TODO: user defined identifiers...
 	}
 }

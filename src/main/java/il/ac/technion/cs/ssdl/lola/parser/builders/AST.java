@@ -37,10 +37,6 @@ public interface AST {
 			return null;
 		}
 
-		// public int offset() { // TODO: maybe need to take in account the
-		// // column...
-		// return token.row;
-		// }
 		public String text() {
 			return token.text;
 		}

@@ -6,6 +6,7 @@ import java.nio.file.*;
 import il.ac.technion.cs.ssdl.lola.parser.*;
 import il.ac.technion.cs.ssdl.lola.parser.builders.AST.*;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.*;
+import il.ac.technion.cs.ssdl.lola.utils.iz;
 public class $Include extends UnacceptableGeneratingKeyword {
 	public $Include(final Token token) {
 		super(token);
@@ -13,7 +14,7 @@ public class $Include extends UnacceptableGeneratingKeyword {
 
 	@Override
 	public boolean accepts(final Node b) {
-		return b.token.isSnippet() || b.token.isTrivia();
+		return iz.snippetToken(b) || b.token.isTrivia();
 	}
 
 	@Override
@@ -30,8 +31,7 @@ public class $Include extends UnacceptableGeneratingKeyword {
 	public String generate(final PythonAdapter __) {
 		final String fileName = snippet.getExpression();
 		try {
-			return new String(Files.readAllBytes(Paths.get(fileName)),
-					StandardCharsets.UTF_8);
+			return new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
 			// TODO: Should we worry about encoding?
 		} catch (final IOException e) {
 			e.printStackTrace();

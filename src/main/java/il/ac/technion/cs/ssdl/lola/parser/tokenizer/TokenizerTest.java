@@ -32,8 +32,8 @@ public class TokenizerTest {
 		assertEquals(" ", token.text);
 		assertEquals("ignore", token.category.name);
 		assertEquals(token.isKeyword(), false);
-		// assertEquals(bunny.isTrivia(), true);
-		// assertEquals(bunny.isHost(), false);
+		assertEquals(token.isTrivia(), true);
+		assertEquals(token.isHost(), false);
 		assertEquals(token.isSnippet(), false);
 		token = tokenizer.next_token();
 		assertEquals("42", token.text);
@@ -144,8 +144,7 @@ public class TokenizerTest {
 		tokenizer = new Tokenizer(stream);
 		Token token = tokenizer.next_token();
 		assertEquals("##Import", token.text);
-		token = tokenizer.next_token();
-		assertEquals("std.Expression", token.text);
+		assertEquals("std.Expression", token.snippet);
 	}
 
 	@Test
@@ -154,8 +153,7 @@ public class TokenizerTest {
 		tokenizer = new Tokenizer(stream);
 		Token token = tokenizer.next_token();
 		assertEquals("##Import", token.text);
-		token = tokenizer.next_token();
-		assertEquals("java.il.omg", token.text);
+		assertEquals("java.il.omg", token.snippet);
 	}
 
 	@Test

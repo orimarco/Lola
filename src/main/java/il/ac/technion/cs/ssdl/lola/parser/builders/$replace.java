@@ -12,6 +12,11 @@ public class $replace extends ExecutableElaborator {
 	}
 
 	@Override
+	public boolean accepts(Node b) {
+		return super.accepts(b) && !(b instanceof SnippetToken);
+	}
+
+	@Override
 	public void execute(final Chain<Bunny, Lexi>.Interval i,
 			final PythonAdapter a, final Parser p) {
 		final ArrayList<Bunny> li = new ArrayList<>();

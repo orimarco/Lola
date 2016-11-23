@@ -1,9 +1,4 @@
-##Find ##Identifier(obj)?.##Identifier(method)();
-	##replace if(##(obj) != null)
-		##(obj).##(method)();
-	##example node?.print();
-	##resultsIn if(node != null)
-					node.print();
+
 	
 ##Find ##Identifier(obj)?.##Identifier(field).
 	##replace (##(obj) == null ? null : ##(obj).##(field)).

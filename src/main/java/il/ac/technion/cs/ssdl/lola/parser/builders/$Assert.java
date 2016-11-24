@@ -15,25 +15,26 @@ public class $Assert extends ExecutableElaborator implements GeneratingKeyword {
 	 */
 	@Override
 	public boolean accepts(final AST.Node b) {
-		return iz.snippetToken(b) && state == Automaton.Snippet;
+		return iz.snippetToken(b) && state == Automaton.Snippet || iz.triviaToken(b);
 	}
 
 	@Override
 	public void adopt(final AST.Node b) {
+		if (iz.triviaToken(b))
+			return;
 		snippet = (SnippetToken) b;
 		state = Automaton.Done;
 	}
 
 	@Override
-	public void execute(final Chain<Bunny, Lexi>.Interval __,
-			final PythonAdapter a, final Parser p) {
+	public void execute(final Chain<Bunny, Lexi>.Interval __, final PythonAdapter a, final Parser p) {
 		if (!a.evaluateBooleanExpression(snippet.getExpression()))
 			throw new AssertionError("Assertion failed: " + snippet);
 	}
 
 	@Override
 	public String generate(final PythonAdapter ¢) {
-		if (!¢.evaluateBooleanExpression(snippet.getExpression()))
+		if (snippet != null && !¢.evaluateBooleanExpression(snippet.getExpression()))
 			throw new AssertionError("Assertion failed: " + snippet);
 		return "";
 	}

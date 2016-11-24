@@ -1,0 +1,16 @@
+##Find
+	bitenum ##Identifier(enum_name) {
+	 ##NoneOrMore ##Identifier(entry)
+		##separator ,
+		##closer ;
+	}
+ ##assert(len(entrys) <= 32)
+ ##replace
+	enum ##(enum_name) {
+	##ForEach(enumerate(entrys))
+		##(_[1]) = (0x1 << ##(a[0])),
+	}
+	
+bitenum nummy{
+	ini, mini, mo ;
+}

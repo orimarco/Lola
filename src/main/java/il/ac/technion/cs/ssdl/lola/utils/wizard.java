@@ -13,7 +13,7 @@ import il.ac.technion.cs.ssdl.lola.parser.lexer.Token;
  */
 public enum wizard {
 	;
-	private static final String BUILDERS_PATH = "il.ac.technion.cs.ssdl.lola.parser.builders.$";
+	private static final String BUILDERS_PATH = "il.ac.technion.cs.ssdl.lola.parser.builders.";
 	private static final String lolaEscapingCharacter = JflexLexer.lolaEscapingCharacter;;
 	public static Map<String, $Find> userDefinedKeywords = new HashMap<>();
 
@@ -21,10 +21,10 @@ public enum wizard {
 		// some reflection, to create a keyword by its name...
 		final String name = t.text.replace(lolaEscapingCharacter, "");
 		try {
-			return (Keyword) Class.forName(BUILDERS_PATH + name).getConstructor(Token.class).newInstance(t);
+			return (Keyword) Class.forName(BUILDERS_PATH + "$" + name).getConstructor(Token.class).newInstance(t);
 		} catch (ClassNotFoundException | NoClassDefFoundError e) {
 			try {
-				return (Keyword) Class.forName(BUILDERS_PATH + toUpperCaseClass(name)).getConstructor(Token.class)
+				return (Keyword) Class.forName(BUILDERS_PATH + "$" + toUpperCaseClass(name)).getConstructor(Token.class)
 						.newInstance(t);
 			} catch (final Exception e1) {
 				if (userDefinedKeywords.containsKey(name))
@@ -40,11 +40,11 @@ public enum wizard {
 	public static boolean keywordExists(final Token t) {
 		final String name = t.text.replace(lolaEscapingCharacter, "");
 		try {
-			Class.forName(BUILDERS_PATH + name).getConstructor(Token.class).newInstance(t);
+			Class.forName(BUILDERS_PATH + "$" + name).getConstructor(Token.class).newInstance(t);
 			return true;
 		} catch (ClassNotFoundException | NoClassDefFoundError e) {
 			try {
-				Class.forName(BUILDERS_PATH + toUpperCaseClass(name)).getConstructor(Token.class).newInstance(t);
+				Class.forName(BUILDERS_PATH + "$" + toUpperCaseClass(name)).getConstructor(Token.class).newInstance(t);
 				return true;
 			} catch (final Exception e1) {
 				if (userDefinedKeywords.containsKey(name))
@@ -57,6 +57,6 @@ public enum wizard {
 	}
 
 	private static String toUpperCaseClass(final String name) {
-		return name.substring(0, 1) + name.substring(1, 2).toUpperCase() + name.substring(2);
+		return name.substring(0, 1).toUpperCase() + name.substring(1);
 	}
 }

@@ -34,7 +34,7 @@ public class SnippetToken extends AST.Node {
 		return token.text;
 	}
 
-	private String packageToFile(final String packageName) {
+	private static String packageToFile(final String packageName) {
 		return "./lola_libs/" + packageName.replace(".", "/") + ".lola";
 	}
 	enum Type {

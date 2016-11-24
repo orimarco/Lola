@@ -622,7 +622,7 @@ public class ParserTest {
 			}
 		}
 
-		void printList(final List<String> ss) {
+		static void printList(final List<String> ss) {
 			for (final String ¢ : ss)
 				System.out.println(¢);
 		}

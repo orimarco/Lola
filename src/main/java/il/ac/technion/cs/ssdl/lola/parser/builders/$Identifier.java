@@ -3,6 +3,7 @@ import il.ac.technion.cs.ssdl.lola.parser.builders.AST.*;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.*;
 import il.ac.technion.cs.ssdl.lola.parser.re.*;
 import il.ac.technion.cs.ssdl.lola.parser.re.RegExp.*;
+import il.ac.technion.cs.ssdl.lola.utils.iz;
 public class $Identifier extends RegExpKeyword {
 	public $Identifier(final Token token) {
 		super(token);
@@ -11,7 +12,7 @@ public class $Identifier extends RegExpKeyword {
 
 	@Override
 	public boolean accepts(final Node b) {
-		return state == Automaton.Snippet && b.token.isSnippet();
+		return state == Automaton.Snippet && iz.snippetToken(b);
 	}
 
 	@Override

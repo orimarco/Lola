@@ -15,7 +15,7 @@ public class $Assert extends ExecutableElaborator implements GeneratingKeyword {
 	 */
 	@Override
 	public boolean accepts(final AST.Node b) {
-		return b.token.isSnippet() && state == Automaton.Snippet;
+		return iz.snippetToken(b) && state == Automaton.Snippet;
 	}
 
 	@Override

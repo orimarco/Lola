@@ -11,7 +11,7 @@ public class $run extends ExecutableElaborator {
 
 	@Override
 	public boolean accepts(final AST.Node b) {
-		return b.token.isTrivia() || b.token.isSnippet() && state != Automaton.Done;
+		return b.token.isTrivia() || iz.snippetToken(b) && state != Automaton.Done;
 	}
 
 	@Override

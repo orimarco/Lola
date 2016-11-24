@@ -7,8 +7,7 @@ import il.ac.technion.cs.ssdl.lola.parser.re.*;
 public class $Sequence extends RegExpKeyword implements RegExpable {
 	public $Sequence(final Token token) {
 		super(token);
-		expectedElaborators = new ArrayList<>(
-				Arrays.asList(new String[]{"$followedBy"}));
+		expectedElaborators = new ArrayList<>(Arrays.asList(new String[]{"$followedBy"}));
 		state = Automaton.Snippet;
 	}
 
@@ -18,11 +17,10 @@ public class $Sequence extends RegExpKeyword implements RegExpable {
 			case Elaborators :
 				return expectedElaborators.contains(b.name());
 			case List :
-				return !(b instanceof Keyword) || b instanceof RegExpKeyword
-						|| expectedElaborators.contains(b.name());
+				return !(b instanceof Keyword) || b instanceof RegExpKeyword || expectedElaborators.contains(b.name());
 			case Snippet :
-				return b instanceof SnippetToken && isIdentifier((SnippetToken) b)
-						|| b instanceof HostToken || b instanceof TriviaToken;
+				return b instanceof SnippetToken && isIdentifier((SnippetToken) b) || b instanceof HostToken
+						|| b instanceof TriviaToken;
 			default :
 				return false;
 		}
@@ -71,9 +69,9 @@ public class $Sequence extends RegExpKeyword implements RegExpable {
 		elaborators.add((Elaborator) ¢);
 	}
 
-	private boolean isIdentifier(final SnippetToken b) {
-		return !b.getText().contains(" ") && !b.getText().contains("\t")
-				&& !b.getText().contains("\n") && !b.getText().contains("\r");
+	private static boolean isIdentifier(final SnippetToken b) {
+		return !b.getText().contains(" ") && !b.getText().contains("\t") && !b.getText().contains("\n")
+				&& !b.getText().contains("\r");
 		// TODO: user defined identifiers...
 	}
 }

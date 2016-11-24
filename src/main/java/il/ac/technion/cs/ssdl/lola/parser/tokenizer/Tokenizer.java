@@ -58,8 +58,10 @@ public class Tokenizer implements Iterable<Token> {
 	}
 
 	private static boolean acceptsSnippet(final Token ¢) {
-		return newKeyword(¢)
-				.accepts(new SnippetToken(new Token(0, 0, "(dummy)", CategoriesHierarchy.getCategory("snippet"))));
+		return keywordExists(¢)
+				&& newKeyword(¢)
+						.accepts(new SnippetToken(new Token(0, 0, "(dummy)", CategoriesHierarchy.getCategory("snippet"))))
+				|| !keywordExists(¢);
 	}
 
 	private Token consumeSnippetAndGetNext(final JflexLexer l) throws IOException {

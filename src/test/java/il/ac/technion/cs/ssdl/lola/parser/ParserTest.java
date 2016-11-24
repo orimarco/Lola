@@ -537,8 +537,7 @@ public class ParserTest {
 
 	@Test
 	public void testUserDefinedFind() throws IOException {
-		aux.runStringTest(
-				"##Find(Lol) ##OneOrMore lol \n##Find ##Lol ##replace hah\n##example lol lol lol\n##resultsIn hah hah hah");
+		aux.runStringTest("##Find(Lol) {##OneOrMore lol\n\t} \n##Find ##Lol ##replace hah\n{lol lol lol}", "hah");
 	}
 
 	@Test

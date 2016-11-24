@@ -9,7 +9,7 @@ import il.ac.technion.cs.ssdl.lola.parser.builders.AST.*;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.*;
 public class $example extends Elaborator {
 	private static void equalsIgnoringTrivia(final String s1, final String s2) {
-		assertEquals(cleanTrivia(s1), cleanTrivia(s2));
+		assertEquals(cleanTrivia(s2), cleanTrivia(s1));
 	}
 
 	private static String cleanTrivia(final String s1) {

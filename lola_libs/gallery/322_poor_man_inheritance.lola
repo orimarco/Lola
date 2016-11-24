@@ -1,0 +1,16 @@
+##Find(Struct) struct ##Identifier(name) { ##Any(fields) }
+##Find(InheritanceStruct)
+	struct ##Optional ##Identifier(name) extends ##Identifier(inherited) {
+		##Any(fields)
+	}
+	##anchor extends
+	##run {fields = [InheritanceStruct.fields] + [x.fields for x in Structs + InheritanceStructs	if x.name is InheritanceStruct.inherited]
+		
+		}
+
+struct man{
+	int age;
+}
+struct poor extends man{
+	int purity;
+}

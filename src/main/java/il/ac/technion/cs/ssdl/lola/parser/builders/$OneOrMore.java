@@ -58,8 +58,7 @@ public class $OneOrMore extends RegExpKeyword implements RegExpable {
 		if (opener != null)
 			$.add(opener.toRegExp());
 		$.addAll(seqRes);
-		if (separator != null)
-			$.add(seqAsterisk(seqRes, separator));
+		$.add(seqAsterisk(seqRes, separator));
 		if (closer != null)
 			$.add(closer.toRegExp());
 		return new sequence($);
@@ -68,7 +67,8 @@ public class $OneOrMore extends RegExpKeyword implements RegExpable {
 	private static RegExp seqAsterisk(final ArrayList<RegExp> ¢, $separator $) {
 		@SuppressWarnings("unchecked")
 		ArrayList<RegExp> ss = (ArrayList<RegExp>) ¢.clone();
-		ss.add(0, $.toRegExp());
+		if ($ != null)
+			ss.add(0, $.toRegExp());
 		return new or(new OneOrMore(new sequence(ss)), new Atomic.Empty());
 	}
 

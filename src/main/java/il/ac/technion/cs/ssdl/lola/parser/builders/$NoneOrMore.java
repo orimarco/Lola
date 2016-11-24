@@ -66,40 +66,19 @@ public class $NoneOrMore extends RegExpKeyword implements RegExpable {
 				seqRes.add(((RegExpable) ¢).toRegExp());
 		if (opener != null)
 			$.add(opener.toRegExp());
-		$.add(separator == null
-				? seqAsterisk(seqRes)
-				: new or(
-						Arrays.asList(new RegExp[]{new Atomic.Empty(), oneSeq(seqRes), seqSepSeqAsterisk(seqRes, separator)})));
+		$.addAll(seqRes);
+		$.add(seqAsterisk(seqRes, separator));
 		if (closer != null)
 			$.add(closer.toRegExp());
-		return new sequence($);
+		return new or(new sequence($), new Atomic.Empty());
 	}
 
-	private static RegExp seqAsterisk(final ArrayList<RegExp> ¢) {
-		return new or(new OneOrMore(new sequence(¢)), new Atomic.Empty());
-	}
-
-	/**
-	 * @param sep
-	 * @param seqRes
-	 * @return
-	 */
-	private static RegExp seqSepSeqAsterisk(final ArrayList<RegExp> seqRes, final $separator sep) {
+	private static RegExp seqAsterisk(final ArrayList<RegExp> ¢, $separator $) {
 		@SuppressWarnings("unchecked")
-		ArrayList<RegExp> ss = (ArrayList<RegExp>) seqRes.clone();
-		ss.add(0, sep.toRegExp());
-		@SuppressWarnings("unchecked")
-		ArrayList<RegExp> $ = (ArrayList<RegExp>) seqRes.clone();
-		$.add(seqAsterisk(ss));
-		return new sequence($);
-	}
-
-	/**
-	 * @param seqRes
-	 * @return
-	 */
-	private static RegExp oneSeq(final ArrayList<RegExp> seqRes) {
-		return new sequence(seqRes);
+		ArrayList<RegExp> ss = (ArrayList<RegExp>) ¢.clone();
+		if ($ != null)
+			ss.add(0, $.toRegExp());
+		return new or(new OneOrMore(new sequence(ss)), new Atomic.Empty());
 	}
 
 	private void adoptElaborator(final Builder ¢) {

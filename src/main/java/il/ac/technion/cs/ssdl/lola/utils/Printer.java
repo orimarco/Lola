@@ -9,7 +9,7 @@ import il.ac.technion.cs.ssdl.lola.parser.re.*;
 import il.ac.technion.cs.ssdl.lola.parser.tokenizer.*;
 public class Printer {
 	private static final boolean AST = true;
-	private static final boolean RE = true;
+	private static final boolean RE = false;
 	private static final boolean Chain = false;
 	private static final boolean Python = false;
 	private static final boolean Tokens = false;

@@ -4,6 +4,7 @@ import java.util.*;
 import il.ac.technion.cs.ssdl.lola.parser.builders.AST.*;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.*;
 import il.ac.technion.cs.ssdl.lola.parser.re.*;
+import il.ac.technion.cs.ssdl.lola.parser.re.RegExp.Atomic;
 public class $OneOrMore extends RegExpKeyword implements RegExpable {
 	$separator separator;
 	$opener opener;
@@ -11,20 +12,17 @@ public class $OneOrMore extends RegExpKeyword implements RegExpable {
 
 	public $OneOrMore(final Token token) {
 		super(token);
-		expectedElaborators = new ArrayList<>(
-				Arrays.asList(new String[]{"$separator", "$opener", "$closer"}));
+		expectedElaborators = new ArrayList<>(Arrays.asList(new String[]{"$separator", "$opener", "$closer"}));
 	}
 
 	@Override
 	public boolean accepts(final AST.Node b) {
 		switch (state) {
 			case Elaborators :
-				return b instanceof TriviaToken
-						|| expectedElaborators.contains(b.name()) && elaborators.stream()
-								.filter(e -> e.getClass().equals(b.getClass())).count() == 0;
+				return b instanceof TriviaToken || expectedElaborators.contains(b.name())
+						&& elaborators.stream().filter(e -> e.getClass().equals(b.getClass())).count() == 0;
 			case List :
-				return !(b instanceof Keyword) || b instanceof RegExpKeyword
-						|| expectedElaborators.contains(b.name());
+				return !(b instanceof Keyword) || b instanceof RegExpKeyword || expectedElaborators.contains(b.name());
 			default :
 				return false;
 		}
@@ -52,22 +50,26 @@ public class $OneOrMore extends RegExpKeyword implements RegExpable {
 
 	@Override
 	public RegExp toRegExp() {
-		final ArrayList<RegExp> oneOrMoreRes = new ArrayList<>();
-		for (final Node ¢ : list)
-			if (!¢.token.isTrivia()) {
-				oneOrMoreRes.add(((RegExpable) ¢).toRegExp());
-				if (separator != null)
-					oneOrMoreRes.add(separator.toRegExp());
-			}
-		if (separator != null && oneOrMoreRes.size() > 1)
-			oneOrMoreRes.remove(oneOrMoreRes.size() - 1);
 		final ArrayList<RegExp> seqRes = new ArrayList<>();
+		final ArrayList<RegExp> $ = new ArrayList<>();
+		for (final Node ¢ : list)
+			if (!¢.token.isTrivia())
+				seqRes.add(((RegExpable) ¢).toRegExp());
 		if (opener != null)
-			seqRes.add(opener.toRegExp());
-		seqRes.add(new OneOrMore(new sequence(oneOrMoreRes)));
+			$.add(opener.toRegExp());
+		$.addAll(seqRes);
+		if (separator != null)
+			$.add(seqAsterisk(seqRes, separator));
 		if (closer != null)
-			seqRes.add(opener.toRegExp());
-		return new sequence(seqRes);
+			$.add(closer.toRegExp());
+		return new sequence($);
+	}
+
+	private static RegExp seqAsterisk(final ArrayList<RegExp> ¢, $separator $) {
+		@SuppressWarnings("unchecked")
+		ArrayList<RegExp> ss = (ArrayList<RegExp>) ¢.clone();
+		ss.add(0, $.toRegExp());
+		return new or(new OneOrMore(new sequence(ss)), new Atomic.Empty());
 	}
 
 	private void adoptElaborator(final Builder ¢) {

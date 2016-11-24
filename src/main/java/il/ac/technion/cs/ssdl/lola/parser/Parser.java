@@ -2,7 +2,18 @@ package il.ac.technion.cs.ssdl.lola.parser;
 import java.io.*;
 import java.util.*;
 import java.util.stream.*;
-import il.ac.technion.cs.ssdl.lola.parser.builders.*;
+
+import il.ac.technion.cs.ssdl.lola.parser.builders.$Find;
+import il.ac.technion.cs.ssdl.lola.parser.builders.$example;
+import il.ac.technion.cs.ssdl.lola.parser.builders.AST;
+import il.ac.technion.cs.ssdl.lola.parser.builders.Builder;
+import il.ac.technion.cs.ssdl.lola.parser.builders.Elaborator;
+import il.ac.technion.cs.ssdl.lola.parser.builders.ExecutableElaborator;
+import il.ac.technion.cs.ssdl.lola.parser.builders.GeneratingKeyword;
+import il.ac.technion.cs.ssdl.lola.parser.builders.HostToken;
+import il.ac.technion.cs.ssdl.lola.parser.builders.Keyword;
+import il.ac.technion.cs.ssdl.lola.parser.builders.SnippetToken;
+import il.ac.technion.cs.ssdl.lola.parser.builders.TriviaToken;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.*;
 import il.ac.technion.cs.ssdl.lola.parser.re.*;
 import il.ac.technion.cs.ssdl.lola.parser.tokenizer.*;
@@ -15,6 +26,13 @@ public class Parser {
 
 	public Parser(final Reader stream) {
 		tokenizer = new Tokenizer(stream);
+	}
+
+	/**
+	 * @param s
+	 */
+	public Parser(String s) {
+		this(new StringReader(s));
 	}
 
 	/**

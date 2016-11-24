@@ -13,6 +13,7 @@ public class Tokenizer implements Iterable<Token> {
 	private ArrayList<Token> tokens = new ArrayList<>();
 	private int idx;
 
+
 	public Tokenizer(final Reader stream) {
 		try {
 			addTokens(stream);

@@ -1,18 +1,32 @@
 package il.ac.technion.cs.ssdl.lola.parser;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import org.apache.commons.io.*;
-import org.apache.commons.io.filefilter.*;
-import org.junit.*;
-import org.python.util.*;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.DirectoryFileFilter;
+import org.apache.commons.io.filefilter.RegexFileFilter;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.python.util.PythonInterpreter;
 
-import il.ac.technion.cs.ssdl.lola.parser.builders.*;
-import il.ac.technion.cs.ssdl.lola.parser.builders.AST.*;
-import il.ac.technion.cs.ssdl.lola.parser.lexer.*;
-import il.ac.technion.cs.ssdl.lola.parser.tokenizer.*;
+import il.ac.technion.cs.ssdl.lola.parser.builders.$replace;
+import il.ac.technion.cs.ssdl.lola.parser.builders.AST.Node;
+import il.ac.technion.cs.ssdl.lola.parser.builders.Elaborator;
+import il.ac.technion.cs.ssdl.lola.parser.builders.GeneratingKeyword;
+import il.ac.technion.cs.ssdl.lola.parser.builders.HostToken;
+import il.ac.technion.cs.ssdl.lola.parser.builders.TriviaToken;
+import il.ac.technion.cs.ssdl.lola.parser.lexer.Token;
+import il.ac.technion.cs.ssdl.lola.parser.tokenizer.Tokenizer;
 /**
  * Unit tests for {@link Parser}
  * 
@@ -32,16 +46,14 @@ public class ParserTest {
 
 	@Test
 	public void test$example() throws IOException {
-		final Reader stream = new StringReader(
-				"##Find ##Literal(lit) ##replace 7 ##example \"omg\" ##resultsIn 7");
+		final Reader stream = new StringReader("##Find ##Literal(lit) ##replace 7 ##example \"omg\" ##resultsIn 7");
 		parser = new Parser(stream);
 		parser.parse();
 	}
 
 	@Test
 	public void test$Literal() throws IOException {
-		final Reader stream = new StringReader(
-				"##Find ##Literal(lit) ##replace 7\n \"omg\"");
+		final Reader stream = new StringReader("##Find ##Literal(lit) ##replace 7\n \"omg\"");
 		parser = new Parser(stream);
 		aux.assertTEquals("7", aux.list2string(parser.parse()));
 	}
@@ -57,26 +69,21 @@ public class ParserTest {
 	@Test
 	public void testAnchor() {
 		try {
-			aux.runStringTest(
-					"##Find #anchored b #to\n\t##anchor #anchored\n#anchored 77");
+			aux.runStringTest("##Find #anchored b #to\n\t##anchor #anchored\n#anchored 77");
 			fail("RuntimeError wasn't thrown!");
 		} catch (final RuntimeException e) {
-			assertEquals("Anchor Error: while matching to [#anchored]",
-					e.getMessage());
+			assertEquals("Anchor Error: while matching to [#anchored]", e.getMessage());
 		}
 	}
 
 	@Test
 	public void testAnchoredVisitor() {
 		try {
-			aux.runStringTest(
-					"##Import nPatterns.rangeBasedCase\n #Case x #of 1-7 #then 8 #then",
+			aux.runStringTest("##Import nPatterns.rangeBasedCase\n #Case x #of 1-7 #then 8 #then",
 					"#Case x #of 1-7 # then 8 #then");
 			fail("RuntimeError wasn't thrown!");
 		} catch (final RuntimeException e) {
-			aux.assertTEquals(
-					"Anchor Error: while matching to [#Case x #of 1-7 # then 8 #then]",
-					e.getMessage());
+			aux.assertTEquals("Anchor Error: while matching to [#Case x #of 1-7 # then 8 #then]", e.getMessage());
 		}
 	}
 
@@ -112,9 +119,9 @@ public class ParserTest {
 
 	@Test
 	public void testBugsHuge() throws IOException {
-		final Reader stream = new StringReader("##Find sizeof ##Sequence Bugs\n"
-				+ "               ?huge ##replace ##If(random() >= 0.5) 42"
-				+ "										  ##else 6 *" + "											7");
+		final Reader stream = new StringReader(
+				"##Find sizeof ##Sequence Bugs\n" + "               ?huge ##replace ##If(random() >= 0.5) 42"
+						+ "										  ##else 6 *" + "											7");
 		parser = new Parser(stream);
 		final List<Lexi> directives = parser.directives();
 		// printAST(directives.get(0).keyword);
@@ -139,8 +146,7 @@ public class ParserTest {
 
 	@Test
 	public void testCharIsLiteral() {
-		aux.runStringTest(
-				"##Find ##Literal(lit) ##replace replaced\n##example 'a' 'b'\n##resultsIn replaced replaced");
+		aux.runStringTest("##Find ##Literal(lit) ##replace replaced\n##example 'a' 'b'\n##resultsIn replaced replaced");
 	}
 
 	@Test
@@ -170,10 +176,8 @@ public class ParserTest {
 		parser = new Parser(stream);
 		final List<Lexi> directives = parser.directives();
 		assertEquals(directives.size(), 1);
-		assertEquals(directives.get(0).keyword.elaborators().get(0).getClass(),
-				$replace.class);
-		assertEquals(directives.get(0).keyword.elaborators().get(0).list().size(),
-				2);
+		assertEquals(directives.get(0).keyword.elaborators().get(0).getClass(), $replace.class);
+		assertEquals(directives.get(0).keyword.elaborators().get(0).list().size(), 2);
 	}
 
 	@Test
@@ -185,8 +189,7 @@ public class ParserTest {
 
 	@Test
 	public void testFindReplaceReplacementTwoFinds() throws IOException {
-		final Reader stream = new StringReader(
-				"##Find 1 ##replace 3\n" + "##Find 2 ##replace 4\n" + "2 1 2");
+		final Reader stream = new StringReader("##Find 1 ##replace 3\n" + "##Find 2 ##replace 4\n" + "2 1 2");
 		parser = new Parser(stream);
 		aux.assertTEquals("4 3 4", aux.list2string(parser.parse()));
 	}
@@ -194,8 +197,8 @@ public class ParserTest {
 	@Ignore
 	@Test
 	public void testFluentList() throws IOException {
-		try (final Reader stream = new FileReader(new File(
-				"./src/il/ac/technion/cs/ssdl/lola/parser/tests/fluentList.lola"))) {
+		try (final Reader stream = new FileReader(
+				new File("./src/il/ac/technion/cs/ssdl/lola/parser/tests/fluentList.lola"))) {
 			parser = new Parser(stream);
 			aux.assertTEquals("", aux.list2string(parser.parse()));
 		}
@@ -203,8 +206,7 @@ public class ParserTest {
 
 	@Test
 	public void testForEach() throws IOException {
-		try (final Reader stream = new StringReader(
-				"##ForEach([x for x in xrange(1,42)]) 42")) {
+		try (final Reader stream = new StringReader("##ForEach([x for x in xrange(1,42)]) 42")) {
 			parser = new Parser(stream);
 			final List<Lexi> directives = parser.directives();
 			assertEquals(directives.size(), 1);
@@ -219,32 +221,28 @@ public class ParserTest {
 
 	@Test
 	public void testForEachGenration() throws IOException {
-		final Reader stream = new StringReader(
-				"##Find 4 ##replace ##ForEach([1,2,3]) ##(_) \n4");
+		final Reader stream = new StringReader("##Find 4 ##replace ##ForEach([1,2,3]) ##(_) \n4");
 		parser = new Parser(stream);
 		assertEquals("  1   2   3 ", aux.list2string(parser.parse()));
 	}
 
 	@Test
 	public void testForEachGenrationWithIfNone() throws IOException {
-		final Reader stream = new StringReader(
-				"##Find 4 ##replace ##ForEach([]) ##(_) ##ifNone 8\n4");
+		final Reader stream = new StringReader("##Find 4 ##replace ##ForEach([]) ##(_) ##ifNone 8\n4");
 		parser = new Parser(stream);
 		aux.assertTEquals("  8", aux.list2string(parser.parse()));
 	}
 
 	@Test
 	public void testForEachGenrationWithSeparator() throws IOException {
-		final Reader stream = new StringReader(
-				"##Find 4 ##replace ##ForEach([1,2,3]) ##(_) ##separator ,\n4");
+		final Reader stream = new StringReader("##Find 4 ##replace ##ForEach([1,2,3]) ##(_) ##separator ,\n4");
 		parser = new Parser(stream);
 		assertEquals("  1 , 2 , 3", aux.list2string(parser.parse()));
 	}
 
 	@Test
 	public void testForEachIfNone() throws IOException {
-		final Reader stream = new StringReader(
-				"##ForEach([x for x in xrange(1,42)]) 42 ##ifNone 24");
+		final Reader stream = new StringReader("##ForEach([x for x in xrange(1,42)]) 42 ##ifNone 24");
 		parser = new Parser(stream);
 		final List<Lexi> directives = parser.directives();
 		assertEquals(directives.size(), 1);
@@ -265,8 +263,7 @@ public class ParserTest {
 
 	@Test
 	public void testForEachIfNoneSeparator() throws IOException {
-		final Reader stream = new StringReader(
-				"##ForEach([x for x in xrange(1,42)]) 42 ##ifNone 24 ##separator ,");
+		final Reader stream = new StringReader("##ForEach([x for x in xrange(1,42)]) 42 ##ifNone 24 ##separator ,");
 		parser = new Parser(stream);
 		final List<Lexi> directives = parser.directives();
 		assertEquals(directives.size(), 1);
@@ -286,15 +283,12 @@ public class ParserTest {
 		assertEquals(((TriviaToken) e.list().get(2)).getText(), " ");
 		e = dir.elaborators().get(1);
 		assertEquals(e.name(), "$separator");
-		assertEquals(e.list().size(), 2);
-		assertEquals(((TriviaToken) e.list().get(0)).getText(), " ");
-		assertEquals(((HostToken) e.list().get(1)).getText(), ",");
+		assertEquals(((HostToken) e.list().get(0)).getText(), ",");
 	}
 
 	@Test
 	public void testIdentifierReplaceWith$() throws IOException {
-		final Reader stream = new StringReader(
-				"##Find ##Identifier(id) ##replace ##(id) ##example x ##resultsIn x");
+		final Reader stream = new StringReader("##Find ##Identifier(id) ##replace ##(id) ##example x ##resultsIn x");
 		parser = new Parser(stream);
 		parser.parse();
 	}
@@ -330,16 +324,14 @@ public class ParserTest {
 
 	@Test
 	public void testIfElseExecution3() throws IOException {
-		final Reader stream = new StringReader(
-				"##If(3 + 2 == 6) 6 ##elseIf(7 == 9) 7 ##else 2\n4 2");
+		final Reader stream = new StringReader("##If(3 + 2 == 6) 6 ##elseIf(7 == 9) 7 ##else 2\n4 2");
 		parser = new Parser(stream);
 		aux.assertTEquals(" 2\n4 2", aux.list2string(parser.parse()));
 	}
 
 	@Test
 	public void testIfElseIfElse() throws IOException {
-		final Reader stream = new StringReader(
-				"##If(x==7) 42 ##elseIf(x==4) 6*7 ##else 3*14");
+		final Reader stream = new StringReader("##If(x==7) 42 ##elseIf(x==4) 6*7 ##else 3*14");
 		parser = new Parser(stream);
 		final List<Lexi> directives = parser.directives();
 		assertEquals(directives.size(), 1);
@@ -374,8 +366,7 @@ public class ParserTest {
 		parser = new Parser(stream);
 		final List<Lexi> directives = parser.directives();
 		assertEquals(directives.size(), 1);
-		final GeneratingKeyword include = (GeneratingKeyword) directives
-				.get(0).keyword;
+		final GeneratingKeyword include = (GeneratingKeyword) directives.get(0).keyword;
 		final Reader r = new StringReader(include.generate(null));
 		final Tokenizer tokenizer = new Tokenizer(r);
 		Token token = tokenizer.next_token();
@@ -401,8 +392,7 @@ public class ParserTest {
 		parser = new Parser(stream);
 		final List<Lexi> directives = parser.directives();
 		assertEquals(directives.size(), 1);
-		final GeneratingKeyword include = (GeneratingKeyword) directives
-				.get(0).keyword;
+		final GeneratingKeyword include = (GeneratingKeyword) directives.get(0).keyword;
 		final Reader r = new StringReader(include.generate(null));
 		final Tokenizer tokenizer = new Tokenizer(r);
 		Token token = tokenizer.next_token();
@@ -421,22 +411,20 @@ public class ParserTest {
 		parser = new Parser(stream);
 		final List<Lexi> directives = parser.directives();
 		assertEquals(directives.size(), 1);
-		assertEquals(directives.get(0).keyword.snippet().getText(),
-				"\"file.testInclude\"");
+		assertEquals(directives.get(0).keyword.snippet().getText(), "\"file.testInclude\"");
 	}
 
 	@Ignore
 	@Test
 	public void testLibs() {
-		for (final File ¢ : FileUtils.listFiles(new File("./lola_libs"),
-				new RegexFileFilter(".*\\.lola"), DirectoryFileFilter.DIRECTORY))
+		for (final File ¢ : FileUtils.listFiles(new File("./lola_libs"), new RegexFileFilter(".*\\.lola"),
+				DirectoryFileFilter.DIRECTORY))
 			aux.runFileTest(¢);
 	}
 
 	@Test
 	public void testLiteralReplaceWith$() throws IOException {
-		final Reader stream = new StringReader(
-				"##Find ##Literal(lit) ##replace ##(lit) ##example 7 ##resultsIn 7");
+		final Reader stream = new StringReader("##Find ##Literal(lit) ##replace ##(lit) ##example 7 ##resultsIn 7");
 		parser = new Parser(stream);
 		parser.parse();
 	}
@@ -478,17 +466,14 @@ public class ParserTest {
 
 	@Test
 	public void testRun() throws IOException {
-		final Reader stream = new StringReader(
-				"##Find 1 ##run {if 'x' not in locals():\n\t x = 0\nelse:\n\tx +=1}\n1 1 1");
+		final Reader stream = new StringReader("##Find 1 ##run {if 'x' not in locals():\n\t x = 0\nelse:\n\tx +=1}\n1 1 1");
 		parser = new Parser(stream);
-		aux.assertListEquals(parser.parse(),
-				new ArrayList<>(Arrays.asList(new String[]{"1", " ", "1", " ", "1"})));
+		aux.assertListEquals(parser.parse(), new ArrayList<>(Arrays.asList(new String[]{"1", " ", "1", " ", "1"})));
 	}
 
 	@Test
 	public void testSequence() throws IOException {
-		final Reader stream = new StringReader(
-				"##Sequence(identifier) 1 ##followedBy 2 ##followedBy 3");
+		final Reader stream = new StringReader("##Sequence(identifier) 1 ##followedBy 2 ##followedBy 3");
 		parser = new Parser(stream);
 		final List<Lexi> directives = parser.directives();
 		assertEquals(directives.size(), 1);
@@ -527,18 +512,15 @@ public class ParserTest {
 
 	@Test
 	public void testSquared0() {
-		aux.runStringTest(
-				"##Find squared ##Literal(f)\n	##replace ##(f * f) \ndouble sixteen = squared squared 2.0;",
+		aux.runStringTest("##Find squared ##Literal(f)\n	##replace ##(f * f) \ndouble sixteen = squared squared 2.0;",
 				"double sixteen = 16.0;");
 	}
 
 	@Test
 	public void testStritch() throws IOException {
-		final Reader stream = new FileReader(
-				new File("./lola_libs/examples/stritch.lola"));
+		final Reader stream = new FileReader(new File("./lola_libs/examples/stritch.lola"));
 		parser = new Parser(stream);
-		aux.assertTEquals(
-				"if(str.equals(\"omg\")){ print(7);} if(str.equals(\"ooo\")){ print(8);}",
+		aux.assertTEquals("if(str.equals(\"omg\")){ print(7);} if(str.equals(\"ooo\")){ print(8);}",
 				aux.list2string(parser.parse()));
 	}
 
@@ -564,6 +546,12 @@ public class ParserTest {
 		aux.runStringTest(
 				"##Find(Range) ##Literal(begin)-##Literal(end)\n##Find ##Range(r) ##replace ##(r.begin)*##(r.end)\n##example here: 'a'-'b' ##resultsIn here: 'a'*'b'");
 	}
+
+	@Test
+	public void a() {
+		aux.runStringTest(
+				"##Find\n ##NoneOrMore ##Identifier(entry)\n		##separator ,\n		##closer ;\n ##delete\n\na,b,c;", "");
+	}
 	enum aux {
 		;
 		static void assertListEquals(final List<?> li1, final List<?> li2) {
@@ -577,8 +565,7 @@ public class ParserTest {
 		}
 
 		private static String cleanSpaces(final String s1) {
-			return s1.replace(" ", "").replace("\n", "").replace("\t", "")
-					.replace("\r", "");
+			return s1.replace(" ", "").replace("\n", "").replace("\t", "").replace("\r", "");
 		}
 
 		static String list2string(final List<String> ss) {
@@ -599,8 +586,7 @@ public class ParserTest {
 		}
 
 		static void runFileTest(final String fileName) {
-			runFileTest(new File("./src/il/ac/technion/cs/ssdl/lola/parser/tests/"
-					+ fileName + ".lola"));
+			runFileTest(new File("./src/il/ac/technion/cs/ssdl/lola/parser/tests/" + fileName + ".lola"));
 		}
 
 		static void runLibTest(final String fileName) {

@@ -1,11 +1,14 @@
 package il.ac.technion.cs.ssdl.lola.utils;
 import il.ac.technion.cs.ssdl.lola.parser.*;
-import il.ac.technion.cs.ssdl.lola.parser.builders.*;
+import il.ac.technion.cs.ssdl.lola.parser.builders.Elaborator;
+import il.ac.technion.cs.ssdl.lola.parser.builders.HostToken;
+import il.ac.technion.cs.ssdl.lola.parser.builders.Keyword;
+import il.ac.technion.cs.ssdl.lola.parser.builders.TriviaToken;
 import il.ac.technion.cs.ssdl.lola.parser.builders.AST.*;
 import il.ac.technion.cs.ssdl.lola.parser.re.*;
 import il.ac.technion.cs.ssdl.lola.parser.tokenizer.*;
 public class Printer {
-	private static final boolean AST = false;
+	private static final boolean AST = true;
 	private static final boolean RE = true;
 	private static final boolean Chain = false;
 	private static final boolean Python = false;

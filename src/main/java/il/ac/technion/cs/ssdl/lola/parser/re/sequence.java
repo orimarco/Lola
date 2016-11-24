@@ -21,9 +21,7 @@ public class sequence extends Composite {
 	@Override
 	public void apply(final PythonAdapter a) {
 		if (snippet != null)
-			a.enterScope(
-					snippet.substring(snippet.indexOf('(') + 1, snippet.lastIndexOf(')')),
-					text());
+			a.enterScope(snippet.substring(snippet.indexOf('(') + 1, snippet.lastIndexOf(')')), text());
 		for (final Branch ¢ : branches)
 			if (¢.satiated()) {
 				¢.apply(a);
@@ -43,9 +41,12 @@ public class sequence extends Composite {
 	}
 
 	@Override
-	public boolean eats(final Bunny b) {
-		// System.out.println("seq: eats? [" + b.text() + "]" + (b instanceof
-		// TriviaBunny));
+	public boolean eats(final Bunny ¢) {
+		// System.out.println("seq: eats? [" + ¢.text() + "]" + eats_aux(¢));
+		return eats_aux(¢);
+	}
+
+	private boolean eats_aux(final Bunny b) {
 		/* check if any branch can accept token */
 		for (final Branch ¢ : branches)
 			if (¢.eats(b))

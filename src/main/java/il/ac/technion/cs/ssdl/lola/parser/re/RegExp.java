@@ -33,8 +33,7 @@ public interface RegExp {
 			@Override
 			public void apply(final PythonAdapter ¢) {
 				if (snippet != null)
-					¢.addIdentifier(snippet.substring(snippet.indexOf('(') + 1,
-							snippet.lastIndexOf(')')), "'" + text + "'");
+					¢.addIdentifier(snippet.substring(snippet.indexOf('(') + 1, snippet.lastIndexOf(')')), "'" + text + "'");
 				// TODO: might not work if the text doesn't evaluate
 			}
 
@@ -181,8 +180,7 @@ public interface RegExp {
 
 			@Override
 			public boolean eats(final Bunny ¢) {
-				return !done && ¢ instanceof HostBunny
-						&& ((HostBunny) ¢).token.text.equals(text);
+				return !done && ¢ instanceof HostBunny && ((HostBunny) ¢).token.text.equals(text);
 			}
 
 			@Override
@@ -211,8 +209,7 @@ public interface RegExp {
 			@Override
 			public void apply(final PythonAdapter ¢) {
 				if (snippet != null)
-					¢.addIdentifier(snippet.substring(snippet.indexOf('(') + 1,
-							snippet.lastIndexOf(')')), "'" + text + "'");
+					¢.addIdentifier(snippet.substring(snippet.indexOf('(') + 1, snippet.lastIndexOf(')')), "'" + text + "'");
 			}
 
 			@Override
@@ -224,8 +221,7 @@ public interface RegExp {
 
 			@Override
 			public boolean eats(final Bunny ¢) {
-				return !(¢ instanceof TriviaBunny) && text == null
-						&& "identifier".equals(((HostBunny) ¢).token.category.name);
+				return !(¢ instanceof TriviaBunny) && text == null && "identifier".equals(((HostBunny) ¢).token.category.name);
 			}
 
 			@Override
@@ -255,8 +251,7 @@ public interface RegExp {
 			public void apply(final PythonAdapter a) {
 				if (snippet == null)
 					return;
-				final String name = snippet.substring(snippet.indexOf('(') + 1,
-						snippet.lastIndexOf(')'));
+				final String name = snippet.substring(snippet.indexOf('(') + 1, snippet.lastIndexOf(')'));
 				if (text.startsWith("'"))
 					a.addCharVariable(name, text);
 				else if (!text.startsWith("\""))
@@ -274,10 +269,8 @@ public interface RegExp {
 
 			@Override
 			public boolean eats(final Bunny ¢) {
-				return !(¢ instanceof TriviaBunny) && text == null
-						&& CategoriesHierarchy.isClassifiedAs(
-								((HostBunny) ¢).token.category,
-								CategoriesHierarchy.getCategory("literal"));
+				return !(¢ instanceof TriviaBunny) && text == null && CategoriesHierarchy
+						.isClassifiedAs(((HostBunny) ¢).token.category, CategoriesHierarchy.getCategory("literal"));
 			}
 
 			@Override
@@ -317,8 +310,7 @@ public interface RegExp {
 
 			@Override
 			public boolean eats(final Bunny ¢) {
-				return text == null && ¢ instanceof TriviaBunny
-						&& ((TriviaBunny) ¢).text().equals(text);
+				return text == null && ¢ instanceof TriviaBunny && ((TriviaBunny) ¢).text().equals(text);
 			}
 
 			@Override

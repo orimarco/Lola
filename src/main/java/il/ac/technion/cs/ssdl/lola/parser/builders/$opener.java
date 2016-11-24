@@ -16,9 +16,9 @@ public class $opener extends Elaborator implements RegExpable {
 
 	@Override
 	public void adopt(final AST.Node b) {
-		list.add(b);
 		if (b.token.isTrivia())
 			return;
+		list.add(b);
 		opener = b.token.text;
 		state = Automaton.Done;
 	}

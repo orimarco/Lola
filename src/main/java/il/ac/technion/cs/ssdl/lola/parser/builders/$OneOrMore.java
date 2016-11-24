@@ -57,16 +57,22 @@ public class $OneOrMore extends RegExpKeyword implements RegExpable {
 				seqRes.add(((RegExpable) ¢).toRegExp());
 		if (opener != null)
 			$.add(opener.toRegExp());
-		$.addAll(seqRes);
+		$.addAll(cloneList(seqRes));
 		$.add(seqAsterisk(seqRes, separator));
 		if (closer != null)
 			$.add(closer.toRegExp());
 		return new sequence($);
 	}
 
+	private static List<RegExp> cloneList(final ArrayList<RegExp> seqRes) {
+		List<RegExp> $ = new ArrayList<>();
+		for (RegExp ¢ : seqRes)
+			$.add(¢.clone());
+		return $;
+	}
+
 	private static RegExp seqAsterisk(final ArrayList<RegExp> ¢, $separator $) {
-		@SuppressWarnings("unchecked")
-		ArrayList<RegExp> ss = (ArrayList<RegExp>) ¢.clone();
+		List<RegExp> ss = cloneList(¢);
 		if ($ != null)
 			ss.add(0, $.toRegExp());
 		return new or(new OneOrMore(new sequence(ss)), new Atomic.Empty());

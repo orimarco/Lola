@@ -89,7 +89,7 @@ public class $Find extends Keyword implements RegExpable {
 		for (final Node ¢ : list)
 			if (!¢.token.isTrivia())
 				res.add(((RegExpable) ¢).toRegExp());
-		return snippet == null ? new sequence(res) : new sequence(res, snippet.text());
+		return snippet == null ? new find(res) : new find(res, snippet.text());
 	}
 
 	private void adoptElaborator(final Builder ¢) {

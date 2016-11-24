@@ -5,7 +5,7 @@ import il.ac.technion.cs.ssdl.lola.parser.*;
 import il.ac.technion.cs.ssdl.lola.parser.re.RegExp.*;
 public class sequence extends Composite {
 	public final List<Branch> branches = new ArrayList<>();
-	private final String snippet;
+	protected final String snippet;
 	private String text = "";
 
 	public sequence(final List<RegExp> res) {

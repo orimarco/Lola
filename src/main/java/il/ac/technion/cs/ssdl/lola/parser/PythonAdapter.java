@@ -144,4 +144,22 @@ public class PythonAdapter {
 			exec("del " + ¢);
 		globalVariables = new HashSet<>();
 	}
+
+	/**
+	 * @param substring
+	 * @param text
+	 */
+	public void enterGlobalScope(String name, String matching) {
+		exec(scope() + name + "= Scope()");
+		final String escapedMatching = matching.replace("'", "\\'").replace("\n", "\\n").replace("\r", "\\r");
+		exec(scope() + name + ".name = '" + escapedMatching + "'");
+		if (scope.empty()) {
+			exec("if '" + name + "s' not in locals():\n\t" + name + "s = list()");
+			exec(name + "s.append(" + name + ")");
+		} else {
+			exec("if not hasattr(" + scopeName() + ", '" + name + "s'):\n\t" + scope() + name + "s = list()");
+			exec(scope() + name + "s.append(" + scope() + name + ")");
+		}
+		scope.push(name);
+	}
 }

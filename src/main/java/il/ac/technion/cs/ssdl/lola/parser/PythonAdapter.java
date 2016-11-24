@@ -12,6 +12,7 @@ public class PythonAdapter {
 	private final Stack<String> scope = new Stack<>();
 	Stack<String> forEachScopes = new Stack<>();
 	Stack<String> forEachIterationScopes = new Stack<>();
+	private Set<String> globalVariables = new HashSet<>();
 
 	public PythonAdapter() {
 		exec("class Scope(object):\n\tpass");
@@ -24,18 +25,16 @@ public class PythonAdapter {
 
 	public void addIdentifier(final String name, final String matching) {
 		exec(scope() + name + "= Identifier()");
-		if (scope.empty()) {
+		if (!scope.empty()) {
+			exec(scope() + name + ".name = " + matching);
+			exec("if not hasattr(" + scopeName() + ", '" + name + "s'):\n\t" + scope() + name + "s = list()");
+			exec(scope() + name + "s.append(" + scope() + name + ")");
+		} else {
 			exec(name + ".name = " + matching);
 			exec("if '" + name + "s' not in locals():\n\t" + name + "s = list()");
 			exec(name + "s.append(" + name + ")");
-		} else {
-			exec(scope() + name + ".name = " + matching);
-			exec("if not hasattr(" + scopeName() + ", '" + name + "s'):\n\t" + scope()
-					+ name + "s = list()");
-			exec(scope() + name + "s.append(" + scope() + name + ")");
+			registerGlobal(name);
 		}
-		// + "\nif isinstance(" + val + ",basestring):\n\t" + val + " = '\"' + "
-		// + val + " + '\"'\n"
 	}
 
 	public void addStringVariable(final String name, final String content) {
@@ -43,40 +42,44 @@ public class PythonAdapter {
 	}
 
 	public void addVariable(final String name, final String content) {
-		if (scope.empty()) {
-			exec(name + " = " + content);
-			exec("if '" + name + "s' not in locals():\n\t" + name + "s = list()");
-			exec(name + "s.append(" + name + ")");
-		} else {
+		if (!scope.empty()) {
 			exec(scope() + name + " = " + content);
-			exec("if not hasattr(" + scopeName() + ", '" + name + "s'):\n\t" + scope()
-					+ name + "s = list()");
+			exec("if not hasattr(" + scopeName() + ", '" + name + "s'):\n\t" + scope() + name + "s = list()");
 			exec(scope() + name + "s.append(" + scope() + name + ")");
 		}
+		registerGlobal(name);
+		exec(name + " = " + content);
+		exec("if '" + name + "s' not in locals():\n\t" + name + "s = list()");
+		exec(name + "s.append(" + name + ")");
 	}
 
 	public String eavluateStringExpression(final String e) {
 		final String val = generateVriable();
-		exec(val + "= " + e + "\nif isinstance(" + val
-				+ ",Identifier) or isinstance(" + val + ",Scope):\n\t" + val + " = "
+		exec(val + "= " + e + "\nif isinstance(" + val + ",Identifier) or isinstance(" + val + ",Scope):\n\t" + val + " = "
 				+ val + ".name\n" + val + " = " + val + ".__str__()\n");
 		return pi.get(val).asString();
 	}
 
 	public void enterScope(final String name, final String matching) {
 		exec(scope() + name + "= Scope()");
-		final String escapedMatching = matching.replace("'", "\\'")
-				.replace("\n", "\\n").replace("\r", "\\r");
+		final String escapedMatching = matching.replace("'", "\\'").replace("\n", "\\n").replace("\r", "\\r");
 		exec(scope() + name + ".name = '" + escapedMatching + "'");
-		if (scope.empty()) {
-			exec("if '" + name + "s' not in locals():\n\t" + name + "s = list()");
-			exec(name + "s.append(" + name + ")");
-		} else {
-			exec("if not hasattr(" + scopeName() + ", '" + name + "s'):\n\t" + scope()
-					+ name + "s = list()");
+		if (!scope.empty()) {
+			exec("if not hasattr(" + scopeName() + ", '" + name + "s'):\n\t" + scope() + name + "s = list()");
 			exec(scope() + name + "s.append(" + scope() + name + ")");
+		} else {
+			exec("if '" + name + "s' not in locals():\n\t" + name + "s = list()");
+			registerGlobal(name + "s");
+			exec(name + "s.append(" + name + ")");
 		}
 		scope.push(name);
+	}
+
+	/**
+	 * @param name
+	 */
+	private void registerGlobal(String name) {
+		globalVariables.add(name);
 	}
 
 	public boolean evaluateBooleanExpression(final String e) {
@@ -131,5 +134,14 @@ public class PythonAdapter {
 	private String scopeName() {
 		final String tmp = scope();
 		return tmp.substring(0, tmp.length() - 1);
+	}
+
+	/**
+	 * 
+	 */
+	public void afterLexi() {
+		for (String ¢ : globalVariables)
+			exec("del " + ¢);
+		globalVariables = new HashSet<>();
 	}
 }

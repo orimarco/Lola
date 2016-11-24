@@ -11,6 +11,7 @@ import static il.ac.technion.cs.ssdl.lola.utils.wizard.*;
 public class Parser {
 	private final Tokenizer tokenizer;
 	private final Stack<Builder> stack = new Stack<>();
+	private PythonAdapter pyAdapter = new PythonAdapter();
 
 	public Parser(final Reader stream) {
 		tokenizer = new Tokenizer(stream);
@@ -62,13 +63,13 @@ public class Parser {
 
 	/** meanwhile, this seems to be just the #Find keyword */
 	private void applyLexi(final Matcher ruller) {
-		final $Find kw = ($Find) ruller.lexi.keyword;
-		final PythonAdapter a = new PythonAdapter();
+		final $Find kw = az.$Find(ruller.lexi.keyword);
 		Printer.printRe(ruller.re);
-		ruller.re.apply(a);
+		ruller.re.apply(pyAdapter);
 		for (final Elaborator ¢ : kw.elaborators)
 			if (¢ instanceof ExecutableElaborator)
-				((ExecutableElaborator) ¢).execute(ruller.interval(), a, this);
+				((ExecutableElaborator) ¢).execute(ruller.interval(), pyAdapter, this);
+		pyAdapter.afterLexi();
 		ruller.interval().earmark();
 	}
 

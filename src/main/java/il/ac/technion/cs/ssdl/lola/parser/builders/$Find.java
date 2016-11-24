@@ -4,12 +4,12 @@ import java.util.*;
 import il.ac.technion.cs.ssdl.lola.parser.builders.AST.*;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.*;
 import il.ac.technion.cs.ssdl.lola.parser.re.*;
+import il.ac.technion.cs.ssdl.lola.utils.iz;
 public class $Find extends Keyword implements RegExpable {
 	public $Find(final Token token) {
 		super(token);
-		expectedElaborators = new ArrayList<>(Arrays.asList(new String[]{"$replace",
-				"$delete", "$append", "$prepend", "$description", "$note", "$log",
-				"$see", "$example", "$anchor", "$run", "$filter", "$Assert"}));
+		expectedElaborators = new ArrayList<>(Arrays.asList(new String[]{"$replace", "$delete", "$append", "$prepend",
+				"$description", "$note", "$log", "$see", "$example", "$anchor", "$run", "$filter", "$Assert"}));
 		state = Automaton.Snippet;
 	}
 
@@ -18,29 +18,22 @@ public class $Find extends Keyword implements RegExpable {
 		// TODO: Refactor the damm thing
 		switch (state) {
 			case Snippet :
-				if (b instanceof SnippetToken || b instanceof TriviaToken)
+				if (iz.snippetToken(b) || iz.triviaToken(b))
 					return true;
-				return !(b instanceof $Find)
-						&& !(b instanceof UnacceptableGeneratingKeyword)
-						&& (!(b instanceof Elaborator)
-								|| expectedElaborators.contains(b.name()));
+				return !(b instanceof $Find) && !(b instanceof UnacceptableGeneratingKeyword)
+						&& (!(b instanceof Elaborator) || expectedElaborators.contains(b.name()));
 			case List :
-				return !(b instanceof $Find)
-						&& !(b instanceof UnacceptableGeneratingKeyword)
-						&& (!(b instanceof Elaborator)
-								|| expectedElaborators.contains(b.name()));
+				return !(b instanceof $Find) && !(b instanceof UnacceptableGeneratingKeyword)
+						&& (!(b instanceof Elaborator) || expectedElaborators.contains(b.name()));
 			case Elaborators :
 				if (b instanceof TriviaToken)
 					return true;
 				if (!(b instanceof Elaborator))
 					return false;
 				if (b instanceof $replace || b instanceof $delete)
-					return elaborators.stream().filter(e -> e instanceof $replace)
-							.count() == 0
-							&& elaborators.stream().filter(e -> e instanceof $delete)
-									.count() == 0;
-				return expectedElaborators.contains(b.name())
-						&& b instanceof Elaborator;
+					return elaborators.stream().filter(e -> e instanceof $replace).count() == 0
+							&& elaborators.stream().filter(e -> e instanceof $delete).count() == 0;
+				return expectedElaborators.contains(b.name()) && b instanceof Elaborator;
 			default :
 				return false;
 		}
@@ -61,7 +54,7 @@ public class $Find extends Keyword implements RegExpable {
 					state = Automaton.Elaborators;
 				} else {
 					list.add(b);
-					if (!(b instanceof TriviaToken))
+					if (!iz.triviaToken(b))
 						state = Automaton.List;
 				}
 				break;
@@ -71,12 +64,12 @@ public class $Find extends Keyword implements RegExpable {
 					state = Automaton.Elaborators;
 				} else {
 					list.add(b);
-					if (!(b instanceof TriviaToken))
+					if (!iz.triviaToken(b))
 						state = Automaton.List;
 				}
 				break;
 			case Elaborators :
-				if (b instanceof TriviaToken)
+				if (iz.triviaToken(b))
 					return;
 				adoptElaborator((Builder) b);
 				break;
@@ -96,7 +89,7 @@ public class $Find extends Keyword implements RegExpable {
 		for (final Node ¢ : list)
 			if (!¢.token.isTrivia())
 				res.add(((RegExpable) ¢).toRegExp());
-		return new sequence(res, null);
+		return snippet == null ? new sequence(res) : new sequence(res, snippet.text());
 	}
 
 	private void adoptElaborator(final Builder ¢) {

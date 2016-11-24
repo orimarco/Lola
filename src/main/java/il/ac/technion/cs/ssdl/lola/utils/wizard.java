@@ -1,5 +1,7 @@
 package il.ac.technion.cs.ssdl.lola.utils;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import il.ac.technion.cs.ssdl.lola.parser.builders.$Find;
@@ -7,6 +9,7 @@ import il.ac.technion.cs.ssdl.lola.parser.builders.$UserDefinedKeyword;
 import il.ac.technion.cs.ssdl.lola.parser.builders.Keyword;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.JflexLexer;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.Token;
+import il.ac.technion.cs.ssdl.lola.parser.re.RegExp;
 /**
  * @author Ori Marcovitch
  * @since Nov 23, 2016
@@ -58,5 +61,12 @@ public enum wizard {
 
 	private static String toUpperCaseClass(final String name) {
 		return name.substring(0, 1).toUpperCase() + name.substring(1);
+	}
+
+	public static List<RegExp> cloneList(final List<RegExp> seqRes) {
+		List<RegExp> $ = new ArrayList<>();
+		for (RegExp ¢ : seqRes)
+			$.add(¢.clone());
+		return $;
 	}
 }

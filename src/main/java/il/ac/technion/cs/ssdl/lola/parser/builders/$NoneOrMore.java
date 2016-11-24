@@ -1,6 +1,7 @@
 package il.ac.technion.cs.ssdl.lola.parser.builders;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import il.ac.technion.cs.ssdl.lola.parser.builders.AST.Automaton;
 import il.ac.technion.cs.ssdl.lola.parser.builders.AST.Node;
@@ -12,6 +13,7 @@ import il.ac.technion.cs.ssdl.lola.parser.re.RegExpable;
 import il.ac.technion.cs.ssdl.lola.parser.re.or;
 import il.ac.technion.cs.ssdl.lola.parser.re.sequence;
 import il.ac.technion.cs.ssdl.lola.utils.iz;
+import il.ac.technion.cs.ssdl.lola.utils.wizard;
 public class $NoneOrMore extends RegExpKeyword implements RegExpable {
 	$separator separator;
 	$opener opener;
@@ -59,8 +61,8 @@ public class $NoneOrMore extends RegExpKeyword implements RegExpable {
 
 	@Override
 	public RegExp toRegExp() {
-		final ArrayList<RegExp> seqRes = new ArrayList<>();
-		final ArrayList<RegExp> $ = new ArrayList<>();
+		final List<RegExp> seqRes = new ArrayList<>();
+		final List<RegExp> $ = new ArrayList<>();
 		for (final Node ¢ : list)
 			if (!¢.token.isTrivia())
 				seqRes.add(((RegExpable) ¢).toRegExp());
@@ -73,9 +75,8 @@ public class $NoneOrMore extends RegExpKeyword implements RegExpable {
 		return new or(new sequence($), new Atomic.Empty());
 	}
 
-	private static RegExp seqAsterisk(final ArrayList<RegExp> ¢, $separator $) {
-		@SuppressWarnings("unchecked")
-		ArrayList<RegExp> ss = (ArrayList<RegExp>) ¢.clone();
+	private static RegExp seqAsterisk(final List<RegExp> ¢, $separator $) {
+		List<RegExp> ss = wizard.cloneList(¢);
 		if ($ != null)
 			ss.add(0, $.toRegExp());
 		return new or(new OneOrMore(new sequence(ss)), new Atomic.Empty());

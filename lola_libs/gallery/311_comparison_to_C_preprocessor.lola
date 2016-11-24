@@ -1,0 +1,11 @@
+##Find Life ##replace 42
+##Find program ##replace void
+##Find begin ##replace {
+##Find end ##replace }
+##Find write(##Any(parameters))
+	##replace ((void) printf(##(parameters)))
+
+program main()
+begin
+printf("answer = %d!\n", Life);
+end

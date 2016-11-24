@@ -1,0 +1,30 @@
+##Find(HalsteadOperand)
+##Either ##Identifier
+##or ##Literal
+##or ##TypeKeyword
+
+##Find(HalsteadOperator)
+##Either ##Operator
+##or ##Punctuation
+##or ##NonTypeKeyword
+
+##Find ##EndOfFile ##run {
+operands = [str(x) for x in HalsteadOperands]
+operators = [str(x) for x in HalsteadOperators]
+from math import log
+N1 = len(operands)
+N2 = len(operators)
+n1 = len(set(operands))
+n2 = len(set(operators))
+n = n1 + n2
+N = N1 + N2
+V = N * log(n, 2)
+D = (n1/2) * (N2 / n2)
+E = D * V
+}
+##log (
+__FILENAME__, N1, N2, n1, n2, n, N, V, D, E
+)
+
+##ForEach(glob.glob("*.c"))
+##Splice('cat ' + _)

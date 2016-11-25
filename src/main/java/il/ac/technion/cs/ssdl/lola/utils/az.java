@@ -1,9 +1,8 @@
 package il.ac.technion.cs.ssdl.lola.utils;
 import il.ac.technion.cs.ssdl.lola.parser.builders.$Find;
+import il.ac.technion.cs.ssdl.lola.parser.builders.AST.Node;
 import il.ac.technion.cs.ssdl.lola.parser.builders.SnippetToken;
 import il.ac.technion.cs.ssdl.lola.parser.builders.TriviaToken;
-import il.ac.technion.cs.ssdl.lola.parser.builders.AST.Node;
-import il.ac.technion.cs.ssdl.lola.parser.re.*;
 /**
  * @author Ori Marcovitch
  * @since Nov 24, 2016

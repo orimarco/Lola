@@ -1,7 +1,7 @@
 ##Find
 	stritch(##Identifier(switchee)) {
 		##NoneOrMore
-			##Sequence(block)
+			 ##Sequence(block)
 				##OneOrMore case ##Literal(switcher):
 			##Match ##Any(body) ##exceptFor ##Sequence ##Any break; ##Any
 			break;

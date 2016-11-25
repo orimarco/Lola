@@ -479,10 +479,8 @@ public class ParserTest {
 		assertEquals(directives.size(), 1);
 		final Node dir = directives.get(0).keyword;
 		assertEquals(dir.snippet().getText(), "(identifier)");
-		assertEquals(dir.list().size(), 3);
-		assertEquals(((TriviaToken) dir.list().get(0)).getText(), " ");
-		assertEquals(((HostToken) dir.list().get(1)).getText(), "1");
-		assertEquals(((TriviaToken) dir.list().get(0)).getText(), " ");
+		assertEquals(dir.list().size(), 1);
+		assertEquals(((HostToken) dir.list().get(0)).getText(), "1");
 		// check elaborator
 		assertEquals(2, dir.elaborators().size());
 		// first

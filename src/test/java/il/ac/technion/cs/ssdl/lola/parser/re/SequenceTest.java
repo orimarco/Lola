@@ -14,4 +14,13 @@ public class SequenceTest {
 		assertTrue(re.eats(bunny("a")));
 		assertTrue(re.eats(bunny("*")));
 	}
+
+	@Test
+	public void m0() {
+		RegExp re = newRegExp("##Find\n ##Sequence case ##Match ##Any ##delete");
+		assertTrue(re.eats(bunny("case")));
+		re.feed(bunny("case"));
+		assertTrue(re.eats(bunny("print")));
+		assertTrue(re.eats(bunny("*")));
+	}
 }

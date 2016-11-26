@@ -13,6 +13,7 @@ public class HostToken extends AST.Node implements RegExpable {
 
 	@Override
 	public RegExp toRegExp() {
+		System.out.println(token.text + "sdfd");
 		return new Atomic.Host(token.text);
 	}
 }

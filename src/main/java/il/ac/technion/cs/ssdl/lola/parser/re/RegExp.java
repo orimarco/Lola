@@ -2,6 +2,8 @@ package il.ac.technion.cs.ssdl.lola.parser.re;
 import java.util.*;
 
 import il.ac.technion.cs.ssdl.lola.parser.*;
+import il.ac.technion.cs.ssdl.lola.utils.az;
+import il.ac.technion.cs.ssdl.lola.utils.iz;
 public interface RegExp {
 	void apply(PythonAdapter a);
 
@@ -180,7 +182,7 @@ public interface RegExp {
 
 			@Override
 			public boolean eats(final Bunny ¢) {
-				return !done && ¢ instanceof HostBunny && ((HostBunny) ¢).token.text.equals(text);
+				return !done && iz.hostBunny(¢) && az.hostBunny(¢).token.text.equals(text);
 			}
 
 			@Override

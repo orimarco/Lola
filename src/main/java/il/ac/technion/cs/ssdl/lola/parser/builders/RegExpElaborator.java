@@ -2,9 +2,7 @@ package il.ac.technion.cs.ssdl.lola.parser.builders;
 import il.ac.technion.cs.ssdl.lola.parser.builders.AST.*;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.*;
 import il.ac.technion.cs.ssdl.lola.parser.re.*;
-public abstract class RegExpElaborator extends Elaborator
-		implements
-			RegExpable {
+public abstract class RegExpElaborator extends Elaborator implements RegExpable {
 	RegExpable son;
 
 	public RegExpElaborator(final Token t) {
@@ -14,15 +12,16 @@ public abstract class RegExpElaborator extends Elaborator
 
 	@Override
 	public boolean accepts(final AST.Node b) {
-		return b.token.isTrivia() || !(b instanceof Elaborator)
-				&& state != Automaton.Done && son == null && !(b instanceof $Find);
+		return b.token.isTrivia()
+				|| !(b instanceof Elaborator) && state != Automaton.Done && son == null && !(b instanceof $Find);
 	}
 
 	@Override
 	public void adopt(final AST.Node b) {
+		if (b.token.isTrivia())
+			return;
 		list.add(b);
-		if (!b.token.isTrivia())
-			son = (RegExpable) b;
+		son = (RegExpable) b;
 	}
 
 	@Override

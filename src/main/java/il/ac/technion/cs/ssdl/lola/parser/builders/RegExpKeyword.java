@@ -2,6 +2,7 @@ package il.ac.technion.cs.ssdl.lola.parser.builders;
 import il.ac.technion.cs.ssdl.lola.parser.builders.AST.*;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.*;
 import il.ac.technion.cs.ssdl.lola.parser.re.*;
+import il.ac.technion.cs.ssdl.lola.utils.iz;
 public abstract class RegExpKeyword extends Keyword implements RegExpable {
 	public RegExpKeyword(final Token token) {
 		super(token);
@@ -16,8 +17,7 @@ public abstract class RegExpKeyword extends Keyword implements RegExpable {
 			case Elaborators :
 				return expectedElaborators.contains(b.name()) || b.token.isTrivia();
 			case List :
-				return !(b instanceof Elaborator)
-						|| expectedElaborators.contains(b.name());
+				return !(b instanceof Elaborator) || expectedElaborators.contains(b.name());
 			default :
 				return false;
 		}
@@ -27,11 +27,11 @@ public abstract class RegExpKeyword extends Keyword implements RegExpable {
 	public void adopt(final Node b) {
 		switch (state) {
 			case Elaborators :
-				if (!b.token.isTrivia())
+				if (!iz.triviaToken(b))
 					elaborators.add((Elaborator) b);
 				break;
 			case List :
-				if (!b.token.isTrivia())
+				if (!iz.triviaToken(b))
 					list.add(b);
 				if (b instanceof Elaborator)
 					state = Automaton.Elaborators;
@@ -43,7 +43,6 @@ public abstract class RegExpKeyword extends Keyword implements RegExpable {
 
 	@Override
 	public boolean mature() {
-		return state == Automaton.Done
-				&& list.stream().filter(x -> !x.token.isTrivia()).count() > 0;
+		return state == Automaton.Done && !list.isEmpty();
 	}
 }

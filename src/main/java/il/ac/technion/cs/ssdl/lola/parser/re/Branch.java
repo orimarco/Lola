@@ -35,12 +35,18 @@ public class Branch implements Cloneable {
 		return divergents > 1;
 	}
 
-	public boolean eats(final Bunny b) {
+	public boolean eats(final Bunny ¢) {
+		System.out.println("seq: eats? [" + ¢.text() + " " + idx + "]" + eats_aux(¢));
+		return eats_aux(¢);
+	}
+
+	private boolean eats_aux(final Bunny b) {
 		for (int ¢ = idx; ¢ < res.size(); ++¢) {
 			if (res.get(¢).eats(b))
 				return true;
 			if (!res.get(¢).satiated())
 				break;
+			System.out.println("++");
 		}
 		return false;
 	}
@@ -75,7 +81,6 @@ public class Branch implements Cloneable {
 	}
 
 	public String text() {
-		return res.stream().map(re -> re.text()).reduce("",
-				(s1, s2) -> s1 + " " + s2);
+		return res.stream().map(re -> re.text()).reduce("", (s1, s2) -> s1 + " " + s2);
 	}
 }

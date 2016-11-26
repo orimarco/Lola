@@ -42,7 +42,7 @@ public class sequence extends Composite {
 
 	@Override
 	public boolean eats(final Bunny ¢) {
-		// System.out.println("seq: eats? [" + ¢.text() + "]" + eats_aux(¢));
+//		System.out.println("seq: eats? [" + ¢.text() + "]" + eats_aux(¢));
 		return eats_aux(¢);
 	}
 

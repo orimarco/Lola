@@ -1,4 +1,6 @@
 package il.ac.technion.cs.ssdl.lola.utils;
+import il.ac.technion.cs.ssdl.lola.parser.Bunny;
+import il.ac.technion.cs.ssdl.lola.parser.HostBunny;
 import il.ac.technion.cs.ssdl.lola.parser.builders.$Find;
 import il.ac.technion.cs.ssdl.lola.parser.builders.AST.Node;
 import il.ac.technion.cs.ssdl.lola.parser.builders.SnippetToken;
@@ -31,5 +33,13 @@ public enum az {
 	 */
 	public static $Find $Find(Node b) {
 		return b == null ? null : ($Find) b;
+	}
+
+	/**
+	 * @param ¢
+	 * @return
+	 */
+	public static HostBunny hostBunny(Bunny ¢) {
+		return ¢ == null ? null : (HostBunny) ¢;
 	}
 }

@@ -486,16 +486,13 @@ public class ParserTest {
 		// first
 		Elaborator e = dir.elaborators().get(0);
 		assertEquals(e.name(), "$followedBy");
-		assertEquals(3, e.list().size());
-		assertEquals(((TriviaToken) e.list().get(0)).getText(), " ");
-		assertEquals(((HostToken) e.list().get(1)).getText(), "2");
-		assertEquals(((TriviaToken) e.list().get(2)).getText(), " ");
+		assertEquals(1, e.list().size());
+		assertEquals(((HostToken) e.list().get(0)).getText(), "2");
 		// second
 		e = dir.elaborators().get(1);
 		assertEquals(e.name(), "$followedBy");
-		assertEquals(2, e.list().size());
-		assertEquals(((TriviaToken) e.list().get(0)).getText(), " ");
-		assertEquals(((HostToken) e.list().get(1)).getText(), "3");
+		assertEquals(1, e.list().size());
+		assertEquals(((HostToken) e.list().get(0)).getText(), "3");
 	}
 
 	@Test

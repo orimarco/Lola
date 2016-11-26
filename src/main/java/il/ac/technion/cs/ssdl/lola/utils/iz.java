@@ -1,6 +1,8 @@
 package il.ac.technion.cs.ssdl.lola.utils;
 import il.ac.technion.cs.ssdl.lola.parser.builders.SnippetToken;
 import il.ac.technion.cs.ssdl.lola.parser.builders.TriviaToken;
+import il.ac.technion.cs.ssdl.lola.parser.Bunny;
+import il.ac.technion.cs.ssdl.lola.parser.HostBunny;
 import il.ac.technion.cs.ssdl.lola.parser.builders.AST.Node;
 import il.ac.technion.cs.ssdl.lola.parser.builders.HostToken;
 /**
@@ -31,5 +33,13 @@ public enum iz {
 	 */
 	public static boolean hostToken(Node b) {
 		return b instanceof HostToken;
+	}
+
+	/**
+	 * @param ¢
+	 * @return
+	 */
+	public static boolean hostBunny(Bunny ¢) {
+		return ¢ instanceof HostBunny;
 	}
 }

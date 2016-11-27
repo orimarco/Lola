@@ -7,8 +7,7 @@ import il.ac.technion.cs.ssdl.lola.parser.re.*;
 public class $Match extends RegExpKeyword {
 	public $Match(final Token token) {
 		super(token);
-		expectedElaborators = new ArrayList<>(
-				Arrays.asList(new String[]{"$andAlso", "$exceptFor"}));
+		expectedElaborators = new ArrayList<>(Arrays.asList(new String[]{"$andAlso", "$exceptFor"}));
 	}
 
 	@Override
@@ -17,9 +16,7 @@ public class $Match extends RegExpKeyword {
 		for (final Node ¢ : list)
 			res.add(((RegExpable) ¢).toRegExp());
 		for (final Elaborator ¢ : elaborators)
-			res.add(¢ instanceof $andAlso
-					? ((RegExpable) ¢).toRegExp()
-					: new not(((RegExpable) ¢).toRegExp()));
+			res.add(¢ instanceof $andAlso ? ((RegExpable) ¢).toRegExp() : new not(((RegExpable) ¢).toRegExp()));
 		return new and(res);
 	}
 }

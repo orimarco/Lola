@@ -4,6 +4,7 @@ import il.ac.technion.cs.ssdl.lola.parser.builders.TriviaToken;
 import il.ac.technion.cs.ssdl.lola.parser.Bunny;
 import il.ac.technion.cs.ssdl.lola.parser.HostBunny;
 import il.ac.technion.cs.ssdl.lola.parser.builders.AST.Node;
+import il.ac.technion.cs.ssdl.lola.parser.builders.Elaborator;
 import il.ac.technion.cs.ssdl.lola.parser.builders.HostToken;
 /**
  * @author Ori Marcovitch
@@ -41,5 +42,13 @@ public enum iz {
 	 */
 	public static boolean hostBunny(Bunny ¢) {
 		return ¢ instanceof HostBunny;
+	}
+
+	/**
+	 * @param b
+	 * @return
+	 */
+	public static boolean elaborator(Node b) {
+		return b instanceof Elaborator;
 	}
 }

@@ -23,4 +23,16 @@ public class SequenceTest {
 		assertTrue(re.eats(bunny("print")));
 		assertTrue(re.eats(bunny("*")));
 	}
+
+	@Test
+	public void m1() {
+		RegExp re = newRegExp("##Match ##Any(body) ##exceptFor ##Sequence ##Any break; ##Any");
+		assertTrue(re.eats(bunny("case")));
+		re.feed(bunny("case"));
+		assertTrue(re.eats(bunny("break")));
+		re.feed(bunny("break"));
+		assertTrue(re.eats(bunny(";")));
+		re.feed(bunny(";"));
+		assertFalse(re.satiated());
+	}
 }

@@ -12,6 +12,7 @@ import il.ac.technion.cs.ssdl.lola.parser.re.RegExp.Atomic;
 import il.ac.technion.cs.ssdl.lola.parser.re.RegExpable;
 import il.ac.technion.cs.ssdl.lola.parser.re.or;
 import il.ac.technion.cs.ssdl.lola.parser.re.sequence;
+import il.ac.technion.cs.ssdl.lola.utils.az;
 import il.ac.technion.cs.ssdl.lola.utils.iz;
 import il.ac.technion.cs.ssdl.lola.utils.wizard;
 public class $NoneOrMore extends RegExpKeyword implements RegExpable {
@@ -44,13 +45,13 @@ public class $NoneOrMore extends RegExpKeyword implements RegExpable {
 		if (!iz.triviaToken(b))
 			switch (state) {
 				case Elaborators :
-					adoptElaborator((Builder) b);
+					adoptElaborator(az.builder(b));
 					break;
 				case List :
 					if (!expectedElaborators.contains(b.name()))
 						list.add(b);
 					else {
-						adoptElaborator((Builder) b);
+						adoptElaborator(az.builder(b));
 						state = Automaton.Elaborators;
 					}
 					break;
@@ -65,7 +66,7 @@ public class $NoneOrMore extends RegExpKeyword implements RegExpable {
 		final List<RegExp> $ = new ArrayList<>();
 		for (final Node ¢ : list)
 			if (!¢.token.isTrivia())
-				seqRes.add(((RegExpable) ¢).toRegExp());
+				seqRes.add(az.regExpable(¢).toRegExp());
 		if (opener != null)
 			$.add(opener.toRegExp());
 		$.addAll(seqRes);

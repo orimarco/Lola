@@ -10,7 +10,7 @@ import static il.ac.technion.cs.ssdl.lola.parser.re.RegExpFactory.*;
 public class NoneOrMoreTest {
 	@Test
 	public void a0() {
-		RegExp re = newRegExp("##Find\n ##NoneOrMore a\n ##delete");
+		RegExp re = newRegExp("##Find\n ##NoneOrMore a");
 		assertTrue(re.eats(bunny("a")));
 		assertFalse(re.eats(bunny(",")));
 	}
@@ -89,5 +89,28 @@ public class NoneOrMoreTest {
 		re.feed(identifier("a"));
 		re.feed(bunny(","));
 		assertTrue(re.eats(identifier("b")));
+	}
+
+	@Test
+	public void c4() {
+		RegExp re = newRegExp("##Find\n ##NoneOrMore a b");
+		assertTrue(re.eats(identifier("a")));
+		assertFalse(re.eats(identifier("b")));
+		re.feed(identifier("a"));
+		assertFalse(re.eats(identifier("a")));
+		assertTrue(re.eats(identifier("b")));
+		re.feed(identifier("b"));
+		assertTrue(re.eats(identifier("a")));
+		assertFalse(re.eats(identifier("b")));
+		re.feed(identifier("a"));
+		assertFalse(re.eats(identifier("a")));
+		assertTrue(re.eats(identifier("b")));
+		re.feed(identifier("b"));
+		assertTrue(re.eats(identifier("a")));
+		assertFalse(re.eats(identifier("b")));
+		re.feed(identifier("a"));
+		assertFalse(re.eats(identifier("a")));
+		assertTrue(re.eats(identifier("b")));
+		re.feed(identifier("b"));
 	}
 }

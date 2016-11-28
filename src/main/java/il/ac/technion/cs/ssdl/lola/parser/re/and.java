@@ -48,6 +48,6 @@ public class and extends Composite {
 
 	@Override
 	public String toString() {
-		return "and" + children.stream().map(x -> "\n+" + (x + "").replaceAll("\n", "\n-")).reduce("", (x, y) -> x + y);
+		return "and" + children.stream().map(x -> "\n+" + (x + "").replaceAll("\n", "\n|")).reduce("", (x, y) -> x + y);
 	}
 }

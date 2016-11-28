@@ -47,6 +47,6 @@ public class not extends Composite {
 
 	@Override
 	public String toString() {
-		return "not" + "\n+" + child;
+		return "not" + "\n+" + (child + "").replaceAll("\n", "\n|");
 	}
 }

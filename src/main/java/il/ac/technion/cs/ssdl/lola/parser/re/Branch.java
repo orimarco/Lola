@@ -36,8 +36,8 @@ public class Branch implements Cloneable {
 	}
 
 	public boolean eats(final Bunny ¢) {
-//		System.out.println("seq: eats? [" + ¢.text() + "]" + eats_aux(¢));
-//		System.out.println(res.get(idx).getClass().getSimpleName());
+		// System.out.println("seq: eats? [" + ¢.text() + "]" + eats_aux(¢));
+		// System.out.println(res.get(idx).getClass().getSimpleName());
 		return eats_aux(¢);
 	}
 
@@ -78,7 +78,10 @@ public class Branch implements Cloneable {
 	}
 
 	public boolean satiated() {
-		return idx + 1 == res.size() && res.get(idx).satiated();
+		for (int ¢ = idx; ¢ < res.size(); ++¢)
+			if (!res.get(¢).satiated())
+				return false;
+		return true;
 	}
 
 	public String text() {

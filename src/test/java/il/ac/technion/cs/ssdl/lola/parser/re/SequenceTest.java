@@ -10,14 +10,22 @@ import static il.ac.technion.cs.ssdl.lola.parser.re.RegExpFactory.*;
 public class SequenceTest {
 	@Test
 	public void a0() {
-		RegExp re = newRegExp("##Find\n ##Sequence ##Any ##delete");
+		RegExp re = newRegExp("##Find\n ##Sequence ##Any");
 		assertTrue(re.eats(bunny("a")));
 		assertTrue(re.eats(bunny("*")));
 	}
 
 	@Test
+	public void a1() {
+		RegExp re = newRegExp("##Find\n ##Sequence a ##Any");
+		assertTrue(re.eats(bunny("a")));
+		re.feed(bunny("a"));
+		assertTrue(re.satiated());
+	}
+
+	@Test
 	public void m0() {
-		RegExp re = newRegExp("##Find\n ##Sequence case ##Match ##Any ##delete");
+		RegExp re = newRegExp("##Find\n ##Sequence case ##Match ##Any");
 		assertTrue(re.eats(bunny("case")));
 		re.feed(bunny("case"));
 		assertTrue(re.eats(bunny("print")));
@@ -27,6 +35,7 @@ public class SequenceTest {
 	@Test
 	public void m1() {
 		RegExp re = newRegExp("##Match ##Any(body) ##exceptFor ##Sequence ##Any break; ##Any");
+		System.out.println(re);
 		assertTrue(re.eats(bunny("case")));
 		re.feed(bunny("case"));
 		assertTrue(re.eats(bunny("break")));

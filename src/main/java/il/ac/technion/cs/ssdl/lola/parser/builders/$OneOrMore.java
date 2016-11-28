@@ -5,6 +5,7 @@ import il.ac.technion.cs.ssdl.lola.parser.builders.AST.*;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.*;
 import il.ac.technion.cs.ssdl.lola.parser.re.*;
 import il.ac.technion.cs.ssdl.lola.parser.re.RegExp.Atomic;
+import static il.ac.technion.cs.ssdl.lola.utils.wizard.*;
 public class $OneOrMore extends RegExpKeyword implements RegExpable {
 	$separator separator;
 	$opener opener;
@@ -55,6 +56,8 @@ public class $OneOrMore extends RegExpKeyword implements RegExpable {
 		for (final Node ¢ : list)
 			if (!¢.token.isTrivia())
 				seqRes.add(((RegExpable) ¢).toRegExp());
+		if (elaborators.isEmpty())
+			return seqPlus(seqRes);
 		if (opener != null)
 			$.add(opener.toRegExp());
 		$.addAll(cloneList(seqRes));
@@ -64,14 +67,11 @@ public class $OneOrMore extends RegExpKeyword implements RegExpable {
 		return new sequence($);
 	}
 
-	private static List<RegExp> cloneList(final ArrayList<RegExp> seqRes) {
-		List<RegExp> $ = new ArrayList<>();
-		for (RegExp ¢ : seqRes)
-			$.add(¢.clone());
-		return $;
+	private static RegExp seqPlus(List<RegExp> ¢) {
+		return new OneOrMore(new sequence(cloneList(¢)));
 	}
 
-	private static RegExp seqAsterisk(final ArrayList<RegExp> ¢, $separator $) {
+	private static RegExp seqAsterisk(final List<RegExp> ¢, $separator $) {
 		List<RegExp> ss = cloneList(¢);
 		if ($ != null)
 			ss.add(0, $.toRegExp());

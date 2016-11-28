@@ -44,4 +44,9 @@ public class not extends Composite {
 	public String text() {
 		return text;
 	}
+
+	@Override
+	public String toString() {
+		return "not" + "\n+" + child;
+	}
 }

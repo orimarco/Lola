@@ -1,17 +1,18 @@
 ##Find
 	stritch(##Identifier(switchee)) {
-		##NoneOrMore
-			 ##Sequence(block)
-				##OneOrMore case ##Literal(switcher):
-			##Match ##Any(body) ##exceptFor ##Sequence ##Any break; ##Any
-			break;
+		##Sequence(block)
+			##NoneOrMore
+				 ##Sequence
+					##OneOrMore case ##Literal(switcher):
+				##Match ##Any(body) ##exceptFor ##Sequence ##Any break; ##Any
+				break;
 	}
 	##replace
 		##ForEach(blocks)
 			if (##ForEach(_.switchers)
 					##(switchee).equals(##(_))
 					##separator ||
-					){ ##(_.body) }
+			 ){ ##(_.body) }
 	##example			
 		stritch(str) {
 		case "omg" : print(7);

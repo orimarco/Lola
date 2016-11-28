@@ -71,4 +71,9 @@ public class OneOrMore extends Composite {
 				return ¢.text();
 		return "DID_NOT_MATCH";
 	}
+
+	@Override
+	public String toString() {
+		return "oneOrMore" + "\n+" + source.toString().replaceAll("\n", "\n-");
+	}
 }

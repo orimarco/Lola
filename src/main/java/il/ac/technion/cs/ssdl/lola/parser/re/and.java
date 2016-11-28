@@ -24,8 +24,7 @@ public class and extends Composite {
 
 	@Override
 	public boolean eats(final Bunny b) {
-		return children.stream().filter(re -> re.eats(b)).count() == children
-				.size();
+		return children.stream().filter(re -> re.eats(b)).count() == children.size();
 	}
 
 	@Override
@@ -36,8 +35,7 @@ public class and extends Composite {
 
 	@Override
 	public boolean satiated() {
-		return children.stream().filter(re -> re.satiated()).count() == children
-				.size();
+		return children.stream().filter(re -> re.satiated()).count() == children.size();
 	}
 
 	@Override
@@ -46,5 +44,10 @@ public class and extends Composite {
 			if (¢.satiated())
 				return ¢.text();
 		return "DID_NOT_MATCH";
+	}
+
+	@Override
+	public String toString() {
+		return "and" + children.stream().map(x -> "\n+" + (x + "").replaceAll("\n", "\n-")).reduce("", (x, y) -> x + y);
 	}
 }

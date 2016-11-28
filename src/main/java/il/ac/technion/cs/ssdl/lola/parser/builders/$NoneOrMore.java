@@ -14,7 +14,7 @@ import il.ac.technion.cs.ssdl.lola.parser.re.or;
 import il.ac.technion.cs.ssdl.lola.parser.re.sequence;
 import il.ac.technion.cs.ssdl.lola.utils.az;
 import il.ac.technion.cs.ssdl.lola.utils.iz;
-import il.ac.technion.cs.ssdl.lola.utils.wizard;
+import static il.ac.technion.cs.ssdl.lola.utils.wizard.*;
 public class $NoneOrMore extends RegExpKeyword implements RegExpable {
 	$separator separator;
 	$opener opener;
@@ -67,6 +67,8 @@ public class $NoneOrMore extends RegExpKeyword implements RegExpable {
 		for (final Node ¢ : list)
 			if (!¢.token.isTrivia())
 				seqRes.add(az.regExpable(¢).toRegExp());
+		if (elaborators.isEmpty())
+			return new or(seqPlus(seqRes), new Atomic.Empty());
 		if (opener != null)
 			$.add(opener.toRegExp());
 		$.addAll(seqRes);
@@ -76,8 +78,12 @@ public class $NoneOrMore extends RegExpKeyword implements RegExpable {
 		return new or(new sequence($), new Atomic.Empty());
 	}
 
+	private static RegExp seqPlus(List<RegExp> ¢) {
+		return new OneOrMore(new sequence(cloneList(¢)));
+	}
+
 	private static RegExp seqAsterisk(final List<RegExp> ¢, $separator $) {
-		List<RegExp> ss = wizard.cloneList(¢);
+		List<RegExp> ss = cloneList(¢);
 		if ($ != null)
 			ss.add(0, $.toRegExp());
 		return new or(new OneOrMore(new sequence(ss)), new Atomic.Empty());

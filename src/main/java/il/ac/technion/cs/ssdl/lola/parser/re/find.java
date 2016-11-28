@@ -32,4 +32,9 @@ public class find extends sequence {
 		if (snippet != null)
 			a.exitScope();
 	}
+
+	@Override
+	public String toString() {
+		return "find" + children.stream().map(x -> "\n+" + (x + "").replaceAll("\n", "\n|")).reduce("", (x, y) -> x + y);
+	}
 }

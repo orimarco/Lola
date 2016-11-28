@@ -65,6 +65,11 @@ public interface RegExp {
 			public String text() {
 				return text;
 			}
+
+			@Override
+			public String toString() {
+				return "Any";
+			}
 		}
 		class BalancedAny extends Any {
 			public BalancedAny(final String snippet) {
@@ -119,6 +124,11 @@ public interface RegExp {
 			public String text() {
 				return "";
 			}
+
+			@Override
+			public String toString() {
+				return "Empty";
+			}
 		}
 		class Expression implements Atomic, Cloneable {
 			private String text;
@@ -160,6 +170,11 @@ public interface RegExp {
 			public String text() {
 				return text;
 			}
+
+			@Override
+			public String toString() {
+				return "Exp";
+			}
 		}
 		class Host implements Atomic, Cloneable {
 			private final String text;
@@ -198,6 +213,11 @@ public interface RegExp {
 			@Override
 			public String text() {
 				return text;
+			}
+
+			@Override
+			public String toString() {
+				return "<" + text + ">";
 			}
 		}
 		class Identifier implements Atomic, Cloneable {
@@ -239,6 +259,11 @@ public interface RegExp {
 			@Override
 			public String text() {
 				return text;
+			}
+
+			@Override
+			public String toString() {
+				return "Id";
 			}
 		}
 		class Literal implements Atomic, Cloneable {
@@ -289,6 +314,11 @@ public interface RegExp {
 			public String text() {
 				return text;
 			}
+
+			@Override
+			public String toString() {
+				return "Lit";
+			}
 		}
 		// TODO: Trivia...
 		class Trivia implements Atomic, Cloneable {
@@ -328,6 +358,11 @@ public interface RegExp {
 			@Override
 			public String text() {
 				return text == null ? "" : text;
+			}
+
+			@Override
+			public String toString() {
+				return "Trivia";
 			}
 		}
 	}

@@ -8,10 +8,10 @@ import il.ac.technion.cs.ssdl.lola.parser.builders.AST.*;
 import il.ac.technion.cs.ssdl.lola.parser.re.*;
 import il.ac.technion.cs.ssdl.lola.parser.tokenizer.*;
 public class Printer {
-	private static final boolean AST = true;
+	private static final boolean AST = false;
 	private static final boolean RE = false;
 	private static final boolean Chain = false;
-	private static final boolean Python = false;
+	private static final boolean Python = true;
 	private static final boolean Tokens = false;
 
 	public static void logAST(final Node ¢) {

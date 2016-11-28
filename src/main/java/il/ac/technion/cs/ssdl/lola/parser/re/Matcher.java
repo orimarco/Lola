@@ -13,6 +13,7 @@ public class Matcher {
 			final Chain<Bunny, Lexi>.Location from) {
 		this.lexi = lexi;
 		re = lexi.toRegExp();
+//		System.out.println(re);
 		to = this.from = from;
 		this.chain = chain;
 	}

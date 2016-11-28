@@ -42,7 +42,7 @@ public class sequence extends Composite {
 
 	@Override
 	public boolean eats(final Bunny ¢) {
-//		System.out.println("seq: eats? [" + ¢.text() + "]" + eats_aux(¢));
+		// System.out.println("seq: eats? [" + ¢.text() + "]" + eats_aux(¢));
 		return eats_aux(¢);
 	}
 
@@ -88,6 +88,12 @@ public class sequence extends Composite {
 			if (¢.satiated())
 				return ¢.text();
 		return !branches.isEmpty() ? "Err: " + text : "DID_NOT_MATCH";
+	}
+
+	@Override
+	public String toString() {
+		return "seq[" + snippet + "]"
+				+ children.stream().map(x -> "\n+" + (x + "").replaceAll("\n", "\n|")).reduce("", (x, y) -> x + y);
 	}
 }
 // TODO: maybe not fully took care of epsilon movements... yes i did not... but

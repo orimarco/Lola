@@ -16,7 +16,7 @@ public class $Match extends RegExpKeyword {
 		for (final Node ¢ : list)
 			res.add(((RegExpable) ¢).toRegExp());
 		for (final Elaborator ¢ : elaborators)
-			res.add(¢ instanceof $andAlso ? ((RegExpable) ¢).toRegExp() : new not(((RegExpable) ¢).toRegExp()));
+			res.add(((RegExpable) ¢).toRegExp());
 		return new and(res);
 	}
 }

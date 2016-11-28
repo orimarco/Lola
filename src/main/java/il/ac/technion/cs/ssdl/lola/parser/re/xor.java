@@ -54,4 +54,9 @@ public class xor extends Composite {
 				return ¢.text();
 		return "DID_NOT_MATCH";
 	}
+
+	@Override
+	public String toString() {
+		return "xor" + children.stream().map(x -> "\n+" + (x + "").replaceAll("\n", "\n-")).reduce("", (x, y) -> x + y);
+	}
 }

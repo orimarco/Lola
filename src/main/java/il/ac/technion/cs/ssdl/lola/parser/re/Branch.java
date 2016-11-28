@@ -36,8 +36,8 @@ public class Branch implements Cloneable {
 	}
 
 	public boolean eats(final Bunny ¢) {
-		System.out.println("seq: eats? [" + ¢.text() + "]" + eats_aux(¢));
-		System.out.println(res.get(idx).getClass().getSimpleName());
+//		System.out.println("seq: eats? [" + ¢.text() + "]" + eats_aux(¢));
+//		System.out.println(res.get(idx).getClass().getSimpleName());
 		return eats_aux(¢);
 	}
 

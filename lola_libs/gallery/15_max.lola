@@ -1,7 +1,7 @@
 ##Find(NoCommasExpression)
  ##Match ##Any ##exceptFor ##Any, ##Any
 ##Find(Expression)
- ##Either ##NoCommasExpression ##or ##NoCommasExpression
+ ##Either ##NoCommasExpression ##or (##Any)
 
 ##Find
   max(##Expression(x), ##Expression(y))
@@ -13,4 +13,4 @@ y = '(' + str(y) + ')'
   (##(x) > ##(y) ? ##(x) : ##(y))
  
  
-max(X,Y) + max(A,B) + max(C,D,E)
+max(X,Y) + max(A,B) + max(C,D,E) + max((F), G)

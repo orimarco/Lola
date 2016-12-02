@@ -18,6 +18,7 @@ public class SequenceTest {
 	@Test
 	public void a1() {
 		RegExp re = newRegExp("##Find\n ##Sequence a ##Any");
+		assertFalse(re.satiated());
 		assertTrue(re.eats(bunny("a")));
 		re.feed(bunny("a"));
 		assertTrue(re.satiated());

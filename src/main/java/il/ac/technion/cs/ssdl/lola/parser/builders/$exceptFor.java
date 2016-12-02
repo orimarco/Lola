@@ -20,7 +20,8 @@ public class $exceptFor extends RegExpElaborator {
 
 	@Override
 	public void adopt(final AST.Node b) {
-		list.add(b);
+		if (!iz.triviaToken(b))
+			list.add(b);
 	}
 
 	@Override

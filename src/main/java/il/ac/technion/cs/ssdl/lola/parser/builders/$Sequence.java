@@ -19,7 +19,7 @@ public class $Sequence extends RegExpKeyword implements RegExpable {
 				if (iz.snippetToken(b) && isIdentifier((SnippetToken) b) || iz.hostToken(b) || iz.triviaToken(b))
 					return true;
 			case List :
-				if (!(b instanceof Keyword) || b instanceof RegExpKeyword || expectedElaborators.contains(b.name()))
+				if (!iz.keyword(b) || iz.regExpKeyword(b) || expectedElaborators.contains(b.name()))
 					return true;
 			case Elaborators :
 				return expectedElaborators.contains(b.name());

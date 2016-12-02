@@ -128,10 +128,8 @@ public class ParserTest {
 		assertEquals(directives.size(), 1);
 		final Node dir = directives.get(0).keyword;
 		assertEquals(dir.snippet(), null);
-		assertEquals(dir.list().size(), 4);
-		assertEquals(((TriviaToken) dir.list().get(0)).getText(), " ");
-		assertEquals(((HostToken) dir.list().get(1)).getText(), "sizeof");
-		assertEquals(((TriviaToken) dir.list().get(0)).getText(), " ");
+		assertEquals(dir.list().size(), 2);
+		assertEquals(((HostToken) dir.list().get(0)).getText(), "sizeof");
 	}
 
 	@Test

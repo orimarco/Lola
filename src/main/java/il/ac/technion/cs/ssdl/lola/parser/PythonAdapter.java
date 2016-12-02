@@ -15,8 +15,8 @@ public class PythonAdapter {
 	private Set<String> globalVariables = new HashSet<>();
 
 	public PythonAdapter() {
-		exec("class Scope(object):\n\tpass");
-		exec("class Identifier(object):\n\tpass");
+		exec("class Scope(object):\n\tdef __str__(self):\n\t\treturn self.name");
+		exec("class Identifier(object):\n\tdef __str__(self):\n\t\treturn self.name");
 	}
 
 	public void addCharVariable(final String name, final String content) {

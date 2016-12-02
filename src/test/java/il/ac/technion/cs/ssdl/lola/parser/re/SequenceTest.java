@@ -41,6 +41,7 @@ public class SequenceTest {
 		assertTrue(re.eats(bunny("break")));
 		re.feed(bunny("break"));
 		assertTrue(re.eats(bunny(";")));
+		assertTrue(re.satiated());
 		re.feed(bunny(";"));
 		assertFalse(re.satiated());
 	}

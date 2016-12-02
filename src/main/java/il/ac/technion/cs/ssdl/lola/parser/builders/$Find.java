@@ -41,41 +41,41 @@ public class $Find extends Keyword implements RegExpable {
 
 	@Override
 	public void adopt(final AST.Node b) {
-		// TODO: Refactor the damm thing
-		switch (state) {
-			case Snippet :
-				if (b instanceof SnippetToken) {
-					snippet = (SnippetToken) b;
-					state = Automaton.List;
-					return;
-				}
-				if (expectedElaborators.contains(b.name())) {
-					adoptElaborator((Elaborator) b);
-					state = Automaton.Elaborators;
-				} else {
-					list.add(b);
-					if (!iz.triviaToken(b))
+		if (!iz.triviaToken(b))
+			switch (state) {
+				case Snippet :
+					if (b instanceof SnippetToken) {
+						snippet = (SnippetToken) b;
 						state = Automaton.List;
-				}
-				break;
-			case List :
-				if (expectedElaborators.contains(b.name())) {
-					adoptElaborator((Elaborator) b);
-					state = Automaton.Elaborators;
-				} else {
-					list.add(b);
-					if (!iz.triviaToken(b))
-						state = Automaton.List;
-				}
-				break;
-			case Elaborators :
-				if (iz.triviaToken(b))
-					return;
-				adoptElaborator((Builder) b);
-				break;
-			default :
-				break;
-		}
+						return;
+					}
+					if (expectedElaborators.contains(b.name())) {
+						adoptElaborator((Elaborator) b);
+						state = Automaton.Elaborators;
+					} else {
+						list.add(b);
+						if (!iz.triviaToken(b))
+							state = Automaton.List;
+					}
+					break;
+				case List :
+					if (expectedElaborators.contains(b.name())) {
+						adoptElaborator((Elaborator) b);
+						state = Automaton.Elaborators;
+					} else {
+						list.add(b);
+						if (!iz.triviaToken(b))
+							state = Automaton.List;
+					}
+					break;
+				case Elaborators :
+					if (iz.triviaToken(b))
+						return;
+					adoptElaborator((Builder) b);
+					break;
+				default :
+					break;
+			}
 	}
 
 	@Override

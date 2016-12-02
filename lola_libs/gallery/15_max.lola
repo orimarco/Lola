@@ -1,0 +1,16 @@
+##Find(NoCommasExpression)
+ ##Match ##Any ##exceptFor ##Any, ##Any
+##Find(Expression)
+ ##Either ##NoCommasExpression ##or ##NoCommasExpression
+
+##Find
+  max(##Expression(x), ##Expression(y))
+ ##run {
+x = '(' + str(x) + ')'
+y = '(' + str(y) + ')'
+ }
+ ##replace
+  (##(x) > ##(y) ? ##(x) : ##(y))
+ 
+ 
+max(X,Y) + max(A,B) + max(C,D,E)

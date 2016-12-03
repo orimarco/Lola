@@ -34,7 +34,7 @@ public class $UserDefinedKeyword extends RegExpKeyword {
 
 	private static boolean isIdentifier(final SnippetToken b) {
 		return !b.getText().contains(" ") && !b.getText().contains("\t") && !b.getText().contains("\n")
-				&& !b.getText().contains("\r");
-		// TODO: user defined identifiers...
+				&& !b.getText().contains("\r") && !b.getText().contains("{") && !b.getText().contains("}");
+		// TODO Marco: user defined identifiers... or REGEXPJAVA
 	}
 }

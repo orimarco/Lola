@@ -13,8 +13,7 @@ public enum CategoriesHierarchy {
 	/**
 	 * Add category to hierarchy
 	 * 
-	 * @param name
-	 *          - name of category
+	 * @param name - name of category
 	 */
 	public static void addCategory(final String name) {
 		Hierarchy.addCategory(new Category(name));
@@ -23,21 +22,17 @@ public enum CategoriesHierarchy {
 	/**
 	 * Add classification to hierarchy
 	 * 
-	 * @param name
-	 *          - name of category
+	 * @param name - name of category
 	 * @throws CycleFoundException
 	 */
-	public static void addClassification(final String category,
-			final String classification) throws CycleFoundException {
-		Hierarchy.addDagEdge(name2category.get(category),
-				name2category.get(classification));
+	public static void addClassification(final String category, final String classification) throws CycleFoundException {
+		Hierarchy.addDagEdge(name2category.get(category), name2category.get(classification));
 	}
 
 	/**
 	 * Add category to hierarchy
 	 * 
-	 * @param name
-	 *          - name of category
+	 * @param name - name of category
 	 */
 	public static void addKeywordCategory(final String name) {
 		Hierarchy.addKeywordCategory(new Category(name));
@@ -53,31 +48,30 @@ public enum CategoriesHierarchy {
 	 * @param name
 	 * @return
 	 */
-	public static Category getCategory(final String name)
-			throws IllegalArgumentException {
+	public static Category getCategory(final String name) throws IllegalArgumentException {
 		if (!name2category.containsKey(name))
 			throw new IllegalArgumentException(name);
 		return name2category.get(name);
 	}
 
-	public static boolean isClassifiedAs(final Category c,
-			final Category classification) {
+	public static boolean hasCategory(final String name) {
+		return name2category.containsKey(name);
+	}
+
+	public static boolean isClassifiedAs(final Category c, final Category classification) {
 		return Hierarchy.isClassifiedAs(c, classification);
 	}
 
-	public static boolean isClassifiedAs(final String c,
-			final String classification) {
-		return Hierarchy.isClassifiedAs(getCategory(c),
-				getCategory(classification));
+	public static boolean isClassifiedAs(final String c, final String classification) {
+		return Hierarchy.isClassifiedAs(getCategory(c), getCategory(classification));
 	}
 
 	/**
 	 * Instantiates this class
 	 * 
-	 * @param name
-	 *          name of the newly created instance
-	 * @throws IllegalArgumentException
-	 *           in case the name was already used, is null, or is empty
+	 * @param name name of the newly created instance
+	 * @throws IllegalArgumentException in case the name was already used, is
+	 *           null, or is empty
 	 */
 	public static Iterable<Category> leaves() {
 		return new ArrayList<>();
@@ -126,15 +120,13 @@ public enum CategoriesHierarchy {
 	public static class Edge {
 	}
 	public static class Hierarchy {
-		static DirectedAcyclicGraph<Category, Edge> inner = new DirectedAcyclicGraph<>(
-				Edge.class);
+		static DirectedAcyclicGraph<Category, Edge> inner = new DirectedAcyclicGraph<>(Edge.class);
 
 		public static boolean addCategory(final Category ¢) {
 			return inner.addVertex(¢);
 		}
 
-		public static Edge addDagEdge(final Category fromVertex,
-				final Category toVertex) throws CycleFoundException {
+		public static Edge addDagEdge(final Category fromVertex, final Category toVertex) throws CycleFoundException {
 			return inner.addDagEdge(fromVertex, toVertex);
 		}
 
@@ -148,12 +140,10 @@ public enum CategoriesHierarchy {
 			inner.addVertex(¢);
 		}
 
-		public static boolean isClassifiedAs(final Category c,
-				final Category classification) {
+		public static boolean isClassifiedAs(final Category c, final Category classification) {
 			final Set<Edge> set = inner.outgoingEdgesOf(c);
 			for (final Edge ¢ : set)
-				if (inner.getEdgeTarget(¢).equals(classification)
-						|| isClassifiedAs(inner.getEdgeTarget(¢), classification))
+				if (inner.getEdgeTarget(¢).equals(classification) || isClassifiedAs(inner.getEdgeTarget(¢), classification))
 					return true;
 			return false;
 		}
@@ -162,13 +152,11 @@ public enum CategoriesHierarchy {
 			return inner.addVertex(v, addToTop);
 		}
 
-		public Edge addEdge(final Category sourceVertex,
-				final Category targetVertex) {
+		public Edge addEdge(final Category sourceVertex, final Category targetVertex) {
 			return inner.addEdge(sourceVertex, targetVertex);
 		}
 
-		public boolean containsEdge(final Category sourceVertex,
-				final Category targetVertex) {
+		public boolean containsEdge(final Category sourceVertex, final Category targetVertex) {
 			return inner.containsEdge(sourceVertex, targetVertex);
 		}
 
@@ -188,8 +176,7 @@ public enum CategoriesHierarchy {
 			return inner.edgesOf(vertex);
 		}
 
-		public Edge getEdge(final Category sourceVertex,
-				final Category targetVertex) {
+		public Edge getEdge(final Category sourceVertex, final Category targetVertex) {
 			return inner.getEdge(sourceVertex, targetVertex);
 		}
 
@@ -214,8 +201,7 @@ public enum CategoriesHierarchy {
 			return inner.hashCode();
 		}
 
-		public boolean immediateGeneralizer(final Category sourceVertex,
-				final Category targetVertex) {
+		public boolean immediateGeneralizer(final Category sourceVertex, final Category targetVertex) {
 			return inner.containsEdge(sourceVertex, targetVertex);
 		}
 
@@ -247,8 +233,7 @@ public enum CategoriesHierarchy {
 			return inner.outgoingEdgesOf(vertex);
 		}
 
-		public Set<Edge> removeAllEdges(final Category sourceVertex,
-				final Category targetVertex) {
+		public Set<Edge> removeAllEdges(final Category sourceVertex, final Category targetVertex) {
 			return inner.removeAllEdges(sourceVertex, targetVertex);
 		}
 
@@ -256,13 +241,11 @@ public enum CategoriesHierarchy {
 			return inner.removeAllEdges(¢);
 		}
 
-		public boolean removeAllVertices(
-				final Collection<? extends Category> arg0) {
+		public boolean removeAllVertices(final Collection<? extends Category> arg0) {
 			return inner.removeAllVertices(arg0);
 		}
 
-		public Edge removeEdge(final Category sourceVertex,
-				final Category targetVertex) {
+		public Edge removeEdge(final Category sourceVertex, final Category targetVertex) {
 			return inner.removeEdge(sourceVertex, targetVertex);
 		}
 

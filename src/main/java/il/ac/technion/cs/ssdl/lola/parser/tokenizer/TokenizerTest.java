@@ -133,8 +133,6 @@ public class TokenizerTest {
 		token = tokenizer.next_token();
 		assertEquals("enter", token.category.name);
 		token = tokenizer.next_token();
-		assertEquals("enter", token.category.name);
-		token = tokenizer.next_token();
 		assertEquals("z", token.text);
 	}
 

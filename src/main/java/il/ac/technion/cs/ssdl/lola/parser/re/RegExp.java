@@ -20,6 +20,54 @@ public interface RegExp {
 
 	String text();
 	interface Atomic extends RegExp {
+		/**
+		 * @author Ori Marcovitch
+		 * @since Dec 2, 2016
+		 */
+		class Category implements Atomic, Cloneable {
+			private String text;
+			private final String name;
+
+			public Category(final String name) {
+				this.name = name;
+			}
+
+			@Override
+			public void apply(final PythonAdapter __) {
+			}
+
+			@Override
+			public Category clone() {
+				final Category $ = new Category(name);
+				$.text = text;
+				return $;
+			}
+
+			@Override
+			public boolean eats(final Bunny ¢) {
+				return text != null && CategoriesHierarchy.isClassifiedAs(¢.text(), name);
+			}
+
+			@Override
+			public void feed(final Bunny ¢) {
+				text = ¢.text();
+			}
+
+			@Override
+			public boolean satiated() {
+				return text != null;
+			}
+
+			@Override
+			public String text() {
+				return text;
+			}
+
+			@Override
+			public String toString() {
+				return "<" + text + ">";
+			}
+		}
 		class Any implements Atomic, Cloneable {
 			protected final String snippet;
 			protected String text = "";

@@ -16,6 +16,8 @@ public class $Find extends Keyword implements RegExpable {
 	@Override
 	public boolean accepts(final AST.Node b) {
 		// TODO: Refactor the damm thing
+		if(b instanceof $Find)
+			return false;
 		switch (state) {
 			case Snippet :
 				if (iz.snippetToken(b) || iz.triviaToken(b))

@@ -13,4 +13,4 @@ y = '(' + str(y) + ')'
   (##(x) > ##(y) ? ##(x) : ##(y))
  
  
-max(X,Y) + max(A,B) + max(C,D,E) + max((F), G)
+max(X,Y) + max(A,B) + max(C,D,E) + max(a(b,d), c(rt,tt,yy(o,y,u)))

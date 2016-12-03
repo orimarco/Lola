@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import il.ac.technion.cs.ssdl.lola.parser.CategoriesHierarchy;
 import il.ac.technion.cs.ssdl.lola.parser.builders.$Find;
 import il.ac.technion.cs.ssdl.lola.parser.builders.$UserDefinedKeyword;
+import il.ac.technion.cs.ssdl.lola.parser.builders.$CategoryKeyword;
+
 import il.ac.technion.cs.ssdl.lola.parser.builders.Keyword;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.JflexLexer;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.Token;
@@ -20,8 +23,12 @@ public enum wizard {
 	private static final String lolaEscapingCharacter = JflexLexer.lolaEscapingCharacter;;
 	public static Map<String, $Find> userDefinedKeywords = new HashMap<>();
 
+	/**
+	 * some reflection, to create a keyword by its name...
+	 * @param t
+	 * @return
+	 */
 	public static Keyword newKeyword(final Token t) {
-		// some reflection, to create a keyword by its name...
 		final String name = t.text.replace(lolaEscapingCharacter, "");
 		try {
 			return (Keyword) Class.forName(BUILDERS_PATH + "$" + name).getConstructor(Token.class).newInstance(t);
@@ -32,6 +39,8 @@ public enum wizard {
 			} catch (final Exception e1) {
 				if (userDefinedKeywords.containsKey(name))
 					return new $UserDefinedKeyword(t, userDefinedKeywords.get(name).list());
+				if (CategoriesHierarchy.hasCategory(name))
+					return new $CategoryKeyword(t, name);
 				e1.printStackTrace();
 			}
 		} catch (final Exception e) {
@@ -50,7 +59,7 @@ public enum wizard {
 				Class.forName(BUILDERS_PATH + "$" + toUpperCaseClass(name)).getConstructor(Token.class).newInstance(t);
 				return true;
 			} catch (final Exception e1) {
-				if (userDefinedKeywords.containsKey(name))
+				if (userDefinedKeywords.containsKey(name) || CategoriesHierarchy.hasCategory(name))
 					return true;
 			}
 		} catch (final Exception e) {

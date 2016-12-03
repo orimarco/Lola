@@ -700,7 +700,7 @@
 	</configuration-element>
 	<configuration-element>
 		<classification>
-			<token-name>builtintype</token-name>
+			<token-name>JavaType</token-name>
 			<token-name-reference>short</token-name-reference>
 			<token-name-reference>int</token-name-reference>
 			<token-name-reference>long</token-name-reference>
@@ -952,10 +952,20 @@
 	</configuration-element>
 	<configuration-element>
 		<token>
-			<token-name>struct</token-name>
+			<token-name>class</token-name>
 			<regular-expression>
 				<string>
-					<value>struct</value>
+					<value>class</value>
+				</string>
+			</regular-expression>
+		</token>
+	</configuration-element>
+	<configuration-element>
+		<token>
+			<token-name>interface</token-name>
+			<regular-expression>
+				<string>
+					<value>interface</value>
 				</string>
 			</regular-expression>
 		</token>
@@ -971,20 +981,10 @@
 		</token>
 	</configuration-element>
 	<configuration-element>
-		<token>
-			<token-name>union</token-name>
-			<regular-expression>
-				<string>
-					<value>union</value>
-				</string>
-			</regular-expression>
-		</token>
-	</configuration-element>
-	<configuration-element>
 		<classification>
-			<token-name>typedefine</token-name>
-			<token-name-reference>struct</token-name-reference>
-			<token-name-reference>union</token-name-reference>
+			<token-name>TypeKeyword</token-name>
+			<token-name-reference>interface</token-name-reference>
+			<token-name-reference>class</token-name-reference>
 			<token-name-reference>enum</token-name-reference>
 		</classification>
 	</configuration-element>
@@ -1001,10 +1001,10 @@
 	<configuration-element>
 		<classification>
 			<token-name>keyword</token-name>
-			<token-name-reference>builtintype</token-name-reference>
+			<token-name-reference>JavaType</token-name-reference>
 			<token-name-reference>qualifier</token-name-reference>
 			<token-name-reference>ctrlflow</token-name-reference>
-			<token-name-reference>typedefine</token-name-reference>
+			<token-name-reference>TypeKeyword</token-name-reference>
 			<token-name-reference>sizeof</token-name-reference>
 		</classification>
 	</configuration-element>

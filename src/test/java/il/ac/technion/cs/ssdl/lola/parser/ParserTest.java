@@ -96,32 +96,12 @@ public class ParserTest {
 	}
 
 	@Test
-	public void testBalancing() {
-		assertEquals(Balancing.isBalanced("("), false);
-		assertEquals(Balancing.isBalanced(")"), false);
-		assertEquals(Balancing.isBalanced(")("), false);
-		assertEquals(Balancing.isBalanced("()"), true);
-		assertEquals(Balancing.isBalanced("()()"), true);
-		assertEquals(Balancing.isBalanced("(()()((())))"), true);
-		assertEquals(Balancing.isBalanced("(()())(((())))"), true);
-		assertEquals(Balancing.isBalanced("(()())(((()))()"), false);
-		assertEquals(Balancing.hasHope("(()())(((()))()"), true);
-		assertEquals(Balancing.isBalanced("([)(])"), false);
-		assertEquals(Balancing.isBalanced("([]{})"), true);
-		assertEquals(Balancing.isBalanced("([]{{[()]}})"), true);
-		assertEquals(Balancing.isBalanced("([{]{{[()]}})"), false);
-		assertEquals(Balancing.hasHope("([{]{{[()]}})"), false);
-		assertEquals(Balancing.isBalanced("(omg)"), true);
-		assertEquals(Balancing.isBalanced("(this)[is]{so}balanced"), true);
-		assertEquals(Balancing.isBalanced("(this)[is]{no}t)"), false);
-		assertEquals(Balancing.hasHope("((this)[might]{still}have[hope]"), true);
-	}
-
-	@Test
 	public void testBugsHuge() throws IOException {
-		final Reader stream = new StringReader(
-				"##Find sizeof ##Sequence Bugs\n" + "               ?huge ##replace ##If(random() >= 0.5) 42"
-						+ "										  ##else 6 *" + "											7");
+		final Reader stream = new StringReader(//
+				"##Find sizeof ##Sequence Bugs\n" + //
+						"                   ?huge ##replace ##If(random() >= 0.5) 42" + //
+						"										  ##else 6 *" + //
+						"											7");
 		parser = new Parser(stream);
 		final List<Lexi> directives = parser.directives();
 		// printAST(directives.get(0).keyword);
@@ -221,7 +201,7 @@ public class ParserTest {
 	public void testForEachGenration() throws IOException {
 		final Reader stream = new StringReader("##Find 4 ##replace ##ForEach([1,2,3]) ##(_) \n4");
 		parser = new Parser(stream);
-		assertEquals("  1   2   3 ", aux.list2string(parser.parse()));
+		aux.assertTEquals(" 1  2 3 ", aux.list2string(parser.parse()));
 	}
 
 	@Test
@@ -235,7 +215,7 @@ public class ParserTest {
 	public void testForEachGenrationWithSeparator() throws IOException {
 		final Reader stream = new StringReader("##Find 4 ##replace ##ForEach([1,2,3]) ##(_) ##separator ,\n4");
 		parser = new Parser(stream);
-		assertEquals("  1 , 2 , 3", aux.list2string(parser.parse()));
+		aux.assertTEquals("  1 , 2 , 3", aux.list2string(parser.parse()));
 	}
 
 	@Test
@@ -464,7 +444,7 @@ public class ParserTest {
 
 	@Test
 	public void testRun() throws IOException {
-		final Reader stream = new StringReader("##Find 1 ##run {if 'x' not in locals():\n\t x = 0\nelse:\n\tx +=1}\n1 1 1");
+		final Reader stream = new StringReader("##Find 1 ##run{if 'x' not in locals():\n\t x = 0\nelse:\n\tx +=1}\n1 1 1");
 		parser = new Parser(stream);
 		aux.assertListEquals(parser.parse(), new ArrayList<>(Arrays.asList(new String[]{"1", " ", "1", " ", "1"})));
 	}

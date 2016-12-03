@@ -122,9 +122,9 @@ import java.io.IOException;
 		CategoriesHierarchy.addCategory("switch");
 		CategoriesHierarchy.addCategory("while");
 		CategoriesHierarchy.addCategory("enum");
-		CategoriesHierarchy.addCategory("struct");
+		CategoriesHierarchy.addCategory("class");
+		CategoriesHierarchy.addCategory("interface");
 		CategoriesHierarchy.addCategory("typedef");
-		CategoriesHierarchy.addCategory("union");
 		CategoriesHierarchy.addCategory("sizeof");
 		CategoriesHierarchy.addCategory("lhexadecimal");
 		CategoriesHierarchy.addCategory("loctal");
@@ -250,14 +250,14 @@ import java.io.IOException;
 		CategoriesHierarchy.addClassification("colon", "punctuation");
 		CategoriesHierarchy.addClassification("eq", "punctuation");
 		CategoriesHierarchy.addClassification("dot", "punctuation");
-		CategoriesHierarchy.addCategory("builtintype");
-		CategoriesHierarchy.addClassification("short", "builtintype");
-		CategoriesHierarchy.addClassification("int", "builtintype");
-		CategoriesHierarchy.addClassification("double", "builtintype");
-		CategoriesHierarchy.addClassification("void", "builtintype");
-		CategoriesHierarchy.addClassification("float", "builtintype");
-		CategoriesHierarchy.addClassification("long", "builtintype");
-		CategoriesHierarchy.addClassification("char", "builtintype");
+		CategoriesHierarchy.addCategory("JavaType");
+		CategoriesHierarchy.addClassification("short", "JavaType");
+		CategoriesHierarchy.addClassification("int", "JavaType");
+		CategoriesHierarchy.addClassification("double", "JavaType");
+		CategoriesHierarchy.addClassification("void", "JavaType");
+		CategoriesHierarchy.addClassification("float", "JavaType");
+		CategoriesHierarchy.addClassification("long", "JavaType");
+		CategoriesHierarchy.addClassification("char", "JavaType");
 		CategoriesHierarchy.addCategory("qualifier");
 		CategoriesHierarchy.addClassification("const", "qualifier");
 		CategoriesHierarchy.addClassification("auto", "qualifier");
@@ -280,22 +280,21 @@ import java.io.IOException;
 		CategoriesHierarchy.addClassification("switch", "ctrlflow");
 		CategoriesHierarchy.addClassification("continue", "ctrlflow");
 		CategoriesHierarchy.addClassification("if", "ctrlflow");
-		CategoriesHierarchy.addCategory("typedefine");
-		CategoriesHierarchy.addClassification("union", "typedefine");
-		CategoriesHierarchy.addClassification("enum", "typedefine");
-		CategoriesHierarchy.addClassification("struct", "typedefine");
+		CategoriesHierarchy.addCategory("TypeKeyword");
+		CategoriesHierarchy.addClassification("interface", "TypeKeyword");
+		CategoriesHierarchy.addClassification("enum", "TypeKeyword");
+		CategoriesHierarchy.addClassification("class", "TypeKeyword");
 		CategoriesHierarchy.addCategory("keyword");
 		CategoriesHierarchy.addClassification("int", "keyword");
 		CategoriesHierarchy.addClassification("float", "keyword");
 		CategoriesHierarchy.addClassification("while", "keyword");
 		CategoriesHierarchy.addClassification("char", "keyword");
+		CategoriesHierarchy.addClassification("interface", "keyword");
 		CategoriesHierarchy.addClassification("static", "keyword");
 		CategoriesHierarchy.addClassification("sizeof", "keyword");
 		CategoriesHierarchy.addClassification("if", "keyword");
 		CategoriesHierarchy.addClassification("const", "keyword");
-		CategoriesHierarchy.addClassification("struct", "keyword");
 		CategoriesHierarchy.addClassification("for", "keyword");
-		CategoriesHierarchy.addClassification("union", "keyword");
 		CategoriesHierarchy.addClassification("unsigned", "keyword");
 		CategoriesHierarchy.addClassification("long", "keyword");
 		CategoriesHierarchy.addClassification("volatile", "keyword");
@@ -308,6 +307,7 @@ import java.io.IOException;
 		CategoriesHierarchy.addClassification("else", "keyword");
 		CategoriesHierarchy.addClassification("break", "keyword");
 		CategoriesHierarchy.addClassification("extern", "keyword");
+		CategoriesHierarchy.addClassification("class", "keyword");
 		CategoriesHierarchy.addClassification("case", "keyword");
 		CategoriesHierarchy.addClassification("short", "keyword");
 		CategoriesHierarchy.addClassification("default", "keyword");
@@ -435,9 +435,9 @@ WS = ((((\t))|((\v))|((" "))))
 <YYINITIAL>(("switch"))	{ return token("switch"); }
 <YYINITIAL>(("while"))	{ return token("while"); }
 <YYINITIAL>(("enum"))	{ return token("enum"); }
-<YYINITIAL>(("struct"))	{ return token("struct"); }
+<YYINITIAL>(("class"))	{ return token("class"); }
+<YYINITIAL>(("interface"))	{ return token("interface"); }
 <YYINITIAL>(("typedef"))	{ return token("typedef"); }
-<YYINITIAL>(("union"))	{ return token("union"); }
 <YYINITIAL>(("sizeof"))	{ return token("sizeof"); }
 <YYINITIAL>(((("0"))(([xX]))(({H})+)(({IS})?)))	{ return token("lhexadecimal"); }
 <YYINITIAL>(((("0"))(({D})+)(({IS})?)))	{ return token("loctal"); }

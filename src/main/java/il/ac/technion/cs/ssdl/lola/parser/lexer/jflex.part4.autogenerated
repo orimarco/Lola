@@ -76,9 +76,9 @@
 <YYINITIAL>(("switch"))	{ return token("switch"); }
 <YYINITIAL>(("while"))	{ return token("while"); }
 <YYINITIAL>(("enum"))	{ return token("enum"); }
-<YYINITIAL>(("struct"))	{ return token("struct"); }
+<YYINITIAL>(("class"))	{ return token("class"); }
+<YYINITIAL>(("interface"))	{ return token("interface"); }
 <YYINITIAL>(("typedef"))	{ return token("typedef"); }
-<YYINITIAL>(("union"))	{ return token("union"); }
 <YYINITIAL>(("sizeof"))	{ return token("sizeof"); }
 <YYINITIAL>(((("0"))(([xX]))(({H})+)(({IS})?)))	{ return token("lhexadecimal"); }
 <YYINITIAL>(((("0"))(({D})+)(({IS})?)))	{ return token("loctal"); }

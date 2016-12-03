@@ -12,7 +12,6 @@ public class orTest {
 	@Test
 	public void a0() {
 		RegExp re = newRegExp("##Find ##Either a ##or a");
-		System.out.println(re);
 		assertFalse(re.satiated());
 		assertTrue(re.eats(bunny("a")));
 		re.feed(bunny("a"));

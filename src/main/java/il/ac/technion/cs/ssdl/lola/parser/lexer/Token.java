@@ -3,8 +3,7 @@ import il.ac.technion.cs.ssdl.lola.parser.*;
 import il.ac.technion.cs.ssdl.lola.parser.CategoriesHierarchy.*;
 public class Token extends java_cup.runtime.Symbol {
 	public static Token newSnippetToken(final Token ¢) {
-		final Token $ = new Token(¢.row, ¢.column, ¢.text,
-				CategoriesHierarchy.getCategory("snippet"));
+		final Token $ = new Token(¢.row, ¢.column, ¢.text, CategoriesHierarchy.getCategory("snippet"));
 		$.isSnippet = true;
 		return $;
 	}
@@ -15,8 +14,7 @@ public class Token extends java_cup.runtime.Symbol {
 	public final String snippet;
 	private boolean isSnippet;
 
-	public Token(final int row, final int column, final String text,
-			final Category category) {
+	public Token(final int row, final int column, final String text, final Category category) {
 		super(0); // just to make it possible to inherit Symbol
 		this.row = row;
 		this.column = column;
@@ -25,8 +23,7 @@ public class Token extends java_cup.runtime.Symbol {
 		snippet = null;
 	}
 
-	public Token(final int row, final int column, final String text,
-			final Category category, final String snippet) {
+	public Token(final int row, final int column, final String text, final Category category, final String snippet) {
 		super(0); // just to make it possible to inherit Symbol
 		this.row = row;
 		this.column = column;
@@ -49,5 +46,10 @@ public class Token extends java_cup.runtime.Symbol {
 
 	public boolean isTrivia() {
 		return category.isTrivia;
+	}
+
+	@Override
+	public String toString() {
+		return text;
 	}
 }
